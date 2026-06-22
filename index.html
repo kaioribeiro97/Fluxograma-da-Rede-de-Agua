@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sistemas Isolados - Interativo</title>
     <!-- Inclusão da biblioteca Chart.js para os gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -34,12 +34,198 @@
             overflow: hidden;
         }
 
+        /* --- Controles Flutuantes para Seleção de Área --- */
+        #area-controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .map-icon {
+            font-size: 1.2rem;
+        }
+
+        #area-controls label {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            display: none; /* Esconder em telas muito pequenas */
+        }
+
+        @media (min-width: 480px) {
+            #area-controls label {
+                display: block;
+            }
+        }
+
+        #area-controls select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #area-controls select:hover, #area-controls select:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.1);
+        }
+
+        /* --- NOVO: Controles Flutuantes de Zoom --- */
+        #zoom-controls {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .zoom-btn {
+            background: var(--card-bg);
+            border: 1px solid #eee;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .zoom-btn:hover {
+            background: #f0f0f0;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .zoom-btn:active {
+            transform: translateY(0);
+        }
+
+        /* --- NOVO: Footer Info (Logo + Áreas) Compacto --- */
+        #footer-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 10px 14px; /* Retângulo visivelmente menor */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Menor espaço entre logo e texto */
+            border: 1px solid rgba(0,0,0,0.05);
+            pointer-events: none; /* Permite arrastar o mapa através do card */
+        }
+
+        .footer-logo {
+            height: 40px; /* Logo bastante reduzida */
+            width: auto;
+            object-fit: contain;
+            /* O filtro mágico abaixo transforma qualquer cor (branco) em Preto e depois no azul exato #1E4490 */
+            filter: brightness(0) saturate(100%) invert(18%) sepia(51%) saturate(3018%) hue-rotate(206deg) brightness(94%) contrast(96%) drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+        }
+
+        .footer-text {
+            font-size: 0.68rem; /* Fonte menor */
+            color: #555;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            border-left: 2px solid #1E4490; /* Linha com o azul da Caesb */
+            padding-left: 10px;
+        }
+
+        .footer-text p {
+            margin: 0;
+            line-height: 1.2; /* Textos mais próximos uns dos outros */
+        }
+
+        .footer-text strong {
+            color: #1E4490; /* Negrito com o azul da Caesb */
+            font-weight: 700;
+        }
+
+        /* Oculta os textos no celular para poupar espaço */
+        @media (max-width: 850px) {
+            #footer-info {
+                bottom: 15px;
+                left: 15px;
+                padding: 8px 10px;
+            }
+            .footer-text { display: none; }
+            .footer-logo { height: 32px; } /* Logo ainda mais compacta no mobile */
+        }
+
         #map-container {
             flex: 1;
             position: relative;
             background-color: #e9ecef;
             overflow: hidden;
             min-width: 0;
+        }
+
+        /* --- NOVO: Indicador de Carregamento (Spinner) --- */
+        #loading-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: opacity 0.3s;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loading-text {
+            margin: 0;
+            color: #555;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         #svg-viewport {
@@ -61,6 +247,7 @@
             left: 50%;
             top: 50%;
             will-change: transform;
+            transition: opacity 0.3s; /* Transição suave ao carregar */
         }
 
         #svg-wrapper svg {
@@ -70,16 +257,6 @@
             max-width: none;
             max-height: none;
             overflow: visible;
-        }
-
-        #loading-text {
-            margin: 0;
-            transform: translate(-50%, -50%);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            color: #666;
-            font-size: 16px;
         }
 
         .interactive-element {
@@ -92,22 +269,21 @@
         }
 
         #info-panel {
-            width: 360px;
-            max-width: min(360px, 95vw);
+            width: 380px;
+            max-width: 100vw; /* Ajuste para mobile */
             background: var(--card-bg);
-            border-left: 2px solid #ddd;
-            padding: 20px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+            border-left: 1px solid #ddd;
+            padding: 25px 20px;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
             transform: translateX(100%);
-            transition: transform 0.35s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: absolute;
             right: 0;
             top: 0;
             bottom: 0;
-            z-index: 10;
-            /* Garante a rolagem se o conteúdo ultrapassar a altura da tela */
+            z-index: 150;
             overflow-y: auto;
             overflow-x: hidden;
         }
@@ -116,70 +292,91 @@
             transform: translateX(0);
         }
 
+        /* --- NOVO: Botão Fechar Refinado --- */
+        .panel-close-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .panel-close-icon:hover { 
+            color: var(--primary-color); 
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+
         .panel-header {
             border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            padding-right: 30px; /* Espaço para o botão fechar */
             flex-shrink: 0;
         }
 
         .panel-header h2 {
             margin: 0;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--primary-color);
         }
 
         .data-row {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             flex-shrink: 0;
+            background: #fdfdfd;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #f0f0f0;
         }
 
         .data-label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #666;
-            font-weight: bold;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .data-value {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-color);
-            margin-top: 2px;
+            margin-top: 4px;
             word-break: break-word;
+            font-weight: 500;
         }
-
-        .close-btn {
-            align-self: flex-end;
-            background: #eee;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: background 0.2s;
-            flex-shrink: 0;
-        }
-
-        .close-btn:hover { background: #ddd; }
 
         .status-badge {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 12px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: bold;
-            margin-top: 5px;
+            margin-top: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         #chart-section {
-            margin-top: 20px;
+            margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #eee;
             display: none;
-            flex-shrink: 0; /* Impede que o gráfico encolha */
+            flex-shrink: 0;
         }
 
         #pressureChart {
-            height: 200px !important;
+            height: 220px !important;
             width: 100% !important;
         }
 
@@ -187,13 +384,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .chart-header h3 {
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin: 0;
-            color: #555;
+            color: #444;
         }
 
         .chart-actions {
@@ -202,12 +399,12 @@
         }
 
         .icon-btn {
-            background: none;
-            border: none;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
             cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            color: #666;
+            padding: 6px;
+            border-radius: 6px;
+            color: #555;
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -215,31 +412,61 @@
         }
 
         .icon-btn:hover {
-            background: #f0f0f0;
+            background: #fff;
+            border-color: var(--primary-color);
             color: var(--primary-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
-        /* --- CONTROLE DE TAMANHO DA IMAGEM --- */
         #image-container {
             width: 100%;
             height: 180px; 
-            min-height: 180px; /* Garante que não encolha verticalmente */
+            min-height: 180px;
             background-color: #eee;
             overflow: hidden;
             display: none;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 25px;
             margin-bottom: 10px;
-            flex-shrink: 0; /* Impede o flexbox de achatar a imagem */
+            flex-shrink: 0;
+            position: relative; 
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #image-container::after {
+            content: '🔍 Ampliar';
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.65);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            font-weight: 500;
+            transition: opacity 0.2s, background 0.2s;
+            pointer-events: none; 
+            backdrop-filter: blur(4px);
+        }
+
+        #image-container:hover::after {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.85);
         }
 
         #item-imagem {
             width: 100%;
             height: 100%;
             object-fit: cover; 
+            transition: transform 0.4s ease;
         }
 
-        /* Modal do Gráfico Ampliado */
+        #image-container:hover #item-imagem {
+            transform: scale(1.08); 
+        }
+
         #chart-modal {
             display: none;
             position: fixed;
@@ -252,6 +479,47 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        #image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.92);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        #expanded-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .close-image-modal {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 45px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+            line-height: 1;
+            z-index: 2001;
+        }
+
+        .close-image-modal:hover {
+            color: #ddd;
+            transform: scale(1.1);
         }
 
         .modal-content {
@@ -271,7 +539,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             flex-shrink: 0; 
         }
 
@@ -305,43 +573,103 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
         
-        .modal-close:hover { background: #ddd; }
+        .modal-close:hover { background: #e0e0e0; color: var(--primary-color); }
 
         @keyframes blinker {
-            50% { opacity: 0.4; fill: #ff4d4d; }
+            50% { opacity: 0.6; }
         }
 
         .highlight-blink {
-            animation: blinker 0.8s ease-in-out infinite;
-            stroke: #ff0000 !important;
-            stroke-width: 3px !important;
+            animation: blinker 1.5s ease-in-out infinite;
+            stroke: #ff0000  !important; 
+            stroke-width: 0.8px !important; 
         }
 
-        .error-box {
-            color: #b00020;
-            background: #ffe8e8;
-            border: 1px solid #ffb3b3;
-            padding: 16px;
-            margin: 20px;
-            border-radius: 8px;
+        /* Destaque para o Fator de Pesquisa */
+        .fator-pesquisa-row {
+            background-color: #f0f7ff !important;
+            border-color: #cce5ff !important;
         }
+        .fator-pesquisa-row .data-value {
+            color: #0056b3;
+            font-weight: bold;
+        }
+
+        /* --- NOVO: Estilos do Fator de Pesquisa e Modal Info --- */
+        .info-icon { 
+            cursor: pointer; display: inline-flex; align-items: center; justify-content: center; 
+            width: 20px; height: 20px; border-radius: 50%; background-color: var(--primary-color); 
+            color: white; font-size: 12px; margin-left: 8px; transition: transform 0.2s, background 0.2s; 
+            font-style: normal; font-weight: bold;
+        }
+        .info-icon:hover { transform: scale(1.15); background-color: #004494; }
+
+        .close-fp-modal { position: absolute; top: 15px; right: 20px; color: #555; font-size: 35px; font-weight: 300; cursor: pointer; transition: color 0.2s, transform 0.2s; line-height: 1; z-index: 2001; }
+        .close-fp-modal:hover { color: var(--primary-color); transform: scale(1.1); }
+
+        #info-fp-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(4px); padding: 20px; }
+        .fp-modal-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; max-height: 90vh; overflow-y: auto; }
+        .fp-modal-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.4rem; display: flex; align-items: center; gap: 10px;}
+        .fp-text { font-size: 0.95rem; line-height: 1.6; color: #444; margin-bottom: 20px; text-align: justify; }
+        .fp-formula { background: #f0f7ff; padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--primary-color); font-family: monospace; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; color: #333;}
+        .fp-memory-box { background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; font-size: 0.9rem; }
+        .fp-memory-box h4 { margin-top: 0; margin-bottom: 15px; color: #333; font-size: 1.1rem; border-bottom: 1px solid #ddd; padding-bottom: 8px;}
+        .fp-memory-box ul { margin: 0; padding-left: 20px; color: #555; }
+        .fp-memory-box li { margin-bottom: 8px; }
+        .fp-result-line { font-size: 1.1rem; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; text-align: center; color: #333;}
+        .fp-result-line strong.final-value { color: var(--primary-color); font-size: 1.4rem; background: #e6f0ff; padding: 4px 10px; border-radius: 6px; }
+
     </style>
 </head>
 <body>
 
+<!-- Seletor de Áreas Modernizado -->
+<div id="area-controls">
+    <span class="map-icon">🗺️</span>
+    <label for="area-select">Área:</label>
+    <select id="area-select" onchange="mudarArea()">
+        <option value="Paranoa.svg">Paranoá</option>
+        <option value="Vicente.svg">Vicente Pires</option>
+    </select>
+</div>
+
+<!-- Controles de Zoom -->
+<div id="zoom-controls">
+    <button class="zoom-btn" onclick="zoomIn()" title="Aumentar Zoom">+</button>
+    <button class="zoom-btn" onclick="resetZoom()" title="Resetar Visão" style="font-size: 1.2rem;">⌂</button>
+    <button class="zoom-btn" onclick="zoomOut()" title="Diminuir Zoom">−</button>
+</div>
+
+<!-- Novo: Informações da Área e Logo CAESB -->
+<div id="footer-info">
+    <img src="Logo-Caesb-Vertical-png.svg" alt="Logo CAESB" class="footer-logo" onerror="this.style.display='none'">
+    <div class="footer-text">
+        <p><strong>PAN</strong> - Superintendência de Operação e Manutenção de Redes Centro</p>
+        <p><strong>PANP</strong> - Gerência de Operações de Redes Centro/Norte</p>
+        <p><strong>PANPP</strong> - Coordenadoria de Planejamento Operacional Centro/Norte</p>
+        <p><strong>CECOM</strong> - Centro de Controle da Manutenção</p>
+    </div>
+</div>
+
 <div id="map-container">
+    <!-- Novo Indicador de Carregamento -->
+    <div id="loading-container">
+        <div class="loader"></div>
+        <p id="loading-text">A carregar o mapa...</p>
+    </div>
+
     <div id="svg-viewport">
-        <div id="svg-wrapper">
-            <p id="loading-text">A carregar o mapa e dados...</p>
+        <div id="svg-wrapper" style="opacity: 0;">
+            <!-- O SVG será injetado aqui -->
         </div>
     </div>
 </div>
 
 <div id="info-panel">
-    <button class="close-btn" onclick="closePanel()">Fechar ✕</button>
+    <button class="panel-close-icon" onclick="closePanel()" title="Fechar">✕</button>
 
     <div class="panel-header">
         <h2 id="item-nome">Componente</h2>
@@ -349,27 +677,31 @@
     </div>
 
     <div class="data-row">
-        <div class="data-label">Nomenclatura</div>
+        <div class="data-label">🏷️ Nomenclatura</div>
         <div id="item-id" class="data-value">-</div>
     </div>
 
     <div id="campos-dinamicos"></div>
 
-    <!-- Container de Imagem movido para ANTES do gráfico -->
-    <div id="image-container">
+    <div id="image-container" onclick="abrirModalImagem()">
         <img id="item-imagem" src="" alt="Foto do Equipamento">
     </div>
 
-    <!-- Seção do Gráfico no Painel Lateral -->
     <div id="chart-section">
+        <!-- Container dinâmico para o Fator de Pesquisa acima do gráfico -->
+        <div id="fator-pesquisa-container"></div>
+        
         <div class="chart-header">
-            <h3>Histórico de Dados</h3>
+            <h3>📈 Histórico de Dados</h3>
             <div class="chart-actions">
-                <button class="icon-btn" onclick="baixarGrafico()" title="Baixar PNG">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4M7 10l5 5 5-5M12 15V3"/></svg>
+                <button class="icon-btn" onclick="baixarDadosCSV()" title="Baixar Dados (CSV)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                 </button>
-                <button class="icon-btn" onclick="abrirModalGrafico()" title="Ampliar">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <button class="icon-btn" onclick="baixarGrafico()" title="Baixar Gráfico PNG">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </button>
+                <button class="icon-btn" onclick="abrirModalGrafico()" title="Ampliar Gráfico">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
                 </button>
             </div>
         </div>
@@ -377,14 +709,18 @@
     </div>
 </div>
 
-<!-- Modal de Ampliação -->
+<!-- Modal de Ampliação de Gráfico -->
 <div id="chart-modal">
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="modal-title">Histórico Detalhado</h2>
-            <div style="display: flex; gap: 10px;">
-                <button class="icon-btn" onclick="baixarGrafico(true)" style="background: #f0f0f0; padding: 5px 12px; border-radius: 6px;" title="Baixar PNG">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <button class="icon-btn" onclick="baixarDadosCSV()" style="padding: 6px 14px; background: #f0f0f0;" title="Baixar Dados (CSV)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span style="margin-left: 8px; font-size: 0.85rem; font-weight: 600;">Baixar CSV</span>
+                </button>
+                <button class="icon-btn" onclick="baixarGrafico(true)" style="padding: 6px 14px; background: #f0f0f0;" title="Baixar Imagem">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                     <span style="margin-left: 8px; font-size: 0.85rem; font-weight: 600;">Baixar PNG</span>
                 </button>
                 <button class="modal-close" onclick="fecharModalGrafico()">✕</button>
@@ -396,16 +732,55 @@
     </div>
 </div>
 
+<!-- Modal de Ampliação de Imagem -->
+<div id="image-modal" onclick="fecharModalImagem(event)">
+    <span class="close-image-modal" onclick="fecharModalImagem(event)">&times;</span>
+    <img id="expanded-image" src="" alt="Imagem Ampliada">
+</div>
+
+<!-- NOVO: Modal do Fator de Pesquisa -->
+<div id="info-fp-modal" onclick="fecharModalInfoFP(event)">
+    <div class="fp-modal-card" onclick="event.stopPropagation()">
+        <span class="close-fp-modal" onclick="fecharModalInfoFP(event)">&times;</span>
+        <h3>📊 O que é o Fator de Pesquisa?</h3>
+        
+        <div class="fp-text">
+        O Fator de Pesquisa é um indicador que compara a vazão mínima durante a madrugada com a vazão média diária. Ele ajuda a identificar possíveis problemas no sistema de abastecimento de água, como vazamentos.
+        <br><br>
+        Quanto mais o valor do fator se aproxima de 1, maior é a possibilidade de existirem vazamentos na rede, indicando que uma pesquisa acústica pode trazer bons resultados. De forma geral, quando o Fator de Pesquisa é maior que <strong>0,30</strong>, o setor analisado possui uma grande chance de apresentar vazamentos que podem ser identificados e corrigidos de forma economicamente viável.
+        </div>
+
+        <div class="fp-formula">
+            <strong>Fórmula Aplicada:</strong><br><br>
+            FP = <span style="text-decoration: underline;">Vazão Mínima Noturna</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vazão Média Diária<br><br>
+            <em>(Média dos menores valores entre 00h-06h / Média geral de Vazão)</em>
+        </div>
+
+        <div class="fp-memory-box">
+            <h4>Memória de Cálculo: <span id="fp-modal-equip-name" style="color: var(--primary-color);"></span></h4>
+            <div id="fp-memory-content">
+                <!-- Conteúdo gerado dinamicamente no JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     const panel = document.getElementById('info-panel');
     const svgWrapper = document.getElementById('svg-wrapper');
     const svgViewport = document.getElementById('svg-viewport');
     const chartSection = document.getElementById('chart-section');
-    const modal = document.getElementById('chart-modal');
+    const chartModal = document.getElementById('chart-modal');
+    const imageModal = document.getElementById('image-modal');
+    const fpModal = document.getElementById('info-fp-modal'); // Ref novo modal
     const imgContainer = document.getElementById('image-container');
     const imgElement = document.getElementById('item-imagem');
+    const loadingContainer = document.getElementById('loading-container');
+    const loadingText = document.getElementById('loading-text');
+    const fpContainer = document.getElementById('fator-pesquisa-container'); // Ref do container
     
-    const svgFileName = 'Paranoa.svg';
+    let svgFileName = 'Paranoa.svg'; 
     const csvFileName = 'consolidado_monitoramento.csv';
 
     let scale = 1;
@@ -417,18 +792,60 @@
     let expandedChart = null;
     let lastChartData = null;
 
-    // --- FUNÇÕES DE DADOS ---
+    let htmlMemoriaCalculo = ''; // NOVO: Guarda a memória de cálculo para o modal
+
+    // --- Controles de Carregamento ---
+    function mostrarCarregamento(mensagem = "A carregar...") {
+        loadingText.innerText = mensagem;
+        loadingContainer.style.display = 'flex';
+        svgWrapper.style.opacity = '0';
+    }
+
+    function ocultarCarregamento() {
+        loadingContainer.style.display = 'none';
+        svgWrapper.style.opacity = '1';
+    }
+
+    // --- Controles de Área ---
+    function mudarArea() {
+        const select = document.getElementById('area-select');
+        svgFileName = select.value;
+        closePanel();
+        lastTranslateXPx = 0;
+        lastTranslateYPx = 0;
+        carregarSVG();
+    }
+
+    // --- Controles de Zoom ---
+    function zoomIn() {
+        scale = Math.min(scale * 1.3, 10);
+        updateTransform();
+    }
+
+    function zoomOut() {
+        scale = Math.max(scale / 1.3, 0.05);
+        updateTransform();
+    }
+
+    function resetZoom() {
+        ajustarTamanhoInicial();
+        lastTranslateXPx = 0;
+        lastTranslateYPx = 0;
+        updateTransform();
+    }
 
     async function atualizarGrafico(nomenclatura, nomMacro) {
         if (!nomenclatura && !nomMacro) return;
         try {
+            // Limpa o conteúdo anterior
+            if (fpContainer) fpContainer.innerHTML = '';
+            htmlMemoriaCalculo = ''; // Reset da memória
+            
             const response = await fetch(csvFileName);
             if (!response.ok) throw new Error("Erro ao carregar CSV");
             
             const text = await response.text();
             const lines = text.split('\n');
-            
-            // Usaremos um objeto para agrupar os dados por tempo e garantir alinhamento
             const groupedData = {};
 
             for (let i = 1; i < lines.length; i++) {
@@ -439,12 +856,16 @@
 
                 const tagCsv = cols[0].trim();
                 const vrpCsv = cols[1].trim();
-                const caracteristica = cols[2].trim();
+                
+                // Converter para minúsculas para evitar problemas de "Vazão" vs "Vazao"
+                const caracteristica = cols[2].trim().toLowerCase(); 
                 const tempo = cols[3].trim();
-                // Converte valor tratando a vírgula decimal
+                
+                // Correção essencial: se o valor for inválido ou vazio, o parseFloat retorna NaN. 
+                // Evitamos processar NaN para não quebrar a soma matemática das médias.
                 const valor = parseFloat(cols[4].replace(',', '.'));
+                if (isNaN(valor)) continue; 
 
-                // Verifica se a linha pertence ao equipamento clicado via nomenclatura principal ou macro
                 const matchPressao = nomenclatura && (vrpCsv === nomenclatura || tagCsv === nomenclatura);
                 const matchVazao = nomMacro && (vrpCsv === nomMacro || tagCsv === nomMacro);
 
@@ -453,12 +874,11 @@
                         groupedData[tempo] = { montante: null, jusante: null, vazao: null };
                     }
 
-                    if (caracteristica.includes('Montante') && matchPressao) {
+                    if (caracteristica.includes('montante') && matchPressao) {
                         groupedData[tempo].montante = valor;
-                    } else if (caracteristica.includes('Jusante') && matchPressao) {
+                    } else if (caracteristica.includes('jusante') && matchPressao) {
                         groupedData[tempo].jusante = valor;
-                    } else if (caracteristica.includes('Vazão')) {
-                        // Se for vazão, salva se vier do matchVazao OU se a tag principal tiver vazão
+                    } else if (caracteristica.includes('vaz')) {
                         if (matchVazao || matchPressao) {
                             groupedData[tempo].vazao = valor;
                         }
@@ -466,26 +886,108 @@
                 }
             }
 
-            // Ordenar os tempos cronologicamente
             const sortedTimes = Object.keys(groupedData).sort();
-            
             const labels = [];
             const dataMontante = [];
             const dataJusante = [];
             const dataVazao = [];
 
+            // Variáveis para o cálculo do Fator de Pesquisa
+            let somaVazaoGeral = 0;
+            let contVazaoGeral = 0;
+            let vazoesNoturnasPorDia = {};
+
             sortedTimes.forEach(tempo => {
                 const d = new Date(tempo);
                 const lbl = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
-                
                 labels.push(lbl);
-                dataMontante.push(groupedData[tempo].montante);
-                dataJusante.push(groupedData[tempo].jusante);
-                dataVazao.push(groupedData[tempo].vazao);
+                
+                const valMontante = groupedData[tempo].montante;
+                const valJusante = groupedData[tempo].jusante;
+                const valVazao = groupedData[tempo].vazao;
+
+                dataMontante.push(valMontante);
+                dataJusante.push(valJusante);
+                dataVazao.push(valVazao);
+
+                // ---> Lógica para calcular o Fator de Pesquisa
+                if (valVazao !== null && valVazao !== undefined && !isNaN(valVazao)) {
+                    somaVazaoGeral += valVazao;
+                    contVazaoGeral++;
+                    
+                    let partesTempo = tempo.split(' '); // Ex: "2026-06-11 09:00:00"
+                    if (partesTempo.length === 2) {
+                        let dataPart = partesTempo[0]; // "2026-06-11"
+                        let horaStr = partesTempo[1].split(':')[0]; // "09"
+                        let hora = parseInt(horaStr, 10);
+                        
+                        // Verifica se ocorreu entre as 00:00 e 06:00
+                        if (hora >= 0 && hora <= 6) {
+                            if (!vazoesNoturnasPorDia[dataPart]) {
+                                vazoesNoturnasPorDia[dataPart] = [];
+                            }
+                            vazoesNoturnasPorDia[dataPart].push(valVazao);
+                        }
+                    }
+                }
             });
 
+            // ---> Processa e insere o Fator de Pesquisa no novo painel acima do gráfico
+            if (contVazaoGeral > 0) {
+                let mediaVazaoGeral = somaVazaoGeral / contVazaoGeral;
+                let menoresVazoesNoturnas = [];
+                let detalheDiasHtml = "";
+                
+                // Pega o menor valor noturno para cada dia
+                for (let dia in vazoesNoturnasPorDia) {
+                    let menorDoDia = Math.min(...vazoesNoturnasPorDia[dia]);
+                    menoresVazoesNoturnas.push(menorDoDia);
+
+                    // Formatar a data para dd/mm/yyyy
+                    let partesDia = dia.split('-');
+                    let diaFormatado = partesDia.length === 3 ? `${partesDia[2]}/${partesDia[1]}/${partesDia[0]}` : dia;
+                    
+                    detalheDiasHtml += `<li>Dia ${diaFormatado}: <strong>${menorDoDia.toFixed(2)}</strong></li>`;
+                }
+                
+                // Calcula a média das menores vazões noturnas e divide pela geral
+                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0 && !isNaN(mediaVazaoGeral)) {
+                    let mediaMenoresNoturnas = menoresVazoesNoturnas.reduce((a, b) => a + b, 0) / menoresVazoesNoturnas.length;
+                    let fatorPesquisa = mediaMenoresNoturnas / mediaVazaoGeral;
+                    
+                    // Constrói a memória de cálculo a ser exibida no Modal
+                    htmlMemoriaCalculo = `
+                        <ul>
+                            <li><strong>Vazão Média Diária (Geral):</strong> ${mediaVazaoGeral.toFixed(2)}</li>
+                            <li><strong>Mínimas Noturnas Identificadas (00h às 06h):</strong>
+                                <ul style="margin-top: 6px; margin-bottom: 6px;">
+                                    ${detalheDiasHtml}
+                                </ul>
+                            </li>
+                            <li><strong>Média das Mínimas Noturnas:</strong> ${mediaMenoresNoturnas.toFixed(2)}</li>
+                        </ul>
+                        <div class="fp-result-line">
+                            Resultado: ${mediaMenoresNoturnas.toFixed(2)} / ${mediaVazaoGeral.toFixed(2)} = <strong class="final-value">${fatorPesquisa.toFixed(3)}</strong>
+                        </div>
+                    `;
+
+                    // Injeta dinamicamente no container antes do gráfico COM o ícone
+                    if (fpContainer) {
+                        fpContainer.innerHTML = `
+                            <div class="data-row fator-pesquisa-row" style="margin-bottom: 20px;">
+                                <div class="data-label" title="Média dos menores valores entre 00h-06h / Média geral de Vazão">
+                                    📊 Fator de Pesquisa 
+                                    <i class="info-icon" onclick="abrirModalInfoFP()" title="Ver Memória de Cálculo e Explicação">i</i>
+                                </div>
+                                <div class="data-value">${fatorPesquisa.toFixed(3)}</div>
+                            </div>
+                        `;
+                    }
+                }
+            }
+
+            // Exibir o Gráfico se existirem dados
             if (labels.length > 0) {
-                // Monta um título combinado caso tenha as duas referências
                 let titleParts = [];
                 if (nomenclatura) titleParts.push(nomenclatura);
                 if (nomMacro && nomMacro !== nomenclatura) titleParts.push(nomMacro);
@@ -509,19 +1011,29 @@
         }
     }
 
+    // --- FUNÇÕES DE ABERTURA/FECHO DO NOVO MODAL FP ---
+    function abrirModalInfoFP() {
+        document.getElementById('fp-modal-equip-name').innerText = document.getElementById('item-nome').innerText;
+        document.getElementById('fp-memory-content').innerHTML = htmlMemoriaCalculo || '<p>Dados insuficientes para gerar a memória de cálculo.</p>';
+        fpModal.style.display = 'flex';
+    }
+
+    function fecharModalInfoFP(event) {
+        if (!event || event.target.id === 'info-fp-modal' || event.target.classList.contains('close-fp-modal')) {
+            fpModal.style.display = 'none';
+        }
+    }
+
     function renderizarCanvas(canvasId, chartData, isExpanded = false) {
         const ctx = document.getElementById(canvasId).getContext('2d');
-        
-        // Define quais datasets vamos mostrar baseado no que tem dados
         const datasets = [];
-        const hasPressao = chartData.montante.some(v => v !== null) || chartData.jusante.some(v => v !== null);
         const hasVazao = chartData.vazao && chartData.vazao.some(v => v !== null);
         
         if (chartData.montante.some(v => v !== null)) {
             datasets.push({
                 label: 'Montante',
                 data: chartData.montante,
-                yAxisID: 'y', // Mesmo eixo para todos
+                yAxisID: 'y',
                 borderColor: '#0056b3',
                 backgroundColor: 'rgba(0, 86, 179, 0.08)',
                 borderWidth: isExpanded ? 3 : 2,
@@ -535,7 +1047,7 @@
             datasets.push({
                 label: 'Jusante',
                 data: chartData.jusante,
-                yAxisID: 'y', // Mesmo eixo para todos
+                yAxisID: 'y',
                 borderColor: '#ff4d4d',
                 backgroundColor: 'rgba(255, 77, 77, 0.08)',
                 borderWidth: isExpanded ? 3 : 2,
@@ -545,12 +1057,11 @@
             });
         }
 
-        // Caso o equipamento tenha dados de Vazão
         if (hasVazao) {
             datasets.push({
                 label: 'Vazão',
                 data: chartData.vazao,
-                yAxisID: 'y', // Mantém no mesmo eixo
+                yAxisID: 'y',
                 borderColor: '#2e7d32',
                 backgroundColor: 'rgba(46, 125, 50, 0.08)',
                 borderWidth: isExpanded ? 3 : 2,
@@ -571,15 +1082,12 @@
                 maintainAspectRatio: false,
                 interaction: { intersect: false, mode: 'index' },
                 scales: {
-                    x: { 
-                        ticks: { maxTicksLimit: isExpanded ? 20 : 6, font: { size: 10 } } 
-                    },
+                    x: { ticks: { maxTicksLimit: isExpanded ? 20 : 6, font: { size: 10 } } },
                     y: { 
                         type: 'linear',
                         display: true,
                         position: 'left',
                         beginAtZero: true, 
-                        // Título genérico já que comporta ambas as grandezas
                         title: { display: true, text: 'Valor', font: { weight: 'bold' } } 
                     }
                 },
@@ -598,45 +1106,108 @@
         }
     }
 
-    // --- MODAL E DOWNLOAD ---
-
     function abrirModalGrafico() {
         if (!lastChartData) return;
         document.getElementById('modal-title').innerText = `Histórico Detalhado: ${lastChartData.title}`;
-        modal.style.display = 'flex';
+        chartModal.style.display = 'flex';
         setTimeout(() => {
             renderizarCanvas('expandedChart', lastChartData, true);
         }, 100);
     }
 
-    function fecharModalGrafico() { modal.style.display = 'none'; }
+    function fecharModalGrafico() { chartModal.style.display = 'none'; }
+
+    function abrirModalImagem() {
+        const src = imgElement.src;
+        if (!src || src.endsWith('null') || src === '') return;
+        document.getElementById('expanded-image').src = src;
+        imageModal.style.display = 'flex';
+    }
+
+    function fecharModalImagem(event) {
+        if (event.target.id === 'image-modal' || event.target.classList.contains('close-image-modal')) {
+            imageModal.style.display = 'none';
+        }
+    }
 
     function baixarGrafico(fromModal = false) {
         if (!lastChartData) return;
         const canvas = document.getElementById(fromModal ? 'expandedChart' : 'pressureChart');
         const link = document.createElement('a');
-        // Nome de arquivo higienizado
         const cleanTitle = (lastChartData.title || 'equipamento').replace(/[^a-zA-Z0-9.-]/g, '_');
-        link.download = `dados_${cleanTitle}.png`;
+        link.download = `grafico_${cleanTitle}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
     }
 
-    // --- MAPA E INTERAÇÃO ---
+    // --- NOVA FUNÇÃO: Baixar Dados em formato CSV ---
+    function baixarDadosCSV() {
+        if (!lastChartData) return;
+
+        // Monta o cabeçalho do arquivo CSV
+        let csvContent = "Data/Hora;Montante;Jusante;Vazao\n";
+
+        // Preenche com os dados iterando pelos horários coletados
+        for (let i = 0; i < lastChartData.labels.length; i++) {
+            const tempo = lastChartData.labels[i];
+            
+            // Formatando valores para o padrão em português (substituindo . por ,)
+            const montante = lastChartData.montante[i] !== null && lastChartData.montante[i] !== undefined 
+                             ? lastChartData.montante[i].toString().replace('.', ',') : '';
+            const jusante = lastChartData.jusante[i] !== null && lastChartData.jusante[i] !== undefined 
+                             ? lastChartData.jusante[i].toString().replace('.', ',') : '';
+            const vazao = lastChartData.vazao[i] !== null && lastChartData.vazao[i] !== undefined 
+                             ? lastChartData.vazao[i].toString().replace('.', ',') : '';
+            
+            csvContent += `${tempo};${montante};${jusante};${vazao}\n`;
+        }
+
+        // Criando Blob e link virtual para efetuar o download
+        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' }); // \uFEFF força o Excel a ler em UTF-8 corretamente
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const cleanTitle = (lastChartData.title || 'equipamento').replace(/[^a-zA-Z0-9.-]/g, '_');
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', `dados_exportados_${cleanTitle}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 
     function carregarSVG() {
+        mostrarCarregamento("A carregar o mapa...");
         fetch(svgFileName)
-            .then(res => res.text())
+            .then(res => {
+                if (!res.ok) throw new Error("SVG não encontrado");
+                return res.text();
+            })
             .then(svgData => {
                 svgWrapper.innerHTML = svgData;
                 ajustarTamanhoInicial();
                 updateTransform();
                 ativarInteratividade();
+                ocultarCarregamento();
             })
             .catch(err => {
                 console.error("Erro a carregar SVG", err);
-                document.getElementById('loading-text').innerText = "Erro ao carregar o mapa SVG.";
+                mostrarCarregamento("Erro ao carregar o mapa SVG.");
+                // Ocultar o spinner mas manter o texto de erro
+                document.querySelector('.loader').style.display = 'none'; 
             });
+    }
+
+    // Função para retornar ícone visual para os campos do painel
+    function obterIconeCampo(label) {
+        const l = label.toLowerCase();
+        if (l.includes('pressão')) return '⏱️';
+        if (l.includes('vazão')) return '💧';
+        if (l.includes('diâmetro')) return '📏';
+        if (l.includes('ligações')) return '🔗';
+        if (l.includes('volume')) return '🛢️';
+        if (l.includes('sistema')) return '⚙️';
+        if (l.includes('profundidade')) return '⏬';
+        return '▪️'; // ícone padrão
     }
 
     function ativarInteratividade() {
@@ -649,15 +1220,13 @@
                 const equip = data.equipamento;
                 const nom = data.nomenclatura || data.id;
                 const nomVrp = data.nomenclaturaVrp;
-                const nomMacro = data.nomenclaturaMacro; // Puxa o nome do macromedidor para vazão
+                const nomMacro = data.nomenclaturaMacro;
 
                 destacarConexoesEmCadeia(el);
 
-                // Cabeçalho
                 document.getElementById('item-nome').innerText = data.nome || equip || 'Desconhecido';
                 document.getElementById('item-id').innerText = nom || 'N/A';
 
-                // Lógica da Foto
                 if (data.imagem) {
                     imgElement.src = data.imagem;
                     imgContainer.style.display = 'block';
@@ -666,7 +1235,6 @@
                     imgElement.src = '';
                 }
 
-                // Status
                 const statusEl = document.getElementById('item-status');
                 if (data.status) {
                     statusEl.style.display = 'inline-block';
@@ -677,10 +1245,16 @@
                     statusEl.style.display = 'none';
                 }
 
-                // Campos Dinâmicos
                 const campos = document.getElementById('campos-dinamicos');
                 let html = '';
-                const add = (l, v) => v ? html += `<div class="data-row"><div class="data-label">${l}</div><div class="data-value">${v}</div></div>` : null;
+                
+                // Função auxiliar que agora insere também o ícone
+                const add = (l, v) => {
+                    if (v) {
+                        const icon = obterIconeCampo(l);
+                        html += `<div class="data-row"><div class="data-label">${icon} ${l}</div><div class="data-value">${v}</div></div>`;
+                    }
+                };
 
                 if (equip?.includes('VRP')) {
                     add('Diâmetro', data.diametro);
@@ -694,7 +1268,7 @@
                 } else if (equip === 'Booster') {
                     add('Pressão Jusante', data.pressaoJusante);
                     add('Diâmetro', data.diametro);
-                }else if (equip === 'Elevatória de poço') {
+                } else if (equip === 'Elevatória de poço') {
                     add('Vazão Operacional', data.vazaoOperacional);
                     add('Vazão Projeto', data.vazaoProjeto);
                     add('Profundidade', data.profundidade);
@@ -703,9 +1277,9 @@
                 campos.innerHTML = html;
                 panel.classList.add('active');
 
-                // Atualiza o gráfico se existir alguma nomenclatura atrelada a esse componente
                 const targetNom = nomVrp || nom;
                 if (targetNom || nomMacro) {
+                    // Atualiza o Gráfico e o cálculo assíncrono do Fator de Pesquisa
                     atualizarGrafico(targetNom, nomMacro);
                 } else {
                     chartSection.style.display = 'none';
@@ -715,7 +1289,6 @@
     }
 
     function ajustarTamanhoInicial() {
-        const rect = svgViewport.getBoundingClientRect();
         scale = 0.4;
         updateTransform();
     }
@@ -733,7 +1306,6 @@
         document.querySelectorAll('.highlight-blink').forEach(el => el.classList.remove('highlight-blink'));
     }
 
-    // Zoom e Arraste
     svgViewport.addEventListener('mousedown', (e) => {
         if (e.button !== 0) return;
         isDragging = true;
@@ -777,7 +1349,11 @@
     }
 
     window.onload = carregarSVG;
-    window.onclick = (e) => { if (e.target == modal) fecharModalGrafico(); }
+    
+    window.onclick = (e) => { 
+        if (e.target == chartModal) fecharModalGrafico(); 
+        if (e.target == fpModal) fecharModalInfoFP(); // Adicionado para fechar também o novo modal de Info
+    }
 </script>
 
 </body>
