@@ -27,9 +27,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
-     inkscape:zoom="1.5216938"
-     inkscape:cx="1261.0947"
-     inkscape:cy="1105.0186"
+     inkscape:zoom="2.152"
+     inkscape:cx="591.54275"
+     inkscape:cy="330.62268"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -311,7 +311,7 @@
        transform="translate(1098.7999,1086.6691)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan90"><tspan
+         id="tspan93"><tspan
            style="fill:#000000"
            id="tspan76">216878</tspan></tspan></text>
     <g
@@ -415,9 +415,9 @@
        transform="translate(1234.2617,1532.4081)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan109"><tspan
+         id="tspan127"><tspan
            style="fill:#000000"
-           id="tspan93">VRP.VCP.045</tspan></tspan></text>
+           id="tspan109">VRP.VCP.045</tspan></tspan></text>
     <g
        transform="matrix(0,0.17080775,-0.17080775,0,2769.4267,474.45055)"
        class="interactive-element"
@@ -521,9 +521,9 @@
     <rect
        style="fill:#058f16;fill-opacity:1;stroke-width:4.01796;stroke-dasharray:none"
        id="rect1-5-4-1-8-8-5-4"
-       width="2463.0283"
+       width="2529.3496"
        height="1.6460289"
-       x="-2986.7932"
+       x="-2986.793"
        y="317.58951"
        transform="scale(-1,1)" />
     <rect
@@ -868,6 +868,18 @@
     <text
        xml:space="preserve"
        style="writing-mode:lr-tb;direction:ltr;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
+       x="478.26248"
+       y="339.08899"
+       id="text3-7-6"
+       transform="rotate(0.515765)"><tspan
+         sodipodi:role="line"
+         id="tspan3-8-07"
+         x="478.26248"
+         y="339.08899"
+         style="fill:#000000;fill-opacity:1">VZ1.EBO.VCP.001</tspan></text>
+    <text
+       xml:space="preserve"
+       style="writing-mode:lr-tb;direction:ltr;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
        x="887.60559"
        y="469.00043"
        id="text3-7-5"><tspan
@@ -879,13 +891,13 @@
     <text
        xml:space="preserve"
        style="writing-mode:lr-tb;direction:ltr;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
-       x="557.22241"
-       y="348.96881"
+       x="608.59314"
+       y="344.34534"
        id="text3-7-4"><tspan
          sodipodi:role="line"
          id="tspan3-8-0"
-         x="557.22241"
-         y="348.96881"
+         x="608.59314"
+         y="344.34534"
          style="fill:#000000;fill-opacity:1">EBO.VCP.001</tspan></text>
     <text
        xml:space="preserve"
@@ -993,8 +1005,8 @@
        style="fill:#ffffff;fill-opacity:1;stroke:#00106a;stroke-width:2.09247;stroke-dasharray:none;stroke-opacity:1"
        width="147.11943"
        height="52.769978"
-       x="376.10571"
-       y="-345.9017"
+       x="309.65588"
+       y="-342.64893"
        transform="scale(1,-1)"
        data-id="21289"
        id="rect8" />
@@ -1026,32 +1038,32 @@
     <text
        xml:space="preserve"
        style="font-size:4.66667px;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
-       x="449.74063"
-       y="309.76297"
+       x="383.2908"
+       y="306.51019"
        id="text3-73"><tspan
          sodipodi:role="line"
          id="tspan3-7"
-         x="449.74063"
-         y="309.76297"
+         x="383.2908"
+         y="306.51019"
          style="font-size:4.66667px;fill:#000000;fill-opacity:1">CAVP R 12 (CH 305 ATÉ  312A, CH 154-2, CH 313 ATÉ 323)</tspan><tspan
          sodipodi:role="line"
-         x="449.74063"
-         y="315.59631"
+         x="383.2908"
+         y="312.34354"
          style="font-size:4.66667px;fill:#000000;fill-opacity:1"
          id="tspan347">AVENIDA ADE</tspan><tspan
          sodipodi:role="line"
-         x="449.74063"
-         y="321.42966"
+         x="383.2908"
+         y="318.17688"
          style="font-size:4.66667px;fill:#000000;fill-opacity:1"
          id="tspan348">CAVP R 09</tspan><tspan
          sodipodi:role="line"
-         x="449.74063"
-         y="327.26297"
+         x="383.2908"
+         y="324.01019"
          style="font-size:4.66667px;fill:#000000;fill-opacity:1"
          id="tspan349">CAVP R 10</tspan><tspan
          sodipodi:role="line"
-         x="449.74063"
-         y="333.09631"
+         x="383.2908"
+         y="329.84354"
          style="font-size:4.66667px;fill:#000000;fill-opacity:1"
          id="tspan350">VSJ RUA 07, RUA 08, RUA 10, RUA 11, RUA 13 E RUA 15</tspan></text>
     <text
@@ -1131,13 +1143,13 @@
          y="704.39819"
          style="fill:#000000;fill-opacity:1;stroke-width:2.45243">AAT.VCP.010</tspan></text>
     <path
-       d="m 681.88491,218.352 8.38884,10.97823 8.38884,-10.97823 z"
+       d="m 682.23403,218.37254 8.38884,10.97823 8.38884,-10.97823 z"
        stroke="#000000"
        stroke-width="2.39914"
        fill-rule="evenodd"
        id="path4" />
     <path
-       d="m 657.6685,309.87263 -10.97823,8.38884 10.97823,8.38884 z"
+       d="m 594.33918,310.10497 -10.97823,8.38884 10.97823,8.38884 z"
        stroke="#000000"
        stroke-width="2.39914"
        fill-rule="evenodd"
@@ -2204,15 +2216,20 @@
        id="rect26" />
     <text
        xml:space="preserve"
-       style="font-size:8px;writing-mode:lr-tb;direction:ltr;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
-       x="1154.5049"
-       y="889.48547"
+       style="font-size:8px;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
+       x="1208.8135"
+       y="883.52258"
        id="text114"><tspan
          sodipodi:role="line"
          id="tspan114"
-         x="1154.5049"
-         y="889.48547"
-         style="font-size:8px;fill:#000000;fill-opacity:1">CAS (CH 100 ATÉ CH 106)</tspan></text>
+         x="1208.8135"
+         y="883.52258"
+         style="font-size:8px;fill:#000000;fill-opacity:1">CAS (CH 100, CH 104, </tspan><tspan
+         sodipodi:role="line"
+         x="1208.8135"
+         y="893.52258"
+         style="font-size:8px;fill:#000000;fill-opacity:1"
+         id="tspan90">CH 105 E CH 106)</tspan></text>
     <path
        id="rect26-7-0"
        style="fill:#ffffff;stroke:#00106a;stroke-width:2.09247"
@@ -2323,9 +2340,9 @@
        transform="translate(0,200)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan140"><tspan
+         id="tspan181"><tspan
            style="fill:#000000"
-           id="tspan127">VRP.VCP.021</tspan></tspan></text>
+           id="tspan140">VRP.VCP.021</tspan></tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#00106a;stroke-width:2.09247;stroke-dasharray:none;stroke-opacity:1"
        width="147.11943"
@@ -2399,9 +2416,9 @@
        transform="translate(202.98433,285.16825)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan196"><tspan
+         id="tspan197"><tspan
            style="fill:#000000"
-           id="tspan181">VRP.VCP.046</tspan></tspan></text>
+           id="tspan196">VRP.VCP.046</tspan></tspan></text>
     <rect
        style="fill:#058f16;fill-opacity:1;stroke-width:2.01121;stroke-dasharray:none"
        id="rect126"
@@ -2535,9 +2552,9 @@
        transform="translate(1111.2183,-290.51712)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan198"><tspan
+         id="tspan199"><tspan
            style="fill:#000000"
-           id="tspan197">VRP.VCP.041</tspan></tspan></text>
+           id="tspan198">VRP.VCP.041</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;writing-mode:lr-tb;direction:ltr;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
@@ -2618,12 +2635,12 @@
        data-nome="Booster EBO.VCP.001"
        data-nomenclatura="EBO.VCP.001"
        data-status="Em Operação"
-       data-diametro="250 mm"
+       data-diametro="400 mm"
        data-pressao-jusante="15 mca"
-       transform="matrix(0.12689045,0,0,0.12689045,-3009.5156,-355.99569)"
+       transform="matrix(0.12689045,0,0,0.12689045,-2960.7735,-357.66195)"
        data-id="8253"
        data-ligacoes="2356"
-       data-conexoes="21289"
+       data-conexoes="12775"
        id="g32">
       <!-- ESSA LINHA NÃO PODE SUMIR -->
       <path
@@ -4188,9 +4205,9 @@
        transform="translate(1211.3639,125.03923)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan200"><tspan
+         id="tspan202"><tspan
            style="fill:#000000"
-           id="tspan199">VRP.VCP.030</tspan></tspan></text>
+           id="tspan200">VRP.VCP.030</tspan></tspan></text>
     <g
        transform="matrix(0,0.17080775,-0.17080775,0,2784.9382,-935.50335)"
        class="interactive-element"
@@ -4377,9 +4394,9 @@
        transform="translate(-2.8284271,872.61436)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan205"><tspan
+         id="tspan207"><tspan
            style="fill:#000000"
-           id="tspan202">VRP.VCP.027</tspan></tspan></text>
+           id="tspan205">VRP.VCP.027</tspan></tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#00106a;stroke-width:2.09247;stroke-dasharray:none;stroke-opacity:1"
        width="147.11943"
@@ -4458,9 +4475,9 @@
        transform="translate(200.1559,957.78261)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan209"><tspan
+         id="tspan211"><tspan
            style="fill:#000000"
-           id="tspan207">VRP.VCP.022</tspan></tspan></text>
+           id="tspan209">VRP.VCP.022</tspan></tspan></text>
     <rect
        style="fill:#000000;stroke-width:0.649706"
        id="rect223"
@@ -5055,9 +5072,9 @@
        transform="translate(-5.0784271,654.86436)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan214"><tspan
+         id="tspan220"><tspan
            style="fill:#000000"
-           id="tspan211">VRP.VCP.023</tspan></tspan></text>
+           id="tspan214">VRP.VCP.023</tspan></tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#00106a;stroke-width:2.09247;stroke-dasharray:none;stroke-opacity:1"
        width="147.11943"
@@ -5199,9 +5216,9 @@
        transform="translate(-2.8284271,1152.6144)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan221"><tspan
+         id="tspan222"><tspan
            style="fill:#000000"
-           id="tspan220">VRP.VCP.037</tspan></tspan></text>
+           id="tspan221">VRP.VCP.037</tspan></tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#00106a;stroke-width:2.09247;stroke-dasharray:none;stroke-opacity:1"
        width="147.11943"
@@ -5270,9 +5287,9 @@
        transform="translate(213.1559,1238.2826)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan228"><tspan
+         id="tspan230"><tspan
            style="fill:#000000"
-           id="tspan222">114651</tspan></tspan></text>
+           id="tspan228">114651</tspan></tspan></text>
     <rect
        style="fill:#000000;stroke-width:0.651379"
        id="rect248"
@@ -5552,9 +5569,9 @@
        transform="translate(757.78285,1179.141)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan234"><tspan
+         id="tspan237"><tspan
            style="fill:#000000"
-           id="tspan230">VRP.VCP.042</tspan></tspan></text>
+           id="tspan234">VRP.VCP.042</tspan></tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#00106a;stroke-width:2.09247;stroke-dasharray:none;stroke-opacity:1"
        width="147.11943"
@@ -5628,9 +5645,9 @@
        transform="translate(858.19348,993.35619)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan238"><tspan
+         id="tspan242"><tspan
            style="fill:#000000"
-           id="tspan237">VRP.VCP.048</tspan></tspan></text>
+           id="tspan238">VRP.VCP.048</tspan></tspan></text>
     <rect
        style="fill:#000000;stroke-width:0.903365"
        id="rect276"
@@ -5747,9 +5764,9 @@
        transform="translate(658.01804,1383.2047)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan243"><tspan
+         id="tspan245"><tspan
            style="fill:#000000"
-           id="tspan242">189276</tspan></tspan></text>
+           id="tspan243">189276</tspan></tspan></text>
     <rect
        style="fill:#058f16;fill-opacity:1;stroke-width:2.00677;stroke-dasharray:none"
        id="rect291"
@@ -5996,9 +6013,9 @@
        transform="translate(962.02731,1634.0904)"><tspan
          x="962.79529"
          y="1180.4729"
-         id="tspan247"><tspan
+         id="tspan248"><tspan
            style="fill:#000000"
-           id="tspan245">VRP.VCP.007</tspan></tspan></text>
+           id="tspan247">VRP.VCP.007</tspan></tspan></text>
     <rect
        style="fill:#058f16;fill-opacity:1;stroke-width:1.21394"
        id="rect322"
@@ -7003,5 +7020,64 @@
          y="1178.1158"
          style="font-size:8px;fill:#000000;fill-opacity:1"
          id="tspan89">CAS (CH 103)</tspan></text>
+    <g
+       id="g9775-5-8-2-0-2-82"
+       transform="matrix(0.13729051,0,0,0.13729051,-843.27285,-936.67039)"
+       data-nome="Macro VZ1.EBO.VCP.001"
+       data-vazao-jusante="20 mca"
+       data-status="Em Operação"
+       class="interactive-element"
+       data-equipamento="VRP/Macro"
+       data-diametro="100 mm"
+       data-nomenclatura="VZ1.EBO.VCP.001"
+       data-conexoes="21289"
+       data-ligacoes="2356"
+       data-id="12775"
+       data-imagem="---">
+      <g
+         id="g24-8-7-6-4"
+         transform="matrix(13.972988,0,0,13.972988,-2750.7256,1165.071)">
+        <path
+           d="m 906.49259,571.35413 v 0.589 l 0.056,0.169 v 0.169 l 0.057,0.226 0.056,0.17 0.057,0.168 0.056,0.17 0.057,0.17 0.113,0.168 0.056,0.17 0.113,0.17 0.113,0.112 0.113,0.17 0.113,0.112 0.112,0.17 0.17,0.112 0.113,0.113 0.169,0.113 0.113,0.113 0.17,0.113 0.169,0.056 0.169,0.113 0.17,0.057 0.169,0.056 0.169,0.057 0.17,0.056 0.169,0.057 0.168,0.056 h 1.13 l 0.17,-0.056 0.168,-0.057 0.17,-0.056 0.17,-0.057 0.168,-0.056 0.17,-0.057 0.17,-0.113 0.168,-0.056 0.17,-0.113 0.169,-0.113 0.113,-0.113 0.17,-0.113 0.112,-0.112 0.113,-0.17 0.113,-0.113 0.113,-0.169 0.113,-0.113 0.113,-0.17 0.056,-0.169 0.113,-0.169 0.056,-0.17 0.057,-0.169 0.056,-0.169 0.057,-0.17 0.056,-0.225 0.057,-0.17 v -0.757 z"
+           stroke="#00ff00"
+           stroke-width="0.75"
+           fill="#00ff00"
+           fill-rule="evenodd"
+           id="path480-8-7-7-0-5" />
+        <path
+           d="m 906.49259,571.35413 h 7.45 v -0.315 l -0.055,-0.225 -0.057,-0.17 -0.058,-0.17 -0.056,-0.169 -0.057,-0.169 -0.056,-0.17 -0.113,-0.169 -0.056,-0.169 -0.113,-0.17 -0.113,-0.112 -0.113,-0.17 -0.113,-0.169 -0.113,-0.113 -0.113,-0.113 -0.17,-0.113 -0.112,-0.112 -0.17,-0.113 -0.169,-0.113 -0.169,-0.113 -0.17,-0.057 -0.169,-0.056 -0.169,-0.113 -0.17,-0.056 -0.169,-0.057 h -0.167 l -0.17,-0.056 h -0.394 l -0.17,-0.057 -0.169,0.057 h -0.395 l -0.17,0.056 h -0.169 l -0.17,0.057 -0.168,0.056 -0.17,0.113 -0.17,0.056 -0.168,0.057 -0.17,0.113 -0.17,0.113 -0.112,0.113 -0.17,0.112 -0.112,0.113 -0.17,0.113 -0.112,0.113 -0.113,0.17 -0.113,0.169 -0.113,0.113 -0.113,0.169 -0.056,0.17 -0.113,0.169 -0.057,0.169 -0.056,0.17 -0.058,0.168 -0.056,0.17 -0.057,0.17 v 0.224 l -0.056,0.171 z"
+           stroke="#00ff00"
+           stroke-width="0.75"
+           fill="none"
+           id="path481-6-4-8-6-5" />
+        <path
+           d="m 906.49259,571.35413 v 0.589 l 0.056,0.169 v 0.169 l 0.057,0.226 0.056,0.17 0.057,0.168 0.056,0.17 0.057,0.17 0.113,0.168 0.056,0.17 0.113,0.17 0.113,0.112 0.113,0.17 0.113,0.112 0.112,0.17 0.17,0.112 0.113,0.113 0.169,0.113 0.113,0.113 0.17,0.113 0.169,0.056 0.169,0.113 0.17,0.057 0.169,0.056 0.169,0.057 0.17,0.056 0.169,0.057 0.168,0.056 h 1.13 l 0.17,-0.056 0.168,-0.057 0.17,-0.056 0.17,-0.057 0.168,-0.056 0.17,-0.057 0.17,-0.113 0.168,-0.056 0.17,-0.113 0.169,-0.113 0.113,-0.113 0.17,-0.113 0.112,-0.112 0.113,-0.17 0.113,-0.113 0.113,-0.169 0.113,-0.113 0.113,-0.17 0.056,-0.169 0.113,-0.169 0.056,-0.17 0.057,-0.169 0.056,-0.169 0.057,-0.17 0.056,-0.225 0.057,-0.17 v -0.757 z"
+           stroke="#0000ff"
+           stroke-width="0.75"
+           fill="#0000ff"
+           fill-rule="evenodd"
+           id="path484-7-8-7-1-1" />
+        <path
+           d="m 906.49259,571.35413 h 7.45 v -0.315 l -0.055,-0.225 -0.057,-0.17 -0.058,-0.17 -0.056,-0.169 -0.057,-0.169 -0.056,-0.17 -0.113,-0.169 -0.056,-0.169 -0.113,-0.17 -0.113,-0.112 -0.113,-0.17 -0.113,-0.169 -0.113,-0.113 -0.113,-0.113 -0.17,-0.113 -0.112,-0.112 -0.17,-0.113 -0.169,-0.113 -0.169,-0.113 -0.17,-0.057 -0.169,-0.056 -0.169,-0.113 -0.17,-0.056 -0.169,-0.057 h -0.167 l -0.17,-0.056 h -0.394 l -0.17,-0.057 -0.169,0.057 h -0.395 l -0.17,0.056 h -0.169 l -0.17,0.057 -0.168,0.056 -0.17,0.113 -0.17,0.056 -0.168,0.057 -0.17,0.113 -0.17,0.113 -0.112,0.113 -0.17,0.112 -0.112,0.113 -0.17,0.113 -0.112,0.113 -0.113,0.17 -0.113,0.169 -0.113,0.113 -0.113,0.169 -0.056,0.17 -0.113,0.169 -0.057,0.169 -0.056,0.17 -0.058,0.168 -0.056,0.17 -0.057,0.17 v 0.224 l -0.056,0.171 z"
+           stroke="#0000ff"
+           stroke-width="0.75"
+           fill="#ffffff"
+           fill-rule="evenodd"
+           id="path485-7-1-3-1-7" />
+        <path
+           d="m 916.18259,569.249 -0.2023,-4.06791 -4.0679,0.2023"
+           stroke="#0000ff"
+           stroke-width="0.5"
+           fill="none"
+           id="path488-2-4-0-1-1" />
+        <path
+           d="m 904.45459,577.91313 11.5257,-12.73204"
+           stroke="#0000ff"
+           stroke-width="0.5"
+           stroke-linecap="round"
+           fill="none"
+           id="path489-2-3-3-7-1" />
+      </g>
+    </g>
   </g>
 </svg>
