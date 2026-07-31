@@ -27,12 +27,12 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showguides="true"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="772.86771"
-     inkscape:cy="226.98128"
+     inkscape:zoom="1"
+     inkscape:cx="368"
+     inkscape:cy="387.5"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
-     inkscape:window-x="1912"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
@@ -2231,12 +2231,22 @@
          id="tspan3-3-9-2-6-2"
          x="-69.470436"
          y="64.27462"
-         style="fill:#000000;fill-opacity:1;stroke-width:0.648872">EAT.LNT.001</tspan></text>
+         style="fill:#000000;fill-opacity:1;stroke-width:0.648872">EAT.LNT.003</tspan><tspan
+         sodipodi:role="line"
+         x="-69.470436"
+         y="67.518898"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.648872"
+         id="tspan1" /></text>
     <g
        id="g9"
        transform="rotate(-90,101.61849,75.389475)"
        inkscape:transform-center-x="3.0427083"
-       inkscape:transform-center-y="2.1166666">
+       inkscape:transform-center-y="2.1166666"
+       class="interactive-element"
+       data-equipamento="Booster"
+       data-nomenclatura="EAT.LNT.003"
+       data-status="Em Operação"
+       data-nome="Booster EAT.LNT.003">
       <g
          id="g14-1"
          transform="translate(28.362519,-5.3669003)">
@@ -3996,10 +4006,7 @@
        data-equipamento="VRP/Macro"
        data-diametro="400 mm"
        data-nomenclatura="VZ2.ETA.LNT.001"
-       data-conexoes="---"
-       data-ligacoes="---"
-       data-id="7607"
-       data-imagem="---">
+       data-id="7607">
       <g
          id="g24-8-7-6-7"
          transform="matrix(13.972988,0,0,13.972988,-2750.7256,1165.071)">
