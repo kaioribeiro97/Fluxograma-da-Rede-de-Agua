@@ -1,90 +1,93 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sistemas Isolados - Interativo</title>
-    <!-- Inclusão da biblioteca Chart.js para os gráficos -->
+    <title>Sistemas Isolados - CAESB Interativo</title>
+
+    <!-- Fonte Inter e Chart.js -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         :root {
             --primary-color: #0056b3;
+            --primary-hover: #004494;
             --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #333;
-            --accent-color: #1a73e8;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-color: #333333;
+            --text-muted: #666666;
+            --box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            --input-bg: #f9f9f9;
+            --row-bg: #fdfdfd;
+            --row-border: #f0f0f0;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         html, body {
             width: 100%;
             height: 100%;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
-            height: 100vh;
             overflow: hidden;
         }
 
-        /* --- Controles Flutuantes para Seleção de Área --- */
-        #area-controls {
+        /* --- Barra Superior --- */
+        #top-controls {
             position: absolute;
             top: 20px;
             left: 20px;
             z-index: 100;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-card {
             background: var(--card-bg);
-            padding: 12px 16px;
+            backdrop-filter: blur(8px);
+            padding: 8px 14px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--card-border);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .map-icon {
-            font-size: 1.2rem;
-        }
-
-        #area-controls label {
+        .control-card label {
             font-weight: 600;
             color: var(--text-color);
-            font-size: 0.95rem;
-            display: none; /* Esconder em telas muito pequenas */
+            font-size: 0.9rem;
         }
 
-        @media (min-width: 480px) {
-            #area-controls label {
-                display: block;
-            }
-        }
-
-        #area-controls select {
+        .control-card select, .control-card input {
             padding: 8px 12px;
             border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
+            border: 1px solid var(--card-border);
+            font-size: 0.9rem;
             font-weight: 500;
+            background-color: var(--input-bg);
+            color: var(--text-color);
             outline: none;
-            background-color: #f9f9f9;
-            cursor: pointer;
             transition: all 0.2s;
         }
 
-        #area-controls select:hover, #area-controls select:focus {
+        .control-card select:focus, .control-card input:focus {
             border-color: var(--primary-color);
-            background-color: #fff;
-            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.1);
+            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.15);
         }
 
-        /* --- Controles Flutuantes de Zoom --- */
+        /* --- Controles de Zoom --- */
         #zoom-controls {
             position: absolute;
             bottom: 25px;
@@ -97,15 +100,15 @@
 
         .zoom-btn {
             background: var(--card-bg);
-            border: 1px solid #eee;
+            border: 1px solid var(--card-border);
             width: 44px;
             height: 44px;
             border-radius: 8px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            color: #555;
+            color: var(--text-color);
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: var(--box-shadow);
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -114,17 +117,11 @@
         }
 
         .zoom-btn:hover {
-            background: #f0f0f0;
             color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
 
-        .zoom-btn:active {
-            transform: translateY(0);
-        }
-
-        /* --- Controles Inferiores Esquerdos (Legenda + Rodapé) --- */
+        /* --- Controles Inferiores Esquerdos --- */
         #bottom-left-controls {
             position: absolute;
             bottom: 20px;
@@ -134,16 +131,15 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 10px;
-            pointer-events: none; /* Permite arrastar o mapa através do espaço em branco */
+            pointer-events: none;
         }
 
-        /* Botão para exibir a legenda */
         #btn-legenda {
-            pointer-events: auto; /* Reativa o clique apenas no botão */
-            background: rgba(255, 255, 255, 0.95);
+            pointer-events: auto;
+            background: var(--card-bg);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--box-shadow);
             padding: 8px 14px;
             border-radius: 8px;
             color: var(--text-color);
@@ -155,29 +151,20 @@
             gap: 8px;
             transition: all 0.2s;
         }
+        #btn-legenda:hover { color: var(--primary-color); transform: translateY(-2px); }
 
-        #btn-legenda:hover {
-            background: #fff;
-            color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-        }
-
-        /* Popover da Legenda (escondido por padrão) */
         #legenda-popover {
             display: none;
-            position: relative; /* Para ancorar o botão de fechar */
-            background: rgba(255, 255, 255, 0.98);
+            position: relative;
+            background: var(--card-bg);
             backdrop-filter: blur(5px);
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--card-border);
             padding: 15px;
-            
-            width: 950px; /* <--- AUMENTE OU DIMINUA AQUI O TAMANHO DA LEGENDA */
-            
-            pointer-events: auto; /* Reativa o clique no popover */
-            transform-origin: bottom left;
+            width: 950px;
+            max-width: 90vw;
+            pointer-events: auto;
             animation: slideUpFade 0.2s ease-out forwards;
         }
 
@@ -188,598 +175,314 @@
 
         .close-legenda-btn {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(255, 255, 255, 0.8);
+            top: 5px; right: 5px;
+            background: var(--input-bg);
             border: none;
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             border-radius: 50%;
             font-size: 1.2rem;
             cursor: pointer;
-            color: #888;
-            transition: color 0.2s, transform 0.2s, background 0.2s;
-            line-height: 1;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
             z-index: 10;
         }
-        
-        .close-legenda-btn:hover { 
-            color: var(--primary-color); 
-            background: #eee;
-            transform: scale(1.1);
-        }
+        .close-legenda-btn:hover { color: var(--primary-color); transform: scale(1.1); }
 
-        .img-legenda {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .img-legenda { width: 100%; height: auto; display: block; }
 
-        /* Footer Info (Logo + Áreas) Compacto */
         #footer-info {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(5px);
             padding: 10px 14px;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-            display: flex;
-            align-items: center;
-            gap: 12px; 
-            border: 1px solid rgba(0,0,0,0.05);
-            pointer-events: auto; /* Mantém eventos no rodapé originais */
+            box-shadow: var(--box-shadow);
+            display: flex; align-items: center; gap: 12px;
+            border: 1px solid var(--card-border);
+            pointer-events: auto;
         }
 
         .footer-logo {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
+            height: 40px; width: auto; object-fit: contain;
             filter: brightness(0) saturate(100%) invert(18%) sepia(51%) saturate(3018%) hue-rotate(206deg) brightness(94%) contrast(96%) drop-shadow(0 2px 3px rgba(0,0,0,0.15));
         }
 
         .footer-text {
-            font-size: 0.68rem;
-            color: #555;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            border-left: 2px solid #1E4490;
-            padding-left: 10px;
+            font-size: 0.68rem; color: var(--text-muted);
+            display: flex; flex-direction: column; gap: 2px;
+            border-left: 2px solid var(--primary-color); padding-left: 10px;
         }
+        .footer-text p { margin: 0; line-height: 1.2; }
+        .footer-text strong { color: var(--primary-color); font-weight: 700; }
 
-        .footer-text p {
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .footer-text strong {
-            color: #1E4490;
-            font-weight: 700;
-        }
-
-        /* Oculta os textos no celular para poupar espaço */
         @media (max-width: 850px) {
-            #bottom-left-controls {
-                bottom: 15px;
-                left: 15px;
-            }
-            #footer-info {
-                padding: 8px 10px;
-            }
             .footer-text { display: none; }
             .footer-logo { height: 32px; }
-            #legenda-popover {
-                width: 85vw; /* Fica quase a largura da tela no celular */
-            }
         }
 
+        /* --- Container do Mapa --- */
         #map-container {
-            flex: 1;
-            position: relative;
-            background-color: #e9ecef;
-            overflow: hidden;
-            min-width: 0;
+            flex: 1; position: relative;
+            background-color: var(--bg-color);
+            overflow: hidden; min-width: 0;
         }
 
-        /* --- Indicador de Carregamento (Spinner) --- */
         #loading-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 50;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: opacity 0.3s;
+            z-index: 50; display: flex; flex-direction: column; align-items: center;
+            background: var(--card-bg); padding: 20px 40px; border-radius: 12px;
+            box-shadow: var(--box-shadow); border: 1px solid var(--card-border);
         }
 
         .loader {
-            border: 4px solid #f3f3f3;
+            border: 4px solid var(--input-bg);
             border-top: 4px solid var(--primary-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 12px;
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite; margin-bottom: 12px;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        #loading-text {
-            margin: 0;
-            color: #555;
-            font-size: 1rem;
-            font-weight: 500;
-        }
+        #loading-text { margin: 0; color: var(--text-muted); font-size: 1rem; font-weight: 500; }
 
         #svg-viewport {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            cursor: grab;
-            user-select: none;
-            touch-action: none;
+            width: 100%; height: 100%; position: relative;
+            overflow: hidden; cursor: grab; user-select: none; touch-action: none;
         }
-
-        #svg-viewport.dragging {
-            cursor: grabbing;
-        }
+        #svg-viewport.dragging { cursor: grabbing; }
 
         #svg-wrapper {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            will-change: transform;
-            transition: opacity 0.3s; 
+            position: absolute; left: 50%; top: 50%;
+            will-change: transform; transition: opacity 0.3s;
         }
 
-        #svg-wrapper svg {
-            display: block;
-            background: white;
-            box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
-            max-width: none;
-            max-height: none;
-            overflow: visible;
-        }
+        #svg-wrapper svg { display: block; background: transparent; overflow: visible; }
 
-        .interactive-element {
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
+        .interactive-element { cursor: pointer; transition: all 0.2s ease-in-out; }
+        .interactive-element:hover { filter: drop-shadow(2px 4px 6px rgba(0, 86, 179, 0.6)) brightness(0.85); }
 
-        .interactive-element:hover {
-            filter: drop-shadow(2px 4px 6px rgba(0, 86, 179, 0.6)) brightness(0.85);
-        }
-
-        #info-panel {
-            width: 380px;
-            max-width: 100vw; 
-            background: var(--card-bg);
-            border-left: 1px solid #ddd;
-            padding: 25px 20px;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            z-index: 150;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        #info-panel.active {
-            transform: translateX(0);
-        }
-
-        /* --- Botão Fechar Refinado --- */
-        .panel-close-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #999;
-            cursor: pointer;
-            transition: color 0.2s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-        }
-
-        .panel-close-icon:hover { 
-            color: var(--primary-color); 
-            background: #f0f0f0;
-            transform: scale(1.05);
-        }
-
-        .panel-header {
-            border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            padding-right: 30px; 
-            flex-shrink: 0;
-        }
-
-        .panel-header h2 {
-            margin: 0;
-            font-size: 1.3rem;
-            color: var(--primary-color);
-        }
-
-        .data-row {
-            margin-bottom: 14px;
-            flex-shrink: 0;
-            background: #fdfdfd;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #f0f0f0;
-        }
-
-        .data-label {
-            font-size: 0.8rem;
-            color: #666;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .data-value {
-            font-size: 1rem;
-            color: var(--text-color);
-            margin-top: 4px;
-            word-break: break-word;
-            font-weight: 500;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-top: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        #chart-section {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            display: none;
-            flex-shrink: 0;
-        }
-
-        #pressureChart {
-            height: 220px !important;
-            width: 100% !important;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .chart-header h3 {
-            font-size: 1rem;
-            margin: 0;
-            color: #444;
-        }
-
-        .chart-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .icon-btn {
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 6px;
-            color: #555;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-btn:hover {
-            background: #fff;
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        }
-
-        #image-container {
-            width: 100%;
-            height: 180px; 
-            min-height: 180px;
-            background-color: #eee;
-            overflow: hidden;
-            display: none;
-            border-radius: 8px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            flex-shrink: 0;
-            position: relative; 
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        #image-container::after {
-            content: '🔍 Ampliar';
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(0, 0, 0, 0.65);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            opacity: 0.8;
-            font-weight: 500;
-            transition: opacity 0.2s, background 0.2s;
-            pointer-events: none; 
-            backdrop-filter: blur(4px);
-        }
-
-        #image-container:hover::after {
-            opacity: 1;
-            background: rgba(0, 0, 0, 0.85);
-        }
-
-        #item-imagem {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            transition: transform 0.4s ease;
-        }
-
-        #image-container:hover #item-imagem {
-            transform: scale(1.08); 
-        }
-
-        #chart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(5px);
-        }
-
-        #image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.92);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-
-        #expanded-image {
-            max-width: 90vw;
-            max-height: 90vh;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            object-fit: contain;
-        }
-
-        .close-image-modal {
-            position: absolute;
-            top: 25px;
-            right: 35px;
-            color: white;
-            font-size: 45px;
-            font-weight: 300;
-            cursor: pointer;
-            transition: color 0.2s, transform 0.2s;
-            line-height: 1;
-            z-index: 2001;
-        }
-
-        .close-image-modal:hover {
-            color: #ddd;
-            transform: scale(1.1);
-        }
-
-        .modal-content {
-            background: white;
-            width: 95vw;          
-            height: 85vh;         
-            max-width: 1400px;    
-            border-radius: 12px;
-            padding: 25px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-shrink: 0; 
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.4rem;
-            color: var(--primary-color);
-        }
-
-        #modal-canvas-container {
-            flex: 1;            
-            width: 100%;
-            height: 100%;
-            min-height: 0;      
-            position: relative;
-        }
-
-        #expandedChart {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        .modal-close {
-            background: #eee;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        
-        .modal-close:hover { background: #e0e0e0; color: var(--primary-color); }
-
-        @keyframes blinker {
-            50% { opacity: 0.6; }
-        }
-
+        /* --- EFEITO DE PISCAR DAS CONEXÕES --- */
+        @keyframes blinker { 50% { opacity: 0.6; } }
         .highlight-blink {
             animation: blinker 1.5s ease-in-out infinite;
-            stroke: #ff0000  !important; 
+            stroke: #ff0000 !important; 
             stroke-width: 0.8px !important; 
         }
 
-        /* Destaque para o Fator de Pesquisa */
-        .fator-pesquisa-row {
-            background-color: #f0f7ff !important;
-            border-color: #cce5ff !important;
-        }
-        .fator-pesquisa-row .data-value {
-            color: #0056b3;
-            font-weight: bold;
+        /* --- EFEITO DE DESTAQUE NEON DO ITEM PESQUISADO --- */
+        @keyframes pulseSearchTarget {
+            0% {
+                stroke: #00e5ff !important;
+                stroke-width: 3px !important;
+                filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 20px #00e5ff);
+            }
+            50% {
+                stroke: #ff0055 !important;
+                stroke-width: 4px !important;
+                filter: drop-shadow(0 0 15px #ff0055) drop-shadow(0 0 25px #ff0055);
+            }
+            100% {
+                stroke: #00e5ff !important;
+                stroke-width: 3px !important;
+                filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 20px #00e5ff);
+            }
         }
 
-        /* --- Estilos do Fator de Pesquisa e Modal Info --- */
+        .search-highlight-target {
+            animation: pulseSearchTarget 1s ease-in-out infinite !important;
+            z-index: 999 !important;
+        }
+
+        /* --- Painel Lateral --- */
+        #info-panel {
+            width: 380px; max-width: 100vw;
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            border-left: 1px solid var(--card-border); padding: 25px 20px;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: absolute; right: 0; top: 0; bottom: 0; z-index: 150;
+            overflow-y: auto; overflow-x: hidden;
+        }
+        #info-panel.active { transform: translateX(0); }
+
+        .panel-close-icon {
+            position: absolute; top: 20px; right: 20px;
+            background: none; border: none; font-size: 1.5rem;
+            color: var(--text-muted); cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%;
+        }
+        .panel-close-icon:hover { color: var(--primary-color); background: var(--input-bg); transform: scale(1.05); }
+
+        .panel-header {
+            border-bottom: 2px solid var(--primary-color); margin-bottom: 20px;
+            padding-bottom: 15px; padding-right: 30px; flex-shrink: 0;
+        }
+        .panel-header h2 { margin: 0; font-size: 1.3rem; color: var(--primary-color); }
+
+        .data-row {
+            margin-bottom: 14px; flex-shrink: 0;
+            background: var(--row-bg); padding: 8px 12px;
+            border-radius: 6px; border: 1px solid var(--row-border);
+        }
+
+        .data-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .data-value { font-size: 1rem; color: var(--text-color); margin-top: 4px; word-break: break-word; font-weight: 500; }
+
+        .status-badge {
+            display: inline-block; padding: 4px 10px; border-radius: 12px;
+            font-size: 0.8rem; font-weight: bold; margin-top: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        #image-container {
+            width: 100%; height: 180px; min-height: 180px;
+            background-color: var(--input-bg); overflow: hidden; display: none;
+            border-radius: 8px; margin-top: 25px; margin-bottom: 10px;
+            flex-shrink: 0; position: relative; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        #image-container::after {
+            content: '🔍 Ampliar'; position: absolute; bottom: 8px; right: 8px;
+            background: rgba(0, 0, 0, 0.65); color: white; padding: 4px 10px;
+            border-radius: 6px; font-size: 0.8rem; opacity: 0.8; font-weight: 500; transition: all 0.2s; pointer-events: none; backdrop-filter: blur(4px);
+        }
+        #image-container:hover::after { opacity: 1; background: rgba(0, 0, 0, 0.85); }
+        #item-imagem { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        #image-container:hover #item-imagem { transform: scale(1.08); }
+
+        #chart-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--row-border); display: none; flex-shrink: 0; }
+        #pressureChart { height: 220px !important; width: 100% !important; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .chart-header h3 { font-size: 1rem; margin: 0; color: var(--text-color); }
+        .chart-actions { display: flex; gap: 8px; }
+
+        .icon-btn {
+            background: var(--input-bg); border: 1px solid var(--card-border); cursor: pointer;
+            padding: 6px; border-radius: 6px; color: var(--text-color); transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .icon-btn:hover { background: var(--card-bg); border-color: var(--primary-color); color: var(--primary-color); }
+
+        .fator-pesquisa-row { background-color: var(--row-bg) !important; border-color: var(--primary-color) !important; }
+        .fator-pesquisa-row .data-value { color: var(--primary-color); font-weight: bold; }
+
         .info-icon { 
             cursor: pointer; display: inline-flex; align-items: center; justify-content: center; 
             width: 20px; height: 20px; border-radius: 50%; background-color: var(--primary-color); 
-            color: white; font-size: 12px; margin-left: 8px; transition: transform 0.2s, background 0.2s; 
-            font-style: normal; font-weight: bold;
+            color: white; font-size: 12px; margin-left: 8px; transition: all 0.2s; font-style: normal; font-weight: bold;
         }
-        .info-icon:hover { transform: scale(1.15); background-color: #004494; }
+        .info-icon:hover { transform: scale(1.15); }
 
-        .close-fp-modal { position: absolute; top: 15px; right: 20px; color: #555; font-size: 35px; font-weight: 300; cursor: pointer; transition: color 0.2s, transform 0.2s; line-height: 1; z-index: 2001; }
-        .close-fp-modal:hover { color: var(--primary-color); transform: scale(1.1); }
+        /* Modais */
+        #chart-modal, #image-modal, #info-fp-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center;
+            padding: 20px; backdrop-filter: blur(5px);
+        }
+        #image-modal { z-index: 2000; background: rgba(0,0,0,0.92); }
+        #info-fp-modal { z-index: 3000; background: rgba(0,0,0,0.7); }
 
-        #info-fp-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(4px); padding: 20px; }
-        .fp-modal-card { background: white; width: 100%; max-width: 600px; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; max-height: 90vh; overflow-y: auto; }
-        .fp-modal-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.4rem; display: flex; align-items: center; gap: 10px;}
-        .fp-text { font-size: 0.95rem; line-height: 1.6; color: #444; margin-bottom: 20px; text-align: justify; }
-        .fp-formula { background: #f0f7ff; padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--primary-color); font-family: monospace; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; color: #333;}
-        .fp-memory-box { background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; font-size: 0.9rem; }
-        .fp-memory-box h4 { margin-top: 0; margin-bottom: 15px; color: #333; font-size: 1.1rem; border-bottom: 1px solid #ddd; padding-bottom: 8px;}
-        .fp-memory-box ul { margin: 0; padding-left: 20px; color: #555; }
+        .modal-content {
+            background: var(--card-bg); color: var(--text-color); width: 95vw; height: 85vh; max-width: 1400px;
+            border-radius: 12px; padding: 25px; position: relative; display: flex; flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid var(--card-border);
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .modal-header h2 { margin: 0; font-size: 1.4rem; color: var(--primary-color); }
+        #modal-canvas-container { flex: 1; width: 100%; height: 100%; min-height: 0; position: relative; }
+        #expandedChart { width: 100% !important; height: 100% !important; }
+
+        .modal-close {
+            background: var(--input-bg); border: none; width: 35px; height: 35px; border-radius: 50%;
+            cursor: pointer; font-size: 1.2rem; color: var(--text-color); display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .modal-close:hover { background: var(--card-border); color: var(--primary-color); }
+
+        #expanded-image { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain; }
+        .close-image-modal, .close-fp-modal {
+            position: absolute; top: 20px; right: 25px; color: var(--text-muted); font-size: 35px; font-weight: 300;
+            cursor: pointer; transition: all 0.2s; line-height: 1; z-index: 2001;
+        }
+        .close-image-modal:hover, .close-fp-modal:hover { color: var(--primary-color); transform: scale(1.1); }
+
+        .fp-modal-card {
+            background: var(--card-bg); color: var(--text-color); width: 100%; max-width: 600px;
+            border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid var(--card-border);
+        }
+        .fp-modal-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.4rem; }
+        .fp-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-color); margin-bottom: 20px; text-align: justify; }
+        .fp-formula { background: var(--row-bg); padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--primary-color); font-family: monospace; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; color: var(--text-color); }
+        .fp-memory-box { background: var(--row-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--card-border); font-size: 0.9rem; }
+        .fp-memory-box h4 { margin-top: 0; margin-bottom: 15px; color: var(--text-color); font-size: 1.1rem; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
+        .fp-memory-box ul { margin: 0; padding-left: 20px; color: var(--text-muted); }
         .fp-memory-box li { margin-bottom: 8px; }
-        .fp-result-line { font-size: 1.1rem; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; text-align: center; color: #333;}
-        .fp-result-line strong.final-value { color: var(--primary-color); font-size: 1.4rem; background: #e6f0ff; padding: 4px 10px; border-radius: 6px; }
-
+        .fp-result-line { font-size: 1.1rem; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--card-border); text-align: center; color: var(--text-color); }
+        .fp-result-line strong.final-value { color: var(--primary-color); font-size: 1.4rem; background: var(--input-bg); padding: 4px 10px; border-radius: 6px; }
     </style>
 </head>
 <body>
 
-<!-- Seletor de Áreas Modernizado -->
-<div id="area-controls">
-    <span class="map-icon">🗺️</span>
-    <label for="area-select">Área:</label>
-    <select id="area-select" onchange="mudarArea()">
-        <option value="Paranoa.svg">Paranoá</option>
-        <option value="Vicente.svg">Vicente Pires</option>
-        <option value="Vale do Amanhecer.svg">Vale do Amanhecer</option>
-    </select>
+<!-- Barra de Controles Superior -->
+<div id="top-controls">
+    <div class="control-card">
+        <span aria-hidden="true">🗺️</span>
+        <label for="area-select">Área:</label>
+        <select id="area-select" onchange="mudarArea()">
+            <option value="Paranoa.svg">Paranoá</option>
+            <option value="Vicente.svg">Vicente Pires</option>
+            <option value="Vale do Amanhecer.svg">Vale do Amanhecer</option>
+        </select>
+    </div>
+
+    <!-- Campo de Pesquisa -->
+    <div class="control-card">
+        <span aria-hidden="true">🔍</span>
+        <input type="text" id="search-input" placeholder="Buscar VRP/Macro..." list="equipamentos-list" onkeydown="verificarEnterBusca(event)" oninput="verificarSelecaoDatalist(event)">
+        <datalist id="equipamentos-list"></datalist>
+    </div>
 </div>
 
 <!-- Controles de Zoom -->
 <div id="zoom-controls">
     <button class="zoom-btn" onclick="zoomIn()" title="Aumentar Zoom">+</button>
-    <button class="zoom-btn" onclick="resetZoom()" title="Resetar Visão" style="font-size: 1.2rem;">⌂</button>
+    <button class="zoom-btn" onclick="resetZoom()" title="Resetar Visão">⌂</button>
     <button class="zoom-btn" onclick="zoomOut()" title="Diminuir Zoom">−</button>
 </div>
 
-<!-- Controles do Canto Inferior Esquerdo (Legenda e Logo CAESB) -->
+<!-- Controles Inferiores Esquerdos -->
 <div id="bottom-left-controls">
-    
-    <!-- Popover da Legenda -->
     <div id="legenda-popover">
         <button class="close-legenda-btn" onclick="fecharLegenda()" title="Fechar Legenda">&times;</button>
         <img src="Legenda.svg" alt="Legenda dos Fluxogramas" class="img-legenda">
     </div>
 
-    <!-- Botão para exibir a Legenda -->
-    <button id="btn-legenda" onclick="abrirLegenda()">
-        Ver Legenda
-    </button>
+    <button id="btn-legenda" onclick="abrirLegenda()">Ver Legenda</button>
 
-    <!-- Informações da Área e Logo CAESB Original -->
     <div id="footer-info">
         <img src="Logo-Caesb-Vertical-png.svg" alt="Logo CAESB" class="footer-logo" onerror="this.style.display='none'">
         <div class="footer-text">
-            <p><strong>PAN</strong> - Superintendência de Operação e Manutenção de Redes Centro</p>
-            <p><strong>PANP</strong> - Gerência de Operações de Redes Centro/Norte</p>
-            <p><strong>PANPP</strong> - Coordenadoria de Planejamento Operacional Centro/Norte</p>
+            <p><strong>PAN</strong> - Superintendência de Operação Centro</p>
+            <p><strong>PANP</strong> - Gerência de Operações Norte</p>
+            <p><strong>PANPP</strong> - Coordenadoria de Planejamento Operacional</p>
             <p><strong>CECOM</strong> - Centro de Controle da Manutenção</p>
         </div>
     </div>
-
 </div>
 
+<!-- Mapa -->
 <div id="map-container">
-    <!-- Indicador de Carregamento -->
     <div id="loading-container">
         <div class="loader"></div>
-        <p id="loading-text">A carregar o mapa...</p>
+        <p id="loading-text">Carregando mapa...</p>
     </div>
 
     <div id="svg-viewport">
-        <div id="svg-wrapper" style="opacity: 0;">
-            <!-- O SVG será injetado aqui -->
-        </div>
+        <div id="svg-wrapper" style="opacity: 0;"></div>
     </div>
 </div>
 
+<!-- Painel de Informações -->
 <div id="info-panel">
     <button class="panel-close-icon" onclick="closePanel()" title="Fechar">✕</button>
 
@@ -800,7 +503,6 @@
     </div>
 
     <div id="chart-section">
-        <!-- Container dinâmico para o Fator de Pesquisa acima do gráfico -->
         <div id="fator-pesquisa-container"></div>
         
         <div class="chart-header">
@@ -821,17 +523,17 @@
     </div>
 </div>
 
-<!-- Modal de Ampliação de Gráfico -->
+<!-- Modais -->
 <div id="chart-modal">
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="modal-title">Histórico Detalhado</h2>
             <div style="display: flex; gap: 12px; align-items: center;">
-                <button class="icon-btn" onclick="baixarDadosCSV()" style="padding: 6px 14px; background: #f0f0f0;" title="Baixar Dados (CSV)">
+                <button class="icon-btn" onclick="baixarDadosCSV()" style="padding: 6px 14px;" title="Baixar CSV">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                     <span style="margin-left: 8px; font-size: 0.85rem; font-weight: 600;">Baixar CSV</span>
                 </button>
-                <button class="icon-btn" onclick="baixarGrafico(true)" style="padding: 6px 14px; background: #f0f0f0;" title="Baixar Imagem">
+                <button class="icon-btn" onclick="baixarGrafico(true)" style="padding: 6px 14px;" title="Baixar PNG">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                     <span style="margin-left: 8px; font-size: 0.85rem; font-weight: 600;">Baixar PNG</span>
                 </button>
@@ -844,36 +546,25 @@
     </div>
 </div>
 
-<!-- Modal de Ampliação de Imagem -->
 <div id="image-modal" onclick="fecharModalImagem(event)">
     <span class="close-image-modal" onclick="fecharModalImagem(event)">&times;</span>
     <img id="expanded-image" src="" alt="Imagem Ampliada">
 </div>
 
-<!-- Modal do Fator de Pesquisa -->
 <div id="info-fp-modal" onclick="fecharModalInfoFP(event)">
     <div class="fp-modal-card" onclick="event.stopPropagation()">
         <span class="close-fp-modal" onclick="fecharModalInfoFP(event)">&times;</span>
         <h3>📊 O que é o Fator de Pesquisa?</h3>
-        
         <div class="fp-text">
-        O Fator de Pesquisa é um indicador que compara a vazão mínima durante a madrugada com a vazão média diária. Ele ajuda a identificar possíveis problemas no sistema de abastecimento de água, como vazamentos.
-        <br><br>
-        Quanto mais o valor do fator se aproxima de 1, maior é a possibilidade de existirem vazamentos na rede, indicando que uma pesquisa acústica pode trazer bons resultados. De forma geral, quando o Fator de Pesquisa é maior que <strong>0,30</strong>, o setor analisado possui uma grande chance de apresentar vazamentos que podem ser identificados e corrigidos de forma economicamente viável.
+        O Fator de Pesquisa compara a vazão mínima da madrugada (00h-06h) com a vazão média diária para identificar potenciais vazamentos na rede. Valores superiores a <strong>0,30</strong> indicam alto potencial para pesquisas acústicas.
         </div>
-
         <div class="fp-formula">
             <strong>Fórmula Aplicada:</strong><br><br>
-            FP = <span style="text-decoration: underline;">Vazão Mínima Noturna</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vazão Média Diária<br><br>
-            <em>(Média dos menores valores entre 00h-06h / Média geral de Vazão)</em>
+            FP = <span style="text-decoration: underline;">Vazão Mínima Noturna</span> / Vazão Média Diária
         </div>
-
         <div class="fp-memory-box">
             <h4>Memória de Cálculo: <span id="fp-modal-equip-name" style="color: var(--primary-color);"></span></h4>
-            <div id="fp-memory-content">
-                <!-- Conteúdo gerado dinamicamente no JavaScript -->
-            </div>
+            <div id="fp-memory-content"></div>
         </div>
     </div>
 </div>
@@ -895,7 +586,7 @@
     let svgFileName = 'Paranoa.svg'; 
     const csvFileName = 'consolidado_monitoramento.csv';
 
-    let scale = 1;
+    let scale = 0.4;
     let isDragging = false;
     let startX = 0, startY = 0;
     let lastTranslateXPx = 0, lastTranslateYPx = 0;
@@ -903,33 +594,27 @@
     let currentChart = null;
     let expandedChart = null;
     let lastChartData = null;
-
     let htmlMemoriaCalculo = ''; 
 
-    // --- FUNÇÕES DA NOVA LEGENDA ---
     function abrirLegenda() {
         document.getElementById('legenda-popover').style.display = 'block';
         document.getElementById('btn-legenda').style.display = 'none';
     }
-
     function fecharLegenda() {
         document.getElementById('legenda-popover').style.display = 'none';
         document.getElementById('btn-legenda').style.display = 'flex';
     }
 
-    // --- Controles de Carregamento ---
     function mostrarCarregamento(mensagem = "A carregar...") {
         loadingText.innerText = mensagem;
         loadingContainer.style.display = 'flex';
         svgWrapper.style.opacity = '0';
     }
-
     function ocultarCarregamento() {
         loadingContainer.style.display = 'none';
         svgWrapper.style.opacity = '1';
     }
 
-    // --- Controles de Área ---
     function mudarArea() {
         const select = document.getElementById('area-select');
         svgFileName = select.value;
@@ -939,24 +624,38 @@
         carregarSVG();
     }
 
-    // --- Controles de Zoom ---
-    function zoomIn() {
-        scale = Math.min(scale * 1.3, 10);
-        updateTransform();
+    function zoomIn() { scale = Math.min(scale * 1.3, 10); updateTransform(); }
+    function zoomOut() { scale = Math.max(scale / 1.3, 0.05); updateTransform(); }
+    function resetZoom() { scale = 0.4; lastTranslateXPx = 0; lastTranslateYPx = 0; updateTransform(); }
+    function updateTransform() {
+        svgWrapper.style.transform = `translate(-50%, -50%) translate(${lastTranslateXPx}px, ${lastTranslateYPx}px) scale(${scale})`;
     }
 
-    function zoomOut() {
-        scale = Math.max(scale / 1.3, 0.05);
-        updateTransform();
-    }
+    svgViewport.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        isDragging = true;
+        svgViewport.classList.add('dragging');
+        startX = e.clientX; startY = e.clientY;
+    });
 
-    function resetZoom() {
-        ajustarTamanhoInicial();
-        lastTranslateXPx = 0;
-        lastTranslateYPx = 0;
+    window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        lastTranslateXPx += e.clientX - startX;
+        lastTranslateYPx += e.clientY - startY;
+        startX = e.clientX; startY = e.clientY;
         updateTransform();
-    }
+    });
 
+    window.addEventListener('pointerup', () => { isDragging = false; svgViewport.classList.remove('dragging'); });
+
+    svgViewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const factor = Math.exp(-e.deltaY * 0.001);
+        scale = Math.min(Math.max(scale * factor, 0.05), 10);
+        updateTransform();
+    }, { passive: false });
+
+    // --- LEITURA DE CSV & GRÁFICOS ---
     async function atualizarGrafico(nomenclatura, nomMacro) {
         if (!nomenclatura && !nomMacro) return;
         try {
@@ -978,11 +677,10 @@
 
                 const tagCsv = cols[0].trim();
                 const vrpCsv = cols[1].trim();
-                
                 const caracteristica = cols[2].trim().toLowerCase(); 
                 const tempo = cols[3].trim();
-                
                 const valor = parseFloat(cols[4].replace(',', '.'));
+
                 if (isNaN(valor)) continue; 
 
                 const matchPressao = nomenclatura && (vrpCsv === nomenclatura || tagCsv === nomenclatura);
@@ -992,57 +690,40 @@
                     if (!groupedData[tempo]) {
                         groupedData[tempo] = { montante: null, jusante: null, vazao: null };
                     }
-
                     if (caracteristica.includes('montante') && matchPressao) {
                         groupedData[tempo].montante = valor;
                     } else if (caracteristica.includes('jusante') && matchPressao) {
                         groupedData[tempo].jusante = valor;
                     } else if (caracteristica.includes('vaz')) {
-                        if (matchVazao || matchPressao) {
-                            groupedData[tempo].vazao = valor;
-                        }
+                        if (matchVazao || matchPressao) groupedData[tempo].vazao = valor;
                     }
                 }
             }
 
             const sortedTimes = Object.keys(groupedData).sort();
-            const labels = [];
-            const dataMontante = [];
-            const dataJusante = [];
-            const dataVazao = [];
-
-            let somaVazaoGeral = 0;
-            let contVazaoGeral = 0;
-            let vazoesNoturnasPorDia = {};
+            const labels = [], dataMontante = [], dataJusante = [], dataVazao = [];
+            let somaVazaoGeral = 0, contVazaoGeral = 0, vazoesNoturnasPorDia = {};
 
             sortedTimes.forEach(tempo => {
                 const d = new Date(tempo);
-                const lbl = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+                const lbl = isNaN(d.getTime()) ? tempo : `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
                 labels.push(lbl);
                 
-                const valMontante = groupedData[tempo].montante;
-                const valJusante = groupedData[tempo].jusante;
-                const valVazao = groupedData[tempo].vazao;
+                dataMontante.push(groupedData[tempo].montante);
+                dataJusante.push(groupedData[tempo].jusante);
+                dataVazao.push(groupedData[tempo].vazao);
 
-                dataMontante.push(valMontante);
-                dataJusante.push(valJusante);
-                dataVazao.push(valVazao);
-
-                if (valVazao !== null && valVazao !== undefined && !isNaN(valVazao)) {
-                    somaVazaoGeral += valVazao;
+                if (groupedData[tempo].vazao !== null && !isNaN(groupedData[tempo].vazao)) {
+                    somaVazaoGeral += groupedData[tempo].vazao;
                     contVazaoGeral++;
                     
                     let partesTempo = tempo.split(' '); 
                     if (partesTempo.length === 2) {
                         let dataPart = partesTempo[0]; 
-                        let horaStr = partesTempo[1].split(':')[0]; 
-                        let hora = parseInt(horaStr, 10);
-                        
+                        let hora = parseInt(partesTempo[1].split(':')[0], 10);
                         if (hora >= 0 && hora <= 6) {
-                            if (!vazoesNoturnasPorDia[dataPart]) {
-                                vazoesNoturnasPorDia[dataPart] = [];
-                            }
-                            vazoesNoturnasPorDia[dataPart].push(valVazao);
+                            if (!vazoesNoturnasPorDia[dataPart]) vazoesNoturnasPorDia[dataPart] = [];
+                            vazoesNoturnasPorDia[dataPart].push(groupedData[tempo].vazao);
                         }
                     }
                 }
@@ -1050,45 +731,33 @@
 
             if (contVazaoGeral > 0) {
                 let mediaVazaoGeral = somaVazaoGeral / contVazaoGeral;
-                let menoresVazoesNoturnas = [];
-                let detalheDiasHtml = "";
+                let menoresVazoesNoturnas = [], detalheDiasHtml = "";
                 
                 for (let dia in vazoesNoturnasPorDia) {
                     let menorDoDia = Math.min(...vazoesNoturnasPorDia[dia]);
                     menoresVazoesNoturnas.push(menorDoDia);
-
                     let partesDia = dia.split('-');
                     let diaFormatado = partesDia.length === 3 ? `${partesDia[2]}/${partesDia[1]}/${partesDia[0]}` : dia;
-                    
                     detalheDiasHtml += `<li>Dia ${diaFormatado}: <strong>${menorDoDia.toFixed(2)}</strong></li>`;
                 }
                 
-                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0 && !isNaN(mediaVazaoGeral)) {
+                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0) {
                     let mediaMenoresNoturnas = menoresVazoesNoturnas.reduce((a, b) => a + b, 0) / menoresVazoesNoturnas.length;
                     let fatorPesquisa = mediaMenoresNoturnas / mediaVazaoGeral;
                     
                     htmlMemoriaCalculo = `
                         <ul>
-                            <li><strong>Vazão Média Diária (Geral):</strong> ${mediaVazaoGeral.toFixed(2)}</li>
-                            <li><strong>Mínimas Noturnas Identificadas (00h às 06h):</strong>
-                                <ul style="margin-top: 6px; margin-bottom: 6px;">
-                                    ${detalheDiasHtml}
-                                </ul>
-                            </li>
+                            <li><strong>Vazão Média Diária:</strong> ${mediaVazaoGeral.toFixed(2)}</li>
+                            <li><strong>Mínimas Noturnas (00h-06h):</strong><ul style="margin: 6px 0;">${detalheDiasHtml}</ul></li>
                             <li><strong>Média das Mínimas Noturnas:</strong> ${mediaMenoresNoturnas.toFixed(2)}</li>
                         </ul>
-                        <div class="fp-result-line">
-                            Resultado: ${mediaMenoresNoturnas.toFixed(2)} / ${mediaVazaoGeral.toFixed(2)} = <strong class="final-value">${fatorPesquisa.toFixed(3)}</strong>
-                        </div>
+                        <div class="fp-result-line">Resultado: <strong class="final-value">${fatorPesquisa.toFixed(3)}</strong></div>
                     `;
 
                     if (fpContainer) {
                         fpContainer.innerHTML = `
                             <div class="data-row fator-pesquisa-row" style="margin-bottom: 20px;">
-                                <div class="data-label" title="Média dos menores valores entre 00h-06h / Média geral de Vazão">
-                                    📊 Fator de Pesquisa 
-                                    <i class="info-icon" onclick="abrirModalInfoFP()" title="Ver Memória de Cálculo e Explicação">i</i>
-                                </div>
+                                <div class="data-label">📊 Fator de Pesquisa <i class="info-icon" onclick="abrirModalInfoFP()">i</i></div>
                                 <div class="data-value">${fatorPesquisa.toFixed(3)}</div>
                             </div>
                         `;
@@ -1100,14 +769,7 @@
                 let titleParts = [];
                 if (nomenclatura) titleParts.push(nomenclatura);
                 if (nomMacro && nomMacro !== nomenclatura) titleParts.push(nomMacro);
-                
-                lastChartData = { 
-                    labels, 
-                    montante: dataMontante, 
-                    jusante: dataJusante, 
-                    vazao: dataVazao, 
-                    title: titleParts.join(' / ') 
-                };
+                lastChartData = { labels, montante: dataMontante, jusante: dataJusante, vazao: dataVazao, title: titleParts.join(' / ') };
                 renderizarCanvas('pressureChart', lastChartData);
                 chartSection.style.display = 'block';
             } else {
@@ -1120,88 +782,32 @@
         }
     }
 
-    function abrirModalInfoFP() {
-        document.getElementById('fp-modal-equip-name').innerText = document.getElementById('item-nome').innerText;
-        document.getElementById('fp-memory-content').innerHTML = htmlMemoriaCalculo || '<p>Dados insuficientes para gerar a memória de cálculo.</p>';
-        fpModal.style.display = 'flex';
-    }
-
-    function fecharModalInfoFP(event) {
-        if (!event || event.target.id === 'info-fp-modal' || event.target.classList.contains('close-fp-modal')) {
-            fpModal.style.display = 'none';
-        }
-    }
-
     function renderizarCanvas(canvasId, chartData, isExpanded = false) {
         const ctx = document.getElementById(canvasId).getContext('2d');
         const datasets = [];
-        const hasVazao = chartData.vazao && chartData.vazao.some(v => v !== null);
-        
+        const textColor = '#333333';
+        const gridColor = 'rgba(0,0,0,0.06)';
+
         if (chartData.montante.some(v => v !== null)) {
-            datasets.push({
-                label: 'Montante',
-                data: chartData.montante,
-                yAxisID: 'y',
-                borderColor: '#0056b3',
-                backgroundColor: 'rgba(0, 86, 179, 0.08)',
-                borderWidth: isExpanded ? 3 : 2,
-                pointRadius: isExpanded ? 3 : 0,
-                tension: 0.3,
-                fill: true
-            });
+            datasets.push({ label: 'Montante', data: chartData.montante, borderColor: '#0056b3', backgroundColor: 'rgba(0, 86, 179, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true });
         }
-
         if (chartData.jusante.some(v => v !== null)) {
-            datasets.push({
-                label: 'Jusante',
-                data: chartData.jusante,
-                yAxisID: 'y',
-                borderColor: '#ff4d4d',
-                backgroundColor: 'rgba(255, 77, 77, 0.08)',
-                borderWidth: isExpanded ? 3 : 2,
-                pointRadius: isExpanded ? 3 : 0,
-                tension: 0.3,
-                fill: true
-            });
+            datasets.push({ label: 'Jusante', data: chartData.jusante, borderColor: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true });
         }
-
-        if (hasVazao) {
-            datasets.push({
-                label: 'Vazão',
-                data: chartData.vazao,
-                yAxisID: 'y',
-                borderColor: '#2e7d32',
-                backgroundColor: 'rgba(46, 125, 50, 0.08)',
-                borderWidth: isExpanded ? 3 : 2,
-                pointRadius: isExpanded ? 3 : 0,
-                tension: 0.3,
-                fill: true
-            });
+        if (chartData.vazao && chartData.vazao.some(v => v !== null)) {
+            datasets.push({ label: 'Vazão', data: chartData.vazao, borderColor: '#2e7d32', backgroundColor: 'rgba(46, 125, 50, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true });
         }
 
         const config = {
-            type: 'line',
-            data: {
-                labels: chartData.labels,
-                datasets: datasets
-            },
+            type: 'line', data: { labels: chartData.labels, datasets },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
+                responsive: true, maintainAspectRatio: false,
                 interaction: { intersect: false, mode: 'index' },
                 scales: {
-                    x: { ticks: { maxTicksLimit: isExpanded ? 20 : 6, font: { size: 10 } } },
-                    y: { 
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        beginAtZero: true, 
-                        title: { display: true, text: 'Valor', font: { weight: 'bold' } } 
-                    }
+                    x: { ticks: { maxTicksLimit: isExpanded ? 20 : 6, color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
+                    y: { beginAtZero: true, ticks: { color: textColor }, grid: { color: gridColor }, title: { display: true, text: 'Valor', color: textColor, font: { weight: 'bold' } } }
                 },
-                plugins: {
-                    legend: { position: 'bottom' }
-                }
+                plugins: { legend: { labels: { color: textColor }, position: 'bottom' } }
             }
         };
 
@@ -1214,72 +820,58 @@
         }
     }
 
+    function abrirModalInfoFP() {
+        document.getElementById('fp-modal-equip-name').innerText = document.getElementById('item-nome').innerText;
+        document.getElementById('fp-memory-content').innerHTML = htmlMemoriaCalculo || '<p>Dados insuficientes.</p>';
+        fpModal.style.display = 'flex';
+    }
+    function fecharModalInfoFP(event) { if (!event || event.target.id === 'info-fp-modal' || event.target.classList.contains('close-fp-modal')) fpModal.style.display = 'none'; }
     function abrirModalGrafico() {
         if (!lastChartData) return;
         document.getElementById('modal-title').innerText = `Histórico Detalhado: ${lastChartData.title}`;
         chartModal.style.display = 'flex';
-        setTimeout(() => {
-            renderizarCanvas('expandedChart', lastChartData, true);
-        }, 100);
+        setTimeout(() => { renderizarCanvas('expandedChart', lastChartData, true); }, 100);
     }
-
     function fecharModalGrafico() { chartModal.style.display = 'none'; }
-
     function abrirModalImagem() {
         const src = imgElement.src;
         if (!src || src.endsWith('null') || src === '') return;
         document.getElementById('expanded-image').src = src;
         imageModal.style.display = 'flex';
     }
-
-    function fecharModalImagem(event) {
-        if (event.target.id === 'image-modal' || event.target.classList.contains('close-image-modal')) {
-            imageModal.style.display = 'none';
-        }
-    }
+    function fecharModalImagem(event) { if (!event || event.target.id === 'image-modal' || event.target.classList.contains('close-image-modal')) imageModal.style.display = 'none'; }
 
     function baixarGrafico(fromModal = false) {
         if (!lastChartData) return;
         const canvas = document.getElementById(fromModal ? 'expandedChart' : 'pressureChart');
         const link = document.createElement('a');
-        const cleanTitle = (lastChartData.title || 'equipamento').replace(/[^a-zA-Z0-9.-]/g, '_');
-        link.download = `grafico_${cleanTitle}.png`;
+        link.download = `grafico_${(lastChartData.title || 'equipamento').replace(/[^a-zA-Z0-9.-]/g, '_')}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
     }
 
     function baixarDadosCSV() {
         if (!lastChartData) return;
-
         let csvContent = "Data/Hora;Montante;Jusante;Vazao\n";
-
         for (let i = 0; i < lastChartData.labels.length; i++) {
             const tempo = lastChartData.labels[i];
-            
-            const montante = lastChartData.montante[i] !== null && lastChartData.montante[i] !== undefined 
-                             ? lastChartData.montante[i].toString().replace('.', ',') : '';
-            const jusante = lastChartData.jusante[i] !== null && lastChartData.jusante[i] !== undefined 
-                             ? lastChartData.jusante[i].toString().replace('.', ',') : '';
-            const vazao = lastChartData.vazao[i] !== null && lastChartData.vazao[i] !== undefined 
-                             ? lastChartData.vazao[i].toString().replace('.', ',') : '';
-            
+            const montante = lastChartData.montante[i] !== null && lastChartData.montante[i] !== undefined ? lastChartData.montante[i].toString().replace('.', ',') : '';
+            const jusante = lastChartData.jusante[i] !== null && lastChartData.jusante[i] !== undefined ? lastChartData.jusante[i].toString().replace('.', ',') : '';
+            const vazao = lastChartData.vazao[i] !== null && lastChartData.vazao[i] !== undefined ? lastChartData.vazao[i].toString().replace('.', ',') : '';
             csvContent += `${tempo};${montante};${jusante};${vazao}\n`;
         }
-
         const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' }); 
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        const cleanTitle = (lastChartData.title || 'equipamento').replace(/[^a-zA-Z0-9.-]/g, '_');
-        
         link.setAttribute('href', url);
-        link.setAttribute('download', `dados_exportados_${cleanTitle}.csv`);
+        link.setAttribute('download', `dados_${(lastChartData.title || 'equipamento').replace(/[^a-zA-Z0-9.-]/g, '_')}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 
     function carregarSVG() {
-        mostrarCarregamento("A carregar o mapa...");
+        mostrarCarregamento("Carregando mapa...");
         fetch(svgFileName)
             .then(res => {
                 if (!res.ok) throw new Error("SVG não encontrado");
@@ -1287,13 +879,13 @@
             })
             .then(svgData => {
                 svgWrapper.innerHTML = svgData;
-                ajustarTamanhoInicial();
-                updateTransform();
+                resetZoom();
                 ativarInteratividade();
+                atualizarDatalistBusca();
                 ocultarCarregamento();
             })
             .catch(err => {
-                console.error("Erro a carregar SVG", err);
+                console.error("Erro ao carregar SVG", err);
                 mostrarCarregamento("Erro ao carregar o mapa SVG.");
                 document.querySelector('.loader').style.display = 'none'; 
             });
@@ -1348,12 +940,8 @@
 
                 const campos = document.getElementById('campos-dinamicos');
                 let html = '';
-                
                 const add = (l, v) => {
-                    if (v) {
-                        const icon = obterIconeCampo(l);
-                        html += `<div class="data-row"><div class="data-label">${icon} ${l}</div><div class="data-value">${v}</div></div>`;
-                    }
+                    if (v) html += `<div class="data-row"><div class="data-label">${obterIconeCampo(l)} ${l}</div><div class="data-value">${v}</div></div>`;
                 };
 
                 if (equip?.includes('VRP')) {
@@ -1387,47 +975,16 @@
         });
     }
 
-    function ajustarTamanhoInicial() {
-        scale = 0.4;
-        updateTransform();
-    }
-
-    function updateTransform() {
-        svgWrapper.style.transform = `translate(-50%, -50%) translate(${lastTranslateXPx}px, ${lastTranslateYPx}px) scale(${scale})`;
-    }
-
     function closePanel() {
         panel.classList.remove('active');
         removerDestaques();
     }
 
     function removerDestaques() {
-        document.querySelectorAll('.highlight-blink').forEach(el => el.classList.remove('highlight-blink'));
+        document.querySelectorAll('.highlight-blink, .search-highlight-target').forEach(el => {
+            el.classList.remove('highlight-blink', 'search-highlight-target');
+        });
     }
-
-    svgViewport.addEventListener('mousedown', (e) => {
-        if (e.button !== 0) return;
-        isDragging = true;
-        svgViewport.classList.add('dragging');
-        startX = e.clientX; startY = e.clientY;
-    });
-
-    window.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        lastTranslateXPx += e.clientX - startX;
-        lastTranslateYPx += e.clientY - startY;
-        startX = e.clientX; startY = e.clientY;
-        updateTransform();
-    });
-
-    window.addEventListener('mouseup', () => { isDragging = false; svgViewport.classList.remove('dragging'); });
-
-    svgViewport.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const factor = Math.exp(-e.deltaY * 0.001);
-        scale = Math.min(Math.max(scale * factor, 0.05), 10);
-        updateTransform();
-    }, { passive: false });
 
     function destacarConexoesEmCadeia(el) {
         const id = el.dataset.nomenclatura || el.dataset.id;
@@ -1447,11 +1004,116 @@
         }
     }
 
+    // --- PREENCHE SUGESTÕES DE BUSCA (APENAS NOMENCLATURA LIMPA) ---
+    function atualizarDatalistBusca() {
+        const datalist = document.getElementById('equipamentos-list');
+        if (!datalist) return;
+        datalist.innerHTML = '';
+        const itens = new Set();
+
+        document.querySelectorAll('.interactive-element').forEach(el => {
+            const nom = (el.dataset.nomenclatura || el.dataset.id || '').trim();
+            if (nom) {
+                itens.add(nom);
+            } else if (el.dataset.nome) {
+                itens.add(el.dataset.nome.trim());
+            }
+        });
+
+        Array.from(itens).sort().forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item;
+            datalist.appendChild(opt);
+        });
+    }
+
+    // --- LÓGICA DE BUSCA ---
+    function verificarEnterBusca(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            executarBuscaComZoom(event.target.value);
+        }
+    }
+
+    function verificarSelecaoDatalist(event) {
+        const valor = event.target.value.trim();
+        const datalist = document.getElementById('equipamentos-list');
+        if (!datalist || !valor) return;
+
+        const opcoes = Array.from(datalist.options).map(opt => opt.value);
+        if (opcoes.includes(valor)) {
+            executarBuscaComZoom(valor);
+        }
+    }
+
+    function executarBuscaComZoom(termo) {
+        removerDestaques();
+        if (!termo || !termo.trim()) return;
+
+        const busca = termo.toLowerCase().trim();
+        let elementoEncontrado = null;
+
+        document.querySelectorAll('.interactive-element').forEach(el => {
+            const id = (el.dataset.nomenclatura || el.dataset.id || '').toLowerCase().trim();
+            const nome = (el.dataset.nome || '').toLowerCase().trim();
+            const vrp = (el.dataset.nomenclaturaVrp || '').toLowerCase().trim();
+            const macro = (el.dataset.nomenclaturaMacro || '').toLowerCase().trim();
+
+            if (!elementoEncontrado) {
+                if (id === busca || vrp === busca || macro === busca) {
+                    elementoEncontrado = el;
+                } else if (nome === busca) {
+                    elementoEncontrado = el;
+                } else if (id.includes(busca) || nome.includes(busca)) {
+                    elementoEncontrado = el;
+                }
+            }
+        });
+
+        if (elementoEncontrado) {
+            centralizarEDestacarElemento(elementoEncontrado);
+        }
+    }
+
+    function centralizarEDestacarElemento(el) {
+        if (!el) return;
+
+        removerDestaques();
+        el.classList.add('search-highlight-target');
+
+        scale = 2.5;
+
+        svgWrapper.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        updateTransform();
+
+        requestAnimationFrame(() => {
+            const viewportRect = svgViewport.getBoundingClientRect();
+            const elRect = el.getBoundingClientRect();
+
+            const viewportCenterX = viewportRect.left + viewportRect.width / 2;
+            const viewportCenterY = viewportRect.top + viewportRect.height / 2;
+            const elCenterX = elRect.left + elRect.width / 2;
+            const elCenterY = elRect.top + elRect.height / 2;
+
+            lastTranslateXPx += (viewportCenterX - elCenterX);
+            lastTranslateYPx += (viewportCenterY - elCenterY);
+
+            updateTransform();
+
+            el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+
+            setTimeout(() => {
+                svgWrapper.style.transition = 'opacity 0.3s';
+            }, 600);
+        });
+    }
+
     window.onload = carregarSVG;
     
     window.onclick = (e) => { 
         if (e.target == chartModal) fecharModalGrafico(); 
         if (e.target == fpModal) fecharModalInfoFP(); 
+        if (e.target == imageModal) fecharModalImagem();
     }
 </script>
 
