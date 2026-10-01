@@ -662,7 +662,7 @@
             if (fpContainer) fpContainer.innerHTML = '';
             htmlMemoriaCalculo = ''; 
             
-            const response = await fetch(csvFileName);
+            const response = await fetch(`${csvFileName}?t=${Date.now()}`, { cache: 'no-store' });
             if (!response.ok) throw new Error("Erro ao carregar CSV");
             
             const text = await response.text();
