@@ -821,7 +821,7 @@
                     let fatorPesquisa = mediaMenoresNoturnas / mediaVazaoGeral;
                     
                     // Condição de Alarme (FP >= 0.6)
-                    const emAlerta = fatorPesquisa >= 0.6;
+                    const emAlerta = fatorPesquisa >= 0.4;
                     const corDestaque = emAlerta ? '#dc3545' : 'var(--primary-color)';
 
                     htmlMemoriaCalculo = `
@@ -1321,7 +1321,7 @@ function destacarElementosEmAlertaNoSVG() {
             fpMacro !== undefined ? fpMacro : -1
         );
 
-        if (maiorFP >= 0.6) {
+        if (maiorFP >= 0.4) {
             el.classList.add('svg-fp-alerta');
             // Tooltip nativo do navegador ao passar o mouse por cima
             el.setAttribute('title', `🚨 ALERTA: Fator de Pesquisa Crítico (${maiorFP.toFixed(3)})`);
