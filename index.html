@@ -252,12 +252,24 @@
         #svg-viewport.dragging { cursor: grabbing; }
 
         #svg-wrapper {
-            position: absolute; left: 50%; top: 50%;
-            will-change: transform; transition: opacity 0.3s;
-        }
-
-        #svg-wrapper svg { display: block; background: transparent; overflow: visible; }
-
+    position: absolute; 
+    left: 50%; 
+    top: 50%;
+    /* REMOVA: will-change: transform; */
+    transition: opacity 0.3s;
+}
+#svg-wrapper svg { 
+    display: block; 
+    background: transparent; 
+    overflow: visible; 
+    /* Força nitidez máxima em vetores e textos */
+    shape-rendering: geometricPrecision;
+    text-rendering: geometricPrecision;
+}
+#svg-wrapper svg image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
         .interactive-element { cursor: pointer; transition: all 0.2s ease-in-out; }
         .interactive-element:hover { filter: drop-shadow(2px 4px 6px rgba(0, 86, 179, 0.6)) brightness(0.85); }
 
@@ -292,7 +304,29 @@
             animation: pulseSearchTarget 1s ease-in-out infinite !important;
             z-index: 999 !important;
         }
+/* --- ALARME VISUAL NO FLUXOGRAMA SVG (FP >= 0.6) --- */
+@keyframes pulsoSvgAlarme {
+    0% {
+        stroke: #dc3545 !important;
+        stroke-width: 3px !important;
+        filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
+    }
+    50% {
+        stroke: #ff1744 !important;
+        stroke-width: 5px !important;
+        filter: drop-shadow(0 0 14px #ff1744) drop-shadow(0 0 24px rgba(255, 23, 68, 0.8));
+    }
+    100% {
+        stroke: #dc3545 !important;
+        stroke-width: 3px !important;
+        filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
+    }
+}
 
+.svg-fp-alerta {
+    animation: pulsoSvgAlarme 1.4s ease-in-out infinite !important;
+    cursor: pointer;
+}
         /* --- Painel Lateral --- */
         #info-panel {
             width: 380px; max-width: 100vw;
@@ -365,7 +399,48 @@
 
         .fator-pesquisa-row { background-color: var(--row-bg) !important; border-color: var(--primary-color) !important; }
         .fator-pesquisa-row .data-value { color: var(--primary-color); font-weight: bold; }
+        /* --- ALARME FATOR DE PESQUISA (>= 0.6) --- */
+.fp-alerta-box {
+    background-color: #fff5f5 !important;
+    border: 2px solid #dc3545 !important;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.25);
+    animation: pulsoAlerta 2s infinite ease-in-out;
+}
 
+.fp-alerta-box .data-value {
+    color: #dc3545 !important;
+    font-weight: 800 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fp-badge-alerta {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.fp-aviso-texto {
+    font-size: 0.78rem;
+    color: #b02a37;
+    margin-top: 6px;
+    line-height: 1.3;
+    font-weight: 500;
+    border-top: 1px dashed rgba(220, 53, 69, 0.3);
+    padding-top: 6px;
+}
+
+@keyframes pulsoAlerta {
+    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(220, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
         .info-icon { 
             cursor: pointer; display: inline-flex; align-items: center; justify-content: center; 
             width: 20px; height: 20px; border-radius: 50%; background-color: var(--primary-color); 
@@ -741,26 +816,56 @@
                     detalheDiasHtml += `<li>Dia ${diaFormatado}: <strong>${menorDoDia.toFixed(2)}</strong></li>`;
                 }
                 
-                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0) {
+                                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0) {
                     let mediaMenoresNoturnas = menoresVazoesNoturnas.reduce((a, b) => a + b, 0) / menoresVazoesNoturnas.length;
                     let fatorPesquisa = mediaMenoresNoturnas / mediaVazaoGeral;
                     
+                    // Condição de Alarme (FP >= 0.6)
+                    const emAlerta = fatorPesquisa >= 0.6;
+                    const corDestaque = emAlerta ? '#dc3545' : 'var(--primary-color)';
+
                     htmlMemoriaCalculo = `
                         <ul>
                             <li><strong>Vazão Média Diária:</strong> ${mediaVazaoGeral.toFixed(2)}</li>
                             <li><strong>Mínimas Noturnas (00h-06h):</strong><ul style="margin: 6px 0;">${detalheDiasHtml}</ul></li>
                             <li><strong>Média das Mínimas Noturnas:</strong> ${mediaMenoresNoturnas.toFixed(2)}</li>
                         </ul>
-                        <div class="fp-result-line">Resultado: <strong class="final-value">${fatorPesquisa.toFixed(3)}</strong></div>
+                        <div class="fp-result-line">
+                            Resultado: <strong class="final-value" style="color: ${corDestaque};">${fatorPesquisa.toFixed(3)}</strong>
+                            ${emAlerta ? '<div style="color: #dc3545; font-size: 0.85rem; font-weight: bold; margin-top: 8px;">⚠️ ALERTA: Fator de Pesquisa Crítico (≥ 0.60)</div>' : ''}
+                        </div>
                     `;
 
                     if (fpContainer) {
-                        fpContainer.innerHTML = `
-                            <div class="data-row fator-pesquisa-row" style="margin-bottom: 20px;">
-                                <div class="data-label">📊 Fator de Pesquisa <i class="info-icon" onclick="abrirModalInfoFP()">i</i></div>
-                                <div class="data-value">${fatorPesquisa.toFixed(3)}</div>
-                            </div>
-                        `;
+                        if (emAlerta) {
+                            // Card com ALARME ATIVO
+                            fpContainer.innerHTML = `
+                                <div class="data-row fator-pesquisa-row fp-alerta-box" style="margin-bottom: 20px;">
+                                    <div class="data-label" style="color: #dc3545;">
+                                        ⚠️ Fator de Pesquisa
+                                        <i class="info-icon" style="background-color: #dc3545;" onclick="abrirModalInfoFP()">i</i>
+                                    </div>
+                                    <div class="data-value">
+                                        <span>${fatorPesquisa.toFixed(3)}</span>
+                                        <span class="fp-badge-alerta">🚨 ALERTA CRÍTICO</span>
+                                    </div>
+                                    <div class="fp-aviso-texto">
+                                        Vazão noturna elevada em relação à média diária. Recomenda-se varredura acústica imediata para localização de vazamentos.
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            // Card NORMAL (FP < 0.6)
+                            fpContainer.innerHTML = `
+                                <div class="data-row fator-pesquisa-row" style="margin-bottom: 20px;">
+                                    <div class="data-label">
+                                        📊 Fator de Pesquisa 
+                                        <i class="info-icon" onclick="abrirModalInfoFP()">i</i>
+                                    </div>
+                                    <div class="data-value">${fatorPesquisa.toFixed(3)}</div>
+                                </div>
+                            `;
+                        }
                     }
                 }
             }
@@ -870,9 +975,9 @@
         document.body.removeChild(link);
     }
 
-    function carregarSVG() {
+        function carregarSVG() {
         mostrarCarregamento("Carregando mapa...");
-        fetch(svgFileName)
+        fetch(`${svgFileName}?t=${Date.now()}`, { cache: 'no-store' }) // com cache-busting
             .then(res => {
                 if (!res.ok) throw new Error("SVG não encontrado");
                 return res.text();
@@ -882,6 +987,10 @@
                 resetZoom();
                 ativarInteratividade();
                 atualizarDatalistBusca();
+                
+                // DISPARA A ANÁLISE DOS ALARMES NO FLUXOGRAMA
+                aplicarAlarmesNoFluxograma();
+
                 ocultarCarregamento();
             })
             .catch(err => {
@@ -1115,6 +1224,112 @@
         if (e.target == fpModal) fecharModalInfoFP(); 
         if (e.target == imageModal) fecharModalImagem();
     }
+    // Dicionário global para guardar os fatores de pesquisa calculados { [nomenclatura]: valorFP }
+let fatoresPesquisaCalculados = {};
+
+// Função que lê o CSV, calcula o FP de todos os equipamentos de uma vez e aplica o alarme no SVG
+async function aplicarAlarmesNoFluxograma() {
+    try {
+        const response = await fetch(`${csvFileName}?t=${Date.now()}`, { cache: 'no-store' });
+        if (!response.ok) return;
+
+        const text = await response.text();
+        const lines = text.split('\n');
+
+        // Agrupamento de vazões por identificador (VRP ou TAG)
+        const vazoesPorEquip = {};
+
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            const cols = line.split(';');
+            if (cols.length < 5) continue;
+
+            const tagCsv = cols[0].trim();
+            const vrpCsv = cols[1].trim();
+            const caracteristica = cols[2].trim().toLowerCase();
+            const tempo = cols[3].trim();
+            const valor = parseFloat(cols[4].replace(',', '.'));
+
+            if (isNaN(valor)) continue;
+
+            // Interessa apenas medições de vazão
+            if (caracteristica.includes('vaz')) {
+                const ids = [vrpCsv, tagCsv].filter(Boolean);
+                ids.forEach(id => {
+                    if (!vazoesPorEquip[id]) vazoesPorEquip[id] = [];
+                    vazoesPorEquip[id].push({ tempo, valor });
+                });
+            }
+        }
+
+        fatoresPesquisaCalculados = {};
+
+        // Calcula o FP para cada equipamento encontrado no CSV
+        for (let id in vazoesPorEquip) {
+            const registros = vazoesPorEquip[id];
+            let somaVazao = 0;
+            let vazoesNoturnasPorDia = {};
+
+            registros.forEach(r => {
+                somaVazao += r.valor;
+                const partes = r.tempo.split(' ');
+                if (partes.length === 2) {
+                    const dia = partes[0];
+                    const hora = parseInt(partes[1].split(':')[0], 10);
+                    if (hora >= 0 && hora <= 6) {
+                        if (!vazoesNoturnasPorDia[dia]) vazoesNoturnasPorDia[dia] = [];
+                        vazoesNoturnasPorDia[dia].push(r.valor);
+                    }
+                }
+            });
+
+            const mediaGeral = somaVazao / registros.length;
+            const menoresNoturnas = [];
+            for (let dia in vazoesNoturnasPorDia) {
+                menoresNoturnas.push(Math.min(...vazoesNoturnasPorDia[dia]));
+            }
+
+            if (menoresNoturnas.length > 0 && mediaGeral > 0) {
+                const mediaMenores = menoresNoturnas.reduce((a, b) => a + b, 0) / menoresNoturnas.length;
+                fatoresPesquisaCalculados[id] = mediaMenores / mediaGeral;
+            }
+        }
+
+        // Aplica o destaque pulsante no SVG
+        destacarElementosEmAlertaNoSVG();
+
+    } catch (err) {
+        console.error("Erro ao processar alarmes do CSV:", err);
+    }
+}
+
+// Aplica a classe .svg-fp-alerta em todos os elementos correspondentes do mapa
+function destacarElementosEmAlertaNoSVG() {
+    document.querySelectorAll('.interactive-element').forEach(el => {
+        const id = el.dataset.nomenclatura || el.dataset.id;
+        const vrp = el.dataset.nomenclaturaVrp;
+        const macro = el.dataset.nomenclaturaMacro;
+
+        const fpId = fatoresPesquisaCalculados[id];
+        const fpVrp = fatoresPesquisaCalculados[vrp];
+        const fpMacro = fatoresPesquisaCalculados[macro];
+
+        const maiorFP = Math.max(
+            fpId !== undefined ? fpId : -1,
+            fpVrp !== undefined ? fpVrp : -1,
+            fpMacro !== undefined ? fpMacro : -1
+        );
+
+        if (maiorFP >= 0.6) {
+            el.classList.add('svg-fp-alerta');
+            // Tooltip nativo do navegador ao passar o mouse por cima
+            el.setAttribute('title', `🚨 ALERTA: Fator de Pesquisa Crítico (${maiorFP.toFixed(3)})`);
+        } else {
+            el.classList.remove('svg-fp-alerta');
+        }
+    });
+}
 </script>
 
 </body>
