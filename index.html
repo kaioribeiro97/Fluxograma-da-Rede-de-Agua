@@ -252,24 +252,22 @@
         #svg-viewport.dragging { cursor: grabbing; }
 
         #svg-wrapper {
-    position: absolute; 
-    left: 50%; 
-    top: 50%;
-    /* REMOVA: will-change: transform; */
-    transition: opacity 0.3s;
-}
-#svg-wrapper svg { 
-    display: block; 
-    background: transparent; 
-    overflow: visible; 
-    /* Força nitidez máxima em vetores e textos */
-    shape-rendering: geometricPrecision;
-    text-rendering: geometricPrecision;
-}
-#svg-wrapper svg image {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-}
+            position: absolute; 
+            left: 50%; 
+            top: 50%;
+            transition: opacity 0.3s;
+        }
+        #svg-wrapper svg { 
+            display: block; 
+            background: transparent; 
+            overflow: visible; 
+            shape-rendering: geometricPrecision;
+            text-rendering: geometricPrecision;
+        }
+        #svg-wrapper svg image {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
         .interactive-element { cursor: pointer; transition: all 0.2s ease-in-out; }
         .interactive-element:hover { filter: drop-shadow(2px 4px 6px rgba(0, 86, 179, 0.6)) brightness(0.85); }
 
@@ -304,29 +302,31 @@
             animation: pulseSearchTarget 1s ease-in-out infinite !important;
             z-index: 999 !important;
         }
-/* --- ALARME VISUAL NO FLUXOGRAMA SVG (FP >= 0.6) --- */
-@keyframes pulsoSvgAlarme {
-    0% {
-        stroke: #dc3545 !important;
-        stroke-width: 3px !important;
-        filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
-    }
-    50% {
-        stroke: #ff1744 !important;
-        stroke-width: 5px !important;
-        filter: drop-shadow(0 0 14px #ff1744) drop-shadow(0 0 24px rgba(255, 23, 68, 0.8));
-    }
-    100% {
-        stroke: #dc3545 !important;
-        stroke-width: 3px !important;
-        filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
-    }
-}
 
-.svg-fp-alerta {
-    animation: pulsoSvgAlarme 1.4s ease-in-out infinite !important;
-    cursor: pointer;
-}
+        /* --- ALARME VISUAL NO FLUXOGRAMA SVG (FP >= 0.4) --- */
+        @keyframes pulsoSvgAlarme {
+            0% {
+                stroke: #dc3545 !important;
+                stroke-width: 3px !important;
+                filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
+            }
+            50% {
+                stroke: #ff1744 !important;
+                stroke-width: 5px !important;
+                filter: drop-shadow(0 0 14px #ff1744) drop-shadow(0 0 24px rgba(255, 23, 68, 0.8));
+            }
+            100% {
+                stroke: #dc3545 !important;
+                stroke-width: 3px !important;
+                filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
+            }
+        }
+
+        .svg-fp-alerta {
+            animation: pulsoSvgAlarme 1.4s ease-in-out infinite !important;
+            cursor: pointer;
+        }
+
         /* --- Painel Lateral --- */
         #info-panel {
             width: 380px; max-width: 100vw;
@@ -399,48 +399,49 @@
 
         .fator-pesquisa-row { background-color: var(--row-bg) !important; border-color: var(--primary-color) !important; }
         .fator-pesquisa-row .data-value { color: var(--primary-color); font-weight: bold; }
-        /* --- ALARME FATOR DE PESQUISA (>= 0.6) --- */
-.fp-alerta-box {
-    background-color: #fff5f5 !important;
-    border: 2px solid #dc3545 !important;
-    box-shadow: 0 0 10px rgba(220, 53, 69, 0.25);
-    animation: pulsoAlerta 2s infinite ease-in-out;
-}
 
-.fp-alerta-box .data-value {
-    color: #dc3545 !important;
-    font-weight: 800 !important;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+        .fp-alerta-box {
+            background-color: #fff5f5 !important;
+            border: 2px solid #dc3545 !important;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.25);
+            animation: pulsoAlerta 2s infinite ease-in-out;
+        }
 
-.fp-badge-alerta {
-    display: inline-block;
-    background-color: #dc3545;
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-}
+        .fp-alerta-box .data-value {
+            color: #dc3545 !important;
+            font-weight: 800 !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-.fp-aviso-texto {
-    font-size: 0.78rem;
-    color: #b02a37;
-    margin-top: 6px;
-    line-height: 1.3;
-    font-weight: 500;
-    border-top: 1px dashed rgba(220, 53, 69, 0.3);
-    padding-top: 6px;
-}
+        .fp-badge-alerta {
+            display: inline-block;
+            background-color: #dc3545;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
 
-@keyframes pulsoAlerta {
-    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
-    70% { box-shadow: 0 0 0 8px rgba(220, 53, 69, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
-}
+        .fp-aviso-texto {
+            font-size: 0.78rem;
+            color: #b02a37;
+            margin-top: 6px;
+            line-height: 1.3;
+            font-weight: 500;
+            border-top: 1px dashed rgba(220, 53, 69, 0.3);
+            padding-top: 6px;
+        }
+
+        @keyframes pulsoAlerta {
+            0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(220, 53, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+
         .info-icon { 
             cursor: pointer; display: inline-flex; align-items: center; justify-content: center; 
             width: 20px; height: 20px; border-radius: 50%; background-color: var(--primary-color); 
@@ -631,7 +632,7 @@
         <span class="close-fp-modal" onclick="fecharModalInfoFP(event)">&times;</span>
         <h3>📊 O que é o Fator de Pesquisa?</h3>
         <div class="fp-text">
-        O Fator de Pesquisa compara a vazão mínima da madrugada (00h-06h) com a vazão média diária para identificar potenciais vazamentos na rede. Valores superiores a <strong>0,30</strong> indicam alto potencial para pesquisas acústicas.
+        O Fator de Pesquisa compara a vazão mínima da madrugada (00h-06h) com a vazão média diária para identificar potenciais vazamentos na rede. Valores superiores a <strong>0,40</strong> indicam alto potencial para pesquisas acústicas.
         </div>
         <div class="fp-formula">
             <strong>Fórmula Aplicada:</strong><br><br>
@@ -670,6 +671,66 @@
     let expandedChart = null;
     let lastChartData = null;
     let htmlMemoriaCalculo = ''; 
+
+    // =========================================================================
+    // FUNÇÃO AUXILIAR CENTRAL: TOLERÂNCIA A "NOMENCLATURA" E "NOMECLATURA"
+    // =========================================================================
+    function obterDadosElemento(el) {
+        if (!el) return { id: '', vrp: '', macro: '', nome: '', equip: '' };
+        const d = el.dataset;
+
+        // Captura o ID/Nomenclatura genérico em todas as grafias possíveis
+        const id = (
+            d.nomenclatura || d.nomeclatura || 
+            el.getAttribute('data-nomenclatura') || el.getAttribute('data-nomeclatura') || 
+            d.id || el.getAttribute('id') || ''
+        ).trim();
+
+        // Captura o VRP em todas as grafias possíveis
+        const vrp = (
+            d.nomenclaturaVrp || d.nomeclaturaVrp || 
+            el.getAttribute('data-nomenclatura-vrp') || el.getAttribute('data-nomeclatura-vrp') || ''
+        ).trim();
+
+        // Captura o Macro em todas as grafias possíveis
+        const macro = (
+            d.nomenclaturaMacro || d.nomeclaturaMacro || 
+            el.getAttribute('data-nomenclatura-macro') || el.getAttribute('data-nomeclatura-macro') || ''
+        ).trim();
+
+        return {
+            id,
+            vrp,
+            macro,
+            nome: (d.nome || el.getAttribute('data-nome') || '').trim(),
+            equip: d.equipamento || el.getAttribute('data-equipamento') || ''
+        };
+    }
+
+    // Normalização sem acentos e maiúscula
+    function limparStr(s) {
+        if (!s) return '';
+        return s.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
+    }
+
+    // Conversor seguro de datas para ordenação cronológica
+    function parseDataHora(str) {
+        if (!str) return 0;
+        const partes = str.trim().split(' ');
+        if (partes.length >= 2) {
+            const d = partes[0].split(/[\/\-]/);
+            const h = partes[1].split(':');
+            if (d.length === 3) {
+                if (d[0].length === 4) { // YYYY-MM-DD
+                    return new Date(parseInt(d[0]), parseInt(d[1]) - 1, parseInt(d[2]), parseInt(h[0]||0), parseInt(h[1]||0), parseInt(h[2]||0)).getTime();
+                } else { // DD/MM/YYYY
+                    return new Date(parseInt(d[2]), parseInt(d[1]) - 1, parseInt(d[0]), parseInt(h[0]||0), parseInt(h[1]||0), parseInt(h[2]||0)).getTime();
+                }
+            }
+        }
+        const dt = new Date(str).getTime();
+        return isNaN(dt) ? 0 : dt;
+    }
 
     function abrirLegenda() {
         document.getElementById('legenda-popover').style.display = 'block';
@@ -742,47 +803,62 @@
             
             const text = await response.text();
             const lines = text.split('\n');
+            if (lines.length < 2) return;
+
+            // Suporta separador por ponto-e-vírgula, tabulação ou vírgula
+            const delimiter = lines[0].includes(';') ? ';' : (lines[0].includes('\t') ? '\t' : ',');
+
+            // Conjuntos para busca rápida (aceitando divisões com barra '/')
+            const tagsPressao = new Set();
+            if (nomenclatura) {
+                nomenclatura.split('/').forEach(t => { if (t.trim()) tagsPressao.add(limparStr(t)); });
+            }
+
+            const tagsVazao = new Set();
+            if (nomMacro) {
+                nomMacro.split('/').forEach(t => { if (t.trim()) tagsVazao.add(limparStr(t)); });
+            }
+
             const groupedData = {};
 
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i].trim();
                 if (!line) continue;
-                const cols = line.split(';'); 
+                const cols = line.split(delimiter); 
                 if (cols.length < 5) continue;
 
-                const tagCsv = cols[0].trim();
-                const vrpCsv = cols[1].trim();
-                const caracteristica = cols[2].trim().toLowerCase(); 
+                const tagCsv = limparStr(cols[0]);
+                const vrpCsv = limparStr(cols[1]);
+                const caracteristica = limparStr(cols[2]); 
                 const tempo = cols[3].trim();
                 const valor = parseFloat(cols[4].replace(',', '.'));
 
                 if (isNaN(valor)) continue; 
 
-                const matchPressao = nomenclatura && (vrpCsv === nomenclatura || tagCsv === nomenclatura);
-                const matchVazao = nomMacro && (vrpCsv === nomMacro || tagCsv === nomMacro);
+                const matchPressao = tagsPressao.has(vrpCsv) || tagsPressao.has(tagCsv);
+                const matchVazao = tagsVazao.has(vrpCsv) || tagsVazao.has(tagCsv);
 
                 if (matchPressao || matchVazao) {
                     if (!groupedData[tempo]) {
                         groupedData[tempo] = { montante: null, jusante: null, vazao: null };
                     }
-                    if (caracteristica.includes('montante') && matchPressao) {
+                    if (caracteristica.includes('MONTANTE') && matchPressao) {
                         groupedData[tempo].montante = valor;
-                    } else if (caracteristica.includes('jusante') && matchPressao) {
+                    } else if (caracteristica.includes('JUSANTE') && matchPressao) {
                         groupedData[tempo].jusante = valor;
-                    } else if (caracteristica.includes('vaz')) {
+                    } else if (caracteristica.includes('VAZ')) {
                         if (matchVazao || matchPressao) groupedData[tempo].vazao = valor;
                     }
                 }
             }
 
-            const sortedTimes = Object.keys(groupedData).sort();
+            // Ordena cronologicamente
+            const sortedTimes = Object.keys(groupedData).sort((a, b) => parseDataHora(a) - parseDataHora(b));
             const labels = [], dataMontante = [], dataJusante = [], dataVazao = [];
             let somaVazaoGeral = 0, contVazaoGeral = 0, vazoesNoturnasPorDia = {};
 
             sortedTimes.forEach(tempo => {
-                const d = new Date(tempo);
-                const lbl = isNaN(d.getTime()) ? tempo : `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
-                labels.push(lbl);
+                labels.push(tempo);
                 
                 dataMontante.push(groupedData[tempo].montante);
                 dataJusante.push(groupedData[tempo].jusante);
@@ -811,16 +887,13 @@
                 for (let dia in vazoesNoturnasPorDia) {
                     let menorDoDia = Math.min(...vazoesNoturnasPorDia[dia]);
                     menoresVazoesNoturnas.push(menorDoDia);
-                    let partesDia = dia.split('-');
-                    let diaFormatado = partesDia.length === 3 ? `${partesDia[2]}/${partesDia[1]}/${partesDia[0]}` : dia;
-                    detalheDiasHtml += `<li>Dia ${diaFormatado}: <strong>${menorDoDia.toFixed(2)}</strong></li>`;
+                    detalheDiasHtml += `<li>Dia ${dia}: <strong>${menorDoDia.toFixed(2)}</strong></li>`;
                 }
                 
-                                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0) {
+                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0) {
                     let mediaMenoresNoturnas = menoresVazoesNoturnas.reduce((a, b) => a + b, 0) / menoresVazoesNoturnas.length;
                     let fatorPesquisa = mediaMenoresNoturnas / mediaVazaoGeral;
                     
-                    // Condição de Alarme (FP >= 0.6)
                     const emAlerta = fatorPesquisa >= 0.4;
                     const corDestaque = emAlerta ? '#dc3545' : 'var(--primary-color)';
 
@@ -832,13 +905,12 @@
                         </ul>
                         <div class="fp-result-line">
                             Resultado: <strong class="final-value" style="color: ${corDestaque};">${fatorPesquisa.toFixed(3)}</strong>
-                            ${emAlerta ? '<div style="color: #dc3545; font-size: 0.85rem; font-weight: bold; margin-top: 8px;">⚠️ ALERTA: Fator de Pesquisa Crítico (≥ 0.60)</div>' : ''}
+                            ${emAlerta ? '<div style="color: #dc3545; font-size: 0.85rem; font-weight: bold; margin-top: 8px;">⚠️ ALERTA: Fator de Pesquisa Crítico (≥ 0.40)</div>' : ''}
                         </div>
                     `;
 
                     if (fpContainer) {
                         if (emAlerta) {
-                            // Card com ALARME ATIVO
                             fpContainer.innerHTML = `
                                 <div class="data-row fator-pesquisa-row fp-alerta-box" style="margin-bottom: 20px;">
                                     <div class="data-label" style="color: #dc3545;">
@@ -855,7 +927,6 @@
                                 </div>
                             `;
                         } else {
-                            // Card NORMAL (FP < 0.6)
                             fpContainer.innerHTML = `
                                 <div class="data-row fator-pesquisa-row" style="margin-bottom: 20px;">
                                     <div class="data-label">
@@ -975,9 +1046,9 @@
         document.body.removeChild(link);
     }
 
-        function carregarSVG() {
+    function carregarSVG() {
         mostrarCarregamento("Carregando mapa...");
-        fetch(`${svgFileName}?t=${Date.now()}`, { cache: 'no-store' }) // com cache-busting
+        fetch(`${svgFileName}?t=${Date.now()}`, { cache: 'no-store' })
             .then(res => {
                 if (!res.ok) throw new Error("SVG não encontrado");
                 return res.text();
@@ -987,10 +1058,7 @@
                 resetZoom();
                 ativarInteratividade();
                 atualizarDatalistBusca();
-                
-                // DISPARA A ANÁLISE DOS ALARMES NO FLUXOGRAMA
                 aplicarAlarmesNoFluxograma();
-
                 ocultarCarregamento();
             })
             .catch(err => {
@@ -1019,15 +1087,17 @@
                 e.stopPropagation();
 
                 const data = el.dataset;
-                const equip = data.equipamento;
-                const nom = data.nomenclatura || data.id;
-                const nomVrp = data.nomenclaturaVrp;
-                const nomMacro = data.nomenclaturaMacro;
+                const info = obterDadosElemento(el);
 
                 destacarConexoesEmCadeia(el);
 
-                document.getElementById('item-nome').innerText = data.nome || equip || 'Desconhecido';
-                document.getElementById('item-id').innerText = nom || 'N/A';
+                document.getElementById('item-nome').innerText = info.nome || info.equip || 'Componente';
+                
+                // Exibe a nomenclatura preferida (se for composta, mostra ambas)
+                let displayId = info.vrp;
+                if (info.macro) displayId = displayId ? `${displayId} / ${info.macro}` : info.macro;
+                if (!displayId) displayId = info.id || 'N/A';
+                document.getElementById('item-id').innerText = displayId;
 
                 if (data.imagem) {
                     imgElement.src = data.imagem;
@@ -1053,6 +1123,7 @@
                     if (v) html += `<div class="data-row"><div class="data-label">${obterIconeCampo(l)} ${l}</div><div class="data-value">${v}</div></div>`;
                 };
 
+                const equip = info.equip;
                 if (equip?.includes('VRP')) {
                     add('Diâmetro', data.diametro);
                     add('Pressão Montante', data.pressaoMontante);
@@ -1074,9 +1145,12 @@
                 campos.innerHTML = html;
                 panel.classList.add('active');
 
-                const targetNom = nomVrp || nom;
-                if (targetNom || nomMacro) {
-                    atualizarGrafico(targetNom, nomMacro);
+                // Envia tanto o VRP quanto o Macro para buscar dados de Pressão e Vazão simultaneamente
+                const vrpTarget = info.vrp || info.id;
+                const macroTarget = info.macro;
+
+                if (vrpTarget || macroTarget) {
+                    atualizarGrafico(vrpTarget, macroTarget);
                 } else {
                     chartSection.style.display = 'none';
                 }
@@ -1095,16 +1169,30 @@
         });
     }
 
+    // Busca conexões prevenindo tanto "nomenclatura" quanto "nomeclatura"
     function destacarConexoesEmCadeia(el) {
-        const id = el.dataset.nomenclatura || el.dataset.id;
+        const info = obterDadosElemento(el);
+        const id = info.vrp || info.macro || info.id;
         if (!id) return;
         const visitados = new Set();
         const fila = [id];
+
         while (fila.length > 0) {
             const curr = fila.shift();
             if (visitados.has(curr)) continue;
             visitados.add(curr);
-            const found = document.querySelector(`[data-nomenclatura="${curr}"], [data-id="${curr}"]`);
+
+            const seletor = [
+                `[data-nomenclatura="${curr}"]`,
+                `[data-nomeclatura="${curr}"]`,
+                `[data-nomenclatura-vrp="${curr}"]`,
+                `[data-nomeclatura-vrp="${curr}"]`,
+                `[data-nomenclatura-macro="${curr}"]`,
+                `[data-nomeclatura-macro="${curr}"]`,
+                `[data-id="${curr}"]`
+            ].join(', ');
+
+            const found = document.querySelector(seletor);
             if (found) {
                 if (found !== el) found.classList.add('highlight-blink');
                 const raw = found.dataset.conexoes || found.dataset.vrpsConectadas || '';
@@ -1113,7 +1201,6 @@
         }
     }
 
-    // --- PREENCHE SUGESTÕES DE BUSCA (APENAS NOMENCLATURA LIMPA) ---
     function atualizarDatalistBusca() {
         const datalist = document.getElementById('equipamentos-list');
         if (!datalist) return;
@@ -1121,12 +1208,11 @@
         const itens = new Set();
 
         document.querySelectorAll('.interactive-element').forEach(el => {
-            const nom = (el.dataset.nomenclatura || el.dataset.id || '').trim();
-            if (nom) {
-                itens.add(nom);
-            } else if (el.dataset.nome) {
-                itens.add(el.dataset.nome.trim());
-            }
+            const info = obterDadosElemento(el);
+            if (info.vrp) itens.add(info.vrp);
+            if (info.macro) itens.add(info.macro);
+            if (info.id) itens.add(info.id);
+            if (info.nome) itens.add(info.nome);
         });
 
         Array.from(itens).sort().forEach(item => {
@@ -1136,7 +1222,6 @@
         });
     }
 
-    // --- LÓGICA DE BUSCA ---
     function verificarEnterBusca(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -1163,17 +1248,16 @@
         let elementoEncontrado = null;
 
         document.querySelectorAll('.interactive-element').forEach(el => {
-            const id = (el.dataset.nomenclatura || el.dataset.id || '').toLowerCase().trim();
-            const nome = (el.dataset.nome || '').toLowerCase().trim();
-            const vrp = (el.dataset.nomenclaturaVrp || '').toLowerCase().trim();
-            const macro = (el.dataset.nomenclaturaMacro || '').toLowerCase().trim();
+            const info = obterDadosElemento(el);
+            const id = info.id.toLowerCase();
+            const nome = info.nome.toLowerCase();
+            const vrp = info.vrp.toLowerCase();
+            const macro = info.macro.toLowerCase();
 
             if (!elementoEncontrado) {
-                if (id === busca || vrp === busca || macro === busca) {
+                if (id === busca || vrp === busca || macro === busca || nome === busca) {
                     elementoEncontrado = el;
-                } else if (nome === busca) {
-                    elementoEncontrado = el;
-                } else if (id.includes(busca) || nome.includes(busca)) {
+                } else if (id.includes(busca) || nome.includes(busca) || vrp.includes(busca) || macro.includes(busca)) {
                     elementoEncontrado = el;
                 }
             }
@@ -1224,112 +1308,108 @@
         if (e.target == fpModal) fecharModalInfoFP(); 
         if (e.target == imageModal) fecharModalImagem();
     }
-    // Dicionário global para guardar os fatores de pesquisa calculados { [nomenclatura]: valorFP }
-let fatoresPesquisaCalculados = {};
 
-// Função que lê o CSV, calcula o FP de todos os equipamentos de uma vez e aplica o alarme no SVG
-async function aplicarAlarmesNoFluxograma() {
-    try {
-        const response = await fetch(`${csvFileName}?t=${Date.now()}`, { cache: 'no-store' });
-        if (!response.ok) return;
+    let fatoresPesquisaCalculados = {};
 
-        const text = await response.text();
-        const lines = text.split('\n');
+    async function aplicarAlarmesNoFluxograma() {
+        try {
+            const response = await fetch(`${csvFileName}?t=${Date.now()}`, { cache: 'no-store' });
+            if (!response.ok) return;
 
-        // Agrupamento de vazões por identificador (VRP ou TAG)
-        const vazoesPorEquip = {};
+            const text = await response.text();
+            const lines = text.split('\n');
+            if (lines.length < 2) return;
 
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (!line) continue;
-            const cols = line.split(';');
-            if (cols.length < 5) continue;
+            const delimiter = lines[0].includes(';') ? ';' : (lines[0].includes('\t') ? '\t' : ',');
+            const vazoesPorEquip = {};
 
-            const tagCsv = cols[0].trim();
-            const vrpCsv = cols[1].trim();
-            const caracteristica = cols[2].trim().toLowerCase();
-            const tempo = cols[3].trim();
-            const valor = parseFloat(cols[4].replace(',', '.'));
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                const cols = line.split(delimiter);
+                if (cols.length < 5) continue;
 
-            if (isNaN(valor)) continue;
+                const tagCsv = limparStr(cols[0]);
+                const vrpCsv = limparStr(cols[1]);
+                const caracteristica = limparStr(cols[2]);
+                const tempo = cols[3].trim();
+                const valor = parseFloat(cols[4].replace(',', '.'));
 
-            // Interessa apenas medições de vazão
-            if (caracteristica.includes('vaz')) {
-                const ids = [vrpCsv, tagCsv].filter(Boolean);
-                ids.forEach(id => {
-                    if (!vazoesPorEquip[id]) vazoesPorEquip[id] = [];
-                    vazoesPorEquip[id].push({ tempo, valor });
-                });
-            }
-        }
+                if (isNaN(valor)) continue;
 
-        fatoresPesquisaCalculados = {};
-
-        // Calcula o FP para cada equipamento encontrado no CSV
-        for (let id in vazoesPorEquip) {
-            const registros = vazoesPorEquip[id];
-            let somaVazao = 0;
-            let vazoesNoturnasPorDia = {};
-
-            registros.forEach(r => {
-                somaVazao += r.valor;
-                const partes = r.tempo.split(' ');
-                if (partes.length === 2) {
-                    const dia = partes[0];
-                    const hora = parseInt(partes[1].split(':')[0], 10);
-                    if (hora >= 0 && hora <= 6) {
-                        if (!vazoesNoturnasPorDia[dia]) vazoesNoturnasPorDia[dia] = [];
-                        vazoesNoturnasPorDia[dia].push(r.valor);
-                    }
+                if (caracteristica.includes('VAZ')) {
+                    const ids = [vrpCsv, tagCsv].filter(Boolean);
+                    ids.forEach(id => {
+                        if (!vazoesPorEquip[id]) vazoesPorEquip[id] = [];
+                        vazoesPorEquip[id].push({ tempo, valor });
+                    });
                 }
-            });
-
-            const mediaGeral = somaVazao / registros.length;
-            const menoresNoturnas = [];
-            for (let dia in vazoesNoturnasPorDia) {
-                menoresNoturnas.push(Math.min(...vazoesNoturnasPorDia[dia]));
             }
 
-            if (menoresNoturnas.length > 0 && mediaGeral > 0) {
-                const mediaMenores = menoresNoturnas.reduce((a, b) => a + b, 0) / menoresNoturnas.length;
-                fatoresPesquisaCalculados[id] = mediaMenores / mediaGeral;
+            fatoresPesquisaCalculados = {};
+
+            for (let id in vazoesPorEquip) {
+                const registros = vazoesPorEquip[id];
+                let somaVazao = 0;
+                let vazoesNoturnasPorDia = {};
+
+                registros.forEach(r => {
+                    somaVazao += r.valor;
+                    const partes = r.tempo.split(' ');
+                    if (partes.length === 2) {
+                        const dia = partes[0];
+                        const hora = parseInt(partes[1].split(':')[0], 10);
+                        if (hora >= 0 && hora <= 6) {
+                            if (!vazoesNoturnasPorDia[dia]) vazoesNoturnasPorDia[dia] = [];
+                            vazoesNoturnasPorDia[dia].push(r.valor);
+                        }
+                    }
+                });
+
+                const mediaGeral = somaVazao / registros.length;
+                const menoresNoturnas = [];
+                for (let dia in vazoesNoturnasPorDia) {
+                    menoresNoturnas.push(Math.min(...vazoesNoturnasPorDia[dia]));
+                }
+
+                if (menoresNoturnas.length > 0 && mediaGeral > 0) {
+                    const mediaMenores = menoresNoturnas.reduce((a, b) => a + b, 0) / menoresNoturnas.length;
+                    fatoresPesquisaCalculados[id] = mediaMenores / mediaGeral;
+                }
             }
+
+            destacarElementosEmAlertaNoSVG();
+
+        } catch (err) {
+            console.error("Erro ao processar alarmes do CSV:", err);
         }
-
-        // Aplica o destaque pulsante no SVG
-        destacarElementosEmAlertaNoSVG();
-
-    } catch (err) {
-        console.error("Erro ao processar alarmes do CSV:", err);
     }
-}
 
-// Aplica a classe .svg-fp-alerta em todos os elementos correspondentes do mapa
-function destacarElementosEmAlertaNoSVG() {
-    document.querySelectorAll('.interactive-element').forEach(el => {
-        const id = el.dataset.nomenclatura || el.dataset.id;
-        const vrp = el.dataset.nomenclaturaVrp;
-        const macro = el.dataset.nomenclaturaMacro;
+    function destacarElementosEmAlertaNoSVG() {
+        document.querySelectorAll('.interactive-element').forEach(el => {
+            const info = obterDadosElemento(el);
+            const id = limparStr(info.id);
+            const vrp = limparStr(info.vrp);
+            const macro = limparStr(info.macro);
 
-        const fpId = fatoresPesquisaCalculados[id];
-        const fpVrp = fatoresPesquisaCalculados[vrp];
-        const fpMacro = fatoresPesquisaCalculados[macro];
+            const fpId = fatoresPesquisaCalculados[id];
+            const fpVrp = fatoresPesquisaCalculados[vrp];
+            const fpMacro = fatoresPesquisaCalculados[macro];
 
-        const maiorFP = Math.max(
-            fpId !== undefined ? fpId : -1,
-            fpVrp !== undefined ? fpVrp : -1,
-            fpMacro !== undefined ? fpMacro : -1
-        );
+            const maiorFP = Math.max(
+                fpId !== undefined ? fpId : -1,
+                fpVrp !== undefined ? fpVrp : -1,
+                fpMacro !== undefined ? fpMacro : -1
+            );
 
-        if (maiorFP >= 0.4) {
-            el.classList.add('svg-fp-alerta');
-            // Tooltip nativo do navegador ao passar o mouse por cima
-            el.setAttribute('title', `🚨 ALERTA: Fator de Pesquisa Crítico (${maiorFP.toFixed(3)})`);
-        } else {
-            el.classList.remove('svg-fp-alerta');
-        }
-    });
-}
+            if (maiorFP >= 0.4) {
+                el.classList.add('svg-fp-alerta');
+                el.setAttribute('title', `🚨 ALERTA: Fator de Pesquisa Crítico (${maiorFP.toFixed(3)})`);
+            } else {
+                el.classList.remove('svg-fp-alerta');
+            }
+        });
+    }
 </script>
 
 </body>
