@@ -7,7 +7,7 @@
    viewBox="0 0 400 285"
    version="1.1"
    id="svg1"
-   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    sodipodi:docname="Paranoa.svg"
    inkscape:export-filename="Paranoa.pdf"
    inkscape:export-xdpi="96"
@@ -27,15 +27,17 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showguides="true"
-     inkscape:zoom="1"
-     inkscape:cx="368"
-     inkscape:cy="387.5"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="1122.8856"
+     inkscape:cy="742.81567"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-y="-4"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:pageshadow="2"
+     showgrid="false" />
   <defs
      id="defs1">
     <marker
@@ -1791,8 +1793,8 @@
           </g>
           <g
              data-equipamento="Booster"
-             data-nome="Booster EBO.VCP.001"
-             data-nomenclatura="EBO.VCP.001"
+             data-nome="Booster EAT.LNT.001"
+             data-nomenclatura="EAT.LNT.001"
              data-status="Em Operação"
              data-diametro="250 mm"
              data-pressao-jusante="15 mca"
@@ -1924,8 +1926,8 @@
           </g>
           <g
              data-equipamento="Booster"
-             data-nome="Booster EBO.VCP.001"
-             data-nomenclatura="EBO.VCP.001"
+             data-nome="Booster EAT.LNT.001"
+             data-nomenclatura="EAT.LNT.001"
              data-status="Em Operação"
              data-diametro="250 mm"
              data-pressao-jusante="15 mca"
@@ -2057,8 +2059,8 @@
           </g>
           <g
              data-equipamento="Booster"
-             data-nome="Booster EBO.VCP.001"
-             data-nomenclatura="EBO.VCP.001"
+             data-nome="Booster EAT.LNT.001"
+             data-nomenclatura="EAT.LNT.001"
              data-status="Em Operação"
              data-diametro="250 mm"
              data-pressao-jusante="15 mca"
@@ -2403,8 +2405,8 @@
       </g>
       <g
          data-equipamento="Booster"
-         data-nome="Booster EBO.VCP.001"
-         data-nomenclatura="EBO.VCP.001"
+         data-nome="Booster EAT.LNT.003"
+         data-nomenclatura="EAT.LNT.003"
          data-status="Em Operação"
          data-diametro="250 mm"
          data-pressao-jusante="15 mca"
@@ -2536,8 +2538,8 @@
       </g>
       <g
          data-equipamento="Booster"
-         data-nome="Booster EBO.VCP.001"
-         data-nomenclatura="EBO.VCP.001"
+         data-nome="Booster EAT.LNT.003"
+         data-nomenclatura="EAT.LNT.003"
          data-status="Em Operação"
          data-diametro="250 mm"
          data-pressao-jusante="15 mca"
@@ -2669,8 +2671,8 @@
       </g>
       <g
          data-equipamento="Booster"
-         data-nome="Booster EBO.VCP.001"
-         data-nomenclatura="EBO.VCP.001"
+         data-nome="Booster EAT.LNT.003"
+         data-nomenclatura="EAT.LNT.003"
          data-status="Em Operação"
          data-diametro="250 mm"
          data-pressao-jusante="15 mca"
@@ -3367,7 +3369,7 @@
        data-nomenclatura="VZ1.DMC.PRN.005"
        data-conexoes="2317"
        data-ligacoes="847"
-       data-id="DMC.PRN.005"
+       data-id="1405579"
        data-imagem="https://caesbdfgovbr.sharepoint.com/sites/formulariospasp/Lists/Lista%20de%20VRP/Attachments/1238/resized-7a854ec3-5f8e-40ff-87e5-47d9030d2993.jpg">
       <g
          id="g24-8-4-3-7-2"
@@ -3442,7 +3444,7 @@
        data-diametro="100 mm"
        data-nomenclatura="VZ1.DMC.PRN.004"
        data-ligacoes="334"
-       data-id="DMC.PRN.004"
+       data-id="1405578"
        data-conexoes="6537"
        data-imagem="https://caesbdfgovbr.sharepoint.com/sites/formulariospasp/Lists/Lista%20de%20VRP/Attachments/1242/resized-3470d4d4-c358-49eb-8cd8-a16a8b9c4e2a.jpg">
       <g
@@ -3493,7 +3495,7 @@
     <g
        id="g9775-5-8-2-2-5-2-3"
        transform="matrix(0.03632478,0,0,0.03632478,-96.088534,-156.00067)"
-       data-nome="Macro VZ1.AAT.VCP.010"
+       data-nome="Macro VZ1.AAB.CCH.010"
        data-vazao-jusante="---"
        data-status="Desativado"
        class="interactive-element"
@@ -3676,7 +3678,7 @@
        data-conexoes="---"
        data-ligacoes="----"
        data-id="7606"
-       data-imagem="-&#10;">
+       data-imagem="- ">
       <g
          id="g24-8-7-1"
          transform="matrix(13.972988,0,0,13.972988,-2750.7256,1165.071)">
