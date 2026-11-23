@@ -9,11 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.js"></script>
 
     <style>
         :root {
             --primary-color: #0056b3;
+            --cor-rota: #ff0000;
             --primary-hover: #004494;
             --bg-color: #f8f9fa;
             --card-bg: rgba(255, 255, 255, 0.98);
@@ -265,37 +266,24 @@
             text-rendering: geometricPrecision;
         }
         #svg-wrapper svg image {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
+            image-rendering: auto;
         }
-        .interactive-element { cursor: pointer; transition: all 0.2s ease-in-out; }
+        .interactive-element { cursor: pointer; transition: filter 0.2s ease-in-out; }
         .interactive-element:hover { filter: drop-shadow(2px 4px 6px rgba(0, 86, 179, 0.6)) brightness(0.85); }
 
         /* --- EFEITO DE PISCAR DAS CONEXÕES --- */
         @keyframes blinker { 50% { opacity: 0.6; } }
         .highlight-blink {
-            animation: blinker 1.5s ease-in-out infinite;
-            stroke: #ff0000 !important; 
-            stroke-width: 0.8px !important; 
+            /* Rota traçada pelo data-conexoes: cor única e fixa, sem piscar,
+               para não se confundir com o alarme do Fator de Pesquisa. */
+            stroke: var(--cor-rota) !important;
+            stroke-width: 0.5px !important;
         }
 
         /* --- EFEITO DE DESTAQUE NEON DO ITEM PESQUISADO --- */
         @keyframes pulseSearchTarget {
-            0% {
-                stroke: #00e5ff !important;
-                stroke-width: 3px !important;
-                filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 20px #00e5ff);
-            }
-            50% {
-                stroke: #ff0055 !important;
-                stroke-width: 4px !important;
-                filter: drop-shadow(0 0 15px #ff0055) drop-shadow(0 0 25px #ff0055);
-            }
-            100% {
-                stroke: #00e5ff !important;
-                stroke-width: 3px !important;
-                filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 20px #00e5ff);
-            }
+            0%, 100% { filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 20px #00e5ff); }
+            50%      { filter: drop-shadow(0 0 15px #ff0055) drop-shadow(0 0 25px #ff0055); }
         }
 
         .search-highlight-target {
@@ -305,21 +293,8 @@
 
         /* --- ALARME VISUAL NO FLUXOGRAMA SVG (FP >= 0.4) --- */
         @keyframes pulsoSvgAlarme {
-            0% {
-                stroke: #dc3545 !important;
-                stroke-width: 3px !important;
-                filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
-            }
-            50% {
-                stroke: #ff1744 !important;
-                stroke-width: 5px !important;
-                filter: drop-shadow(0 0 14px #ff1744) drop-shadow(0 0 24px rgba(255, 23, 68, 0.8));
-            }
-            100% {
-                stroke: #dc3545 !important;
-                stroke-width: 3px !important;
-                filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.8)) drop-shadow(0 0 12px rgba(220, 53, 69, 0.5));
-            }
+            0%, 100% { stroke: #dc3545; filter: drop-shadow(0 0 5px rgba(220, 53, 69, 0.9)); }
+            50%      { stroke: #ff1744; filter: drop-shadow(0 0 16px #ff1744) drop-shadow(0 0 26px rgba(255, 23, 68, 0.85)); }
         }
 
         .svg-fp-alerta {
@@ -495,6 +470,32 @@
         .fp-memory-box li { margin-bottom: 8px; }
         .fp-result-line { font-size: 1.1rem; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--card-border); text-align: center; color: var(--text-color); }
         .fp-result-line strong.final-value { color: var(--primary-color); font-size: 1.4rem; background: var(--input-bg); padding: 4px 10px; border-radius: 6px; }
+
+        /* --- Busca sem resultado e foco por teclado --- */
+        .control-card input.not-found { border-color: #dc3545; box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2); }
+        .interactive-element:focus { outline: none; }
+        .interactive-element:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+
+        /* --- Alarme de Fator de Pesquisa no mapa (camada desenhada por cima do SVG) --- */
+        #camada-alertas, #camada-rota { pointer-events: none; }
+        /* Moldura da rota sobre equipamentos (grupos <g>), cor única e fixa */
+        .rota-marca {
+            fill: rgba(255, 0, 0, 0.03); stroke: var(--cor-rota); stroke-opacity: 0.65; stroke-width: 1.25px;
+            vector-effect: non-scaling-stroke;
+        }
+        .fp-radar {
+            fill: none; stroke: #ff1744; stroke-width: 2px; vector-effect: non-scaling-stroke;
+            transform-box: fill-box; transform-origin: center; opacity: 0;
+            animation: fpRadar 2.2s ease-out infinite;
+        }
+        .fp-radar.r2 { animation-delay: 1.1s; }
+        .fp-halo {
+            fill: rgba(255, 23, 68, 0.16); stroke: none;
+            transform-box: fill-box; transform-origin: center;
+            animation: fpHalo 1.1s ease-in-out infinite;
+        }
+        @keyframes fpRadar { 0% { transform: scale(0.7); opacity: 0.9; } 100% { transform: scale(2.6); opacity: 0; } }
+        @keyframes fpHalo  { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -653,25 +654,42 @@
     const chartSection = document.getElementById('chart-section');
     const chartModal = document.getElementById('chart-modal');
     const imageModal = document.getElementById('image-modal');
-    const fpModal = document.getElementById('info-fp-modal'); 
+    const fpModal = document.getElementById('info-fp-modal');
     const imgContainer = document.getElementById('image-container');
     const imgElement = document.getElementById('item-imagem');
     const loadingContainer = document.getElementById('loading-container');
     const loadingText = document.getElementById('loading-text');
-    const fpContainer = document.getElementById('fator-pesquisa-container'); 
-    
-    let svgFileName = 'Paranoa.svg'; 
+    const loaderEl = loadingContainer.querySelector('.loader');
+    const fpContainer = document.getElementById('fator-pesquisa-container');
+    const searchInput = document.getElementById('search-input');
+
+    let svgFileName = 'Paranoa.svg';
     const csvFileName = 'consolidado_monitoramento.csv';
 
-    let scale = 0.4;
+    // --- Parâmetros ajustáveis ---
+    const LIMIAR_FP = 0.4;                          // Fator de Pesquisa crítico
+    const JANELA_NOTURNA = { inicio: 0, fim: 6 };   // horas, inclusivo (00:00 a 06:59), igual ao cálculo original
+    const CSV_TTL_MS = 5 * 60 * 1000;               // tempo em que o CSV lido fica em memória
+    const ESCALA_INICIAL = 0.4, ESCALA_MIN = 0.05, ESCALA_MAX = 10;
+    const LIMIAR_ARRASTO_PX = 5;                    // abaixo disso, o gesto é um clique, não um arrasto
+
+    let scale = ESCALA_INICIAL;
     let isDragging = false;
+    let dragMoved = false;
+    let dragOrigemX = 0, dragOrigemY = 0;
     let startX = 0, startY = 0;
     let lastTranslateXPx = 0, lastTranslateYPx = 0;
-    
+    const pointers = new Map();
+    let pinchDistInicial = 1, pinchEscalaInicial = 1;
+
     let currentChart = null;
     let expandedChart = null;
     let lastChartData = null;
-    let htmlMemoriaCalculo = ''; 
+    let htmlMemoriaCalculo = '';
+
+    // Tokens para descartar respostas atrasadas (evita "corrida" entre requisições)
+    let graficoReqId = 0;
+    let svgReqId = 0;
 
     // =========================================================================
     // FUNÇÃO AUXILIAR CENTRAL: TOLERÂNCIA A "NOMENCLATURA" E "NOMECLATURA"
@@ -714,6 +732,12 @@
         return s.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
     }
 
+    function escaparHtml(v) {
+        return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function visivel(el) { return getComputedStyle(el).display !== 'none'; }
+
     // Conversor seguro de datas para ordenação cronológica
     function parseDataHora(str) {
         if (!str) return 0;
@@ -733,6 +757,13 @@
         return isNaN(dt) ? 0 : dt;
     }
 
+    // Acessibilidade básica (rótulos para botões só com ícone e diálogos)
+    document.querySelectorAll('button[title]').forEach(b => {
+        if (!b.hasAttribute('aria-label')) b.setAttribute('aria-label', b.getAttribute('title'));
+    });
+    searchInput.setAttribute('aria-label', 'Buscar VRP ou Macro');
+    [chartModal, fpModal, imageModal].forEach(m => { m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); });
+
     function abrirLegenda() {
         document.getElementById('legenda-popover').style.display = 'block';
         document.getElementById('btn-legenda').style.display = 'none';
@@ -742,8 +773,9 @@
         document.getElementById('btn-legenda').style.display = 'flex';
     }
 
-    function mostrarCarregamento(mensagem = "A carregar...") {
+    function mostrarCarregamento(mensagem = "Carregando...", comSpinner = true) {
         loadingText.innerText = mensagem;
+        loaderEl.style.display = comSpinner ? '' : 'none';
         loadingContainer.style.display = 'flex';
         svgWrapper.style.opacity = '0';
     }
@@ -756,194 +788,279 @@
         const select = document.getElementById('area-select');
         svgFileName = select.value;
         closePanel();
+        searchInput.value = '';
+        searchInput.classList.remove('not-found');
         lastTranslateXPx = 0;
         lastTranslateYPx = 0;
         carregarSVG();
     }
 
-    function zoomIn() { scale = Math.min(scale * 1.3, 10); updateTransform(); }
-    function zoomOut() { scale = Math.max(scale / 1.3, 0.05); updateTransform(); }
-    function resetZoom() { scale = 0.4; lastTranslateXPx = 0; lastTranslateYPx = 0; updateTransform(); }
+    // --- ZOOM E PAN ---
     function updateTransform() {
         svgWrapper.style.transform = `translate(-50%, -50%) translate(${lastTranslateXPx}px, ${lastTranslateYPx}px) scale(${scale})`;
     }
 
+    // Aplica uma nova escala mantendo fixo o ponto (clientX, clientY) da tela
+    function zoomAt(clientX, clientY, novaEscala) {
+        novaEscala = Math.min(Math.max(novaEscala, ESCALA_MIN), ESCALA_MAX);
+        const r = svgViewport.getBoundingClientRect();
+        const px = clientX - (r.left + r.width / 2);
+        const py = clientY - (r.top + r.height / 2);
+        const k = novaEscala / scale;
+        lastTranslateXPx = px - k * (px - lastTranslateXPx);
+        lastTranslateYPx = py - k * (py - lastTranslateYPx);
+        scale = novaEscala;
+        updateTransform();
+    }
+    function zoomCentro(fator) {
+        const r = svgViewport.getBoundingClientRect();
+        zoomAt(r.left + r.width / 2, r.top + r.height / 2, scale * fator);
+    }
+    function zoomIn() { zoomCentro(1.3); }
+    function zoomOut() { zoomCentro(1 / 1.3); }
+    function resetZoom() { scale = ESCALA_INICIAL; lastTranslateXPx = 0; lastTranslateYPx = 0; updateTransform(); }
+
     svgViewport.addEventListener('pointerdown', (e) => {
         if (e.button !== 0 && e.pointerType === 'mouse') return;
-        isDragging = true;
-        svgViewport.classList.add('dragging');
-        startX = e.clientX; startY = e.clientY;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (pointers.size === 1) {
+            isDragging = true;
+            dragMoved = false;
+            dragOrigemX = e.clientX; dragOrigemY = e.clientY;
+            startX = e.clientX; startY = e.clientY;
+            svgViewport.classList.add('dragging');
+        } else if (pointers.size === 2) {
+            // Pinça: dois dedos fazem zoom e nunca contam como clique
+            isDragging = false;
+            dragMoved = true;
+            const [a, b] = [...pointers.values()];
+            pinchDistInicial = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+            pinchEscalaInicial = scale;
+        }
     });
 
     window.addEventListener('pointermove', (e) => {
+        if (!pointers.has(e.pointerId)) return;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+        if (pointers.size === 2) {
+            const [a, b] = [...pointers.values()];
+            const dist = Math.hypot(a.x - b.x, a.y - b.y);
+            zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, pinchEscalaInicial * dist / pinchDistInicial);
+            return;
+        }
         if (!isDragging) return;
+        if (!dragMoved && Math.hypot(e.clientX - dragOrigemX, e.clientY - dragOrigemY) > LIMIAR_ARRASTO_PX) dragMoved = true;
+        if (!dragMoved) return;
         lastTranslateXPx += e.clientX - startX;
         lastTranslateYPx += e.clientY - startY;
         startX = e.clientX; startY = e.clientY;
         updateTransform();
     });
 
-    window.addEventListener('pointerup', () => { isDragging = false; svgViewport.classList.remove('dragging'); });
+    function terminarPonteiro(e) {
+        pointers.delete(e.pointerId);
+        if (pointers.size === 1) {
+            // Sobrou um dedo depois da pinça: continua arrastando sem "pulo"
+            const [p] = [...pointers.values()];
+            startX = p.x; startY = p.y;
+            isDragging = true;
+            dragMoved = true;
+        } else if (pointers.size === 0) {
+            isDragging = false;
+            svgViewport.classList.remove('dragging');
+        }
+    }
+    window.addEventListener('pointerup', terminarPonteiro);
+    window.addEventListener('pointercancel', terminarPonteiro);
 
     svgViewport.addEventListener('wheel', (e) => {
         e.preventDefault();
-        const factor = Math.exp(-e.deltaY * 0.001);
-        scale = Math.min(Math.max(scale * factor, 0.05), 10);
-        updateTransform();
+        zoomAt(e.clientX, e.clientY, scale * Math.exp(-e.deltaY * 0.001));
     }, { passive: false });
 
-    // --- LEITURA DE CSV & GRÁFICOS ---
+    // --- CSV: lido e interpretado uma única vez, com cache em memória ---
+    let csvRows = null, csvCarregadoEm = 0, csvPromise = null;
+
+    function parseCSV(text) {
+        const lines = text.split(/\r?\n/);
+        if (lines.length < 2) return [];
+        // Suporta separador por ponto-e-vírgula, tabulação ou vírgula
+        const delimiter = lines[0].includes(';') ? ';' : (lines[0].includes('\t') ? '\t' : ',');
+        const rows = [];
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            const cols = line.split(delimiter);
+            if (cols.length < 5) continue;
+            const valor = parseFloat(cols[4].replace(',', '.'));
+            if (isNaN(valor)) continue;
+            rows.push({
+                tag: limparStr(cols[0]),
+                vrp: limparStr(cols[1]),
+                car: limparStr(cols[2]),
+                tempo: cols[3].trim(),
+                valor
+            });
+        }
+        return rows;
+    }
+
+    function carregarCSV() {
+        if (csvRows && Date.now() - csvCarregadoEm < CSV_TTL_MS) return Promise.resolve(csvRows);
+        if (csvPromise) return csvPromise;
+        csvPromise = fetch(csvFileName, { cache: 'no-cache' })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro ao carregar CSV");
+                return res.text();
+            })
+            .then(text => {
+                csvRows = parseCSV(text);
+                csvCarregadoEm = Date.now();
+                return csvRows;
+            })
+            .catch(err => {
+                if (csvRows) return csvRows; // usa a última leitura boa, se houver
+                throw err;
+            })
+            .finally(() => { csvPromise = null; });
+        return csvPromise;
+    }
+
+    // --- FATOR DE PESQUISA: cálculo único, usado pelo gráfico e pelos alarmes do mapa ---
+    // pares: [{ tempo: 'AAAA-MM-DD HH:MM:SS', valor: número }] (uma vazão por instante)
+    function calcularFP(pares) {
+        if (!pares.length) return null;
+        let soma = 0;
+        const noturnasPorDia = {};
+        pares.forEach(({ tempo, valor }) => {
+            soma += valor;
+            const partes = tempo.split(' ');
+            if (partes.length === 2) {
+                const hora = parseInt(partes[1].split(':')[0], 10);
+                if (hora >= JANELA_NOTURNA.inicio && hora <= JANELA_NOTURNA.fim) {
+                    if (!noturnasPorDia[partes[0]]) noturnasPorDia[partes[0]] = [];
+                    noturnasPorDia[partes[0]].push(valor);
+                }
+            }
+        });
+        const mediaGeral = soma / pares.length;
+        const dias = Object.keys(noturnasPorDia);
+        if (!dias.length || !(mediaGeral > 0)) return null;
+
+        const minimasPorDia = dias.map(dia => ({
+            dia,
+            valor: noturnasPorDia[dia].reduce((m, v) => Math.min(m, v), Infinity)
+        }));
+        const mediaMinimas = minimasPorDia.reduce((a, d) => a + d.valor, 0) / minimasPorDia.length;
+        return { mediaGeral, minimasPorDia, mediaMinimas, fp: mediaMinimas / mediaGeral };
+    }
+
+    function mostrarFatorPesquisa(r) {
+        const emAlerta = r.fp >= LIMIAR_FP;
+        const corDestaque = emAlerta ? '#dc3545' : 'var(--primary-color)';
+        const detalheDiasHtml = r.minimasPorDia
+            .map(d => `<li>Dia ${escaparHtml(d.dia)}: <strong>${d.valor.toFixed(2)}</strong></li>`).join('');
+
+        htmlMemoriaCalculo = `
+            <ul>
+                <li><strong>Vazão Média Diária:</strong> ${r.mediaGeral.toFixed(2)}</li>
+                <li><strong>Mínimas Noturnas (00h-06h):</strong><ul style="margin: 6px 0;">${detalheDiasHtml}</ul></li>
+                <li><strong>Média das Mínimas Noturnas:</strong> ${r.mediaMinimas.toFixed(2)}</li>
+            </ul>
+            <div class="fp-result-line">
+                Resultado: <strong class="final-value" style="color: ${corDestaque};">${r.fp.toFixed(3)}</strong>
+                ${emAlerta ? '<div style="color: #dc3545; font-size: 0.85rem; font-weight: bold; margin-top: 8px;">⚠️ ALERTA: Fator de Pesquisa Crítico (≥ 0.40)</div>' : ''}
+            </div>
+        `;
+
+        if (!fpContainer) return;
+        if (emAlerta) {
+            fpContainer.innerHTML = `
+                <div class="data-row fator-pesquisa-row fp-alerta-box" style="margin-bottom: 20px;">
+                    <div class="data-label" style="color: #dc3545;">
+                        ⚠️ Fator de Pesquisa
+                        <i class="info-icon" style="background-color: #dc3545;" onclick="abrirModalInfoFP()">i</i>
+                    </div>
+                    <div class="data-value">
+                        <span>${r.fp.toFixed(3)}</span>
+                        <span class="fp-badge-alerta">🚨 ALERTA CRÍTICO</span>
+                    </div>
+                    <div class="fp-aviso-texto">
+                        Vazão noturna elevada em relação à média diária. Recomenda-se varredura acústica imediata para localização de vazamentos.
+                    </div>
+                </div>
+            `;
+        } else {
+            fpContainer.innerHTML = `
+                <div class="data-row fator-pesquisa-row" style="margin-bottom: 20px;">
+                    <div class="data-label">
+                        📊 Fator de Pesquisa
+                        <i class="info-icon" onclick="abrirModalInfoFP()">i</i>
+                    </div>
+                    <div class="data-value">${r.fp.toFixed(3)}</div>
+                </div>
+            `;
+        }
+    }
+
+    // --- GRÁFICOS ---
     async function atualizarGrafico(nomenclatura, nomMacro) {
         if (!nomenclatura && !nomMacro) return;
+        const reqId = ++graficoReqId;
         try {
             if (fpContainer) fpContainer.innerHTML = '';
-            htmlMemoriaCalculo = ''; 
-            
-            const response = await fetch(`${csvFileName}?t=${Date.now()}`, { cache: 'no-store' });
-            if (!response.ok) throw new Error("Erro ao carregar CSV");
-            
-            const text = await response.text();
-            const lines = text.split('\n');
-            if (lines.length < 2) return;
+            htmlMemoriaCalculo = '';
 
-            // Suporta separador por ponto-e-vírgula, tabulação ou vírgula
-            const delimiter = lines[0].includes(';') ? ';' : (lines[0].includes('\t') ? '\t' : ',');
+            const rows = await carregarCSV();
+            if (reqId !== graficoReqId) return; // chegou um clique mais novo: descarta esta resposta
 
             // Conjuntos para busca rápida (aceitando divisões com barra '/')
             const tagsPressao = new Set();
             if (nomenclatura) {
                 nomenclatura.split('/').forEach(t => { if (t.trim()) tagsPressao.add(limparStr(t)); });
             }
-
             const tagsVazao = new Set();
             if (nomMacro) {
                 nomMacro.split('/').forEach(t => { if (t.trim()) tagsVazao.add(limparStr(t)); });
             }
 
             const groupedData = {};
+            for (const r of rows) {
+                const matchPressao = tagsPressao.has(r.vrp) || tagsPressao.has(r.tag);
+                const matchVazao = tagsVazao.has(r.vrp) || tagsVazao.has(r.tag);
+                if (!matchPressao && !matchVazao) continue;
 
-            for (let i = 1; i < lines.length; i++) {
-                const line = lines[i].trim();
-                if (!line) continue;
-                const cols = line.split(delimiter); 
-                if (cols.length < 5) continue;
+                if (!groupedData[r.tempo]) groupedData[r.tempo] = { montante: null, jusante: null, vazao: null };
+                const g = groupedData[r.tempo];
 
-                const tagCsv = limparStr(cols[0]);
-                const vrpCsv = limparStr(cols[1]);
-                const caracteristica = limparStr(cols[2]); 
-                const tempo = cols[3].trim();
-                const valor = parseFloat(cols[4].replace(',', '.'));
-
-                if (isNaN(valor)) continue; 
-
-                const matchPressao = tagsPressao.has(vrpCsv) || tagsPressao.has(tagCsv);
-                const matchVazao = tagsVazao.has(vrpCsv) || tagsVazao.has(tagCsv);
-
-                if (matchPressao || matchVazao) {
-                    if (!groupedData[tempo]) {
-                        groupedData[tempo] = { montante: null, jusante: null, vazao: null };
-                    }
-                    if (caracteristica.includes('MONTANTE') && matchPressao) {
-                        groupedData[tempo].montante = valor;
-                    } else if (caracteristica.includes('JUSANTE') && matchPressao) {
-                        groupedData[tempo].jusante = valor;
-                    } else if (caracteristica.includes('VAZ')) {
-                        if (matchVazao || matchPressao) groupedData[tempo].vazao = valor;
-                    }
+                if (r.car.includes('MONTANTE') && matchPressao) {
+                    g.montante = r.valor;
+                } else if (r.car.includes('JUSANTE') && matchPressao) {
+                    g.jusante = r.valor;
+                } else if (r.car.includes('VAZ')) {
+                    if (matchVazao || matchPressao) g.vazao = r.valor;
                 }
             }
 
             // Ordena cronologicamente
             const sortedTimes = Object.keys(groupedData).sort((a, b) => parseDataHora(a) - parseDataHora(b));
-            const labels = [], dataMontante = [], dataJusante = [], dataVazao = [];
-            let somaVazaoGeral = 0, contVazaoGeral = 0, vazoesNoturnasPorDia = {};
+            const labels = [], dataMontante = [], dataJusante = [], dataVazao = [], paresVazao = [];
 
             sortedTimes.forEach(tempo => {
+                const g = groupedData[tempo];
                 labels.push(tempo);
-                
-                dataMontante.push(groupedData[tempo].montante);
-                dataJusante.push(groupedData[tempo].jusante);
-                dataVazao.push(groupedData[tempo].vazao);
-
-                if (groupedData[tempo].vazao !== null && !isNaN(groupedData[tempo].vazao)) {
-                    somaVazaoGeral += groupedData[tempo].vazao;
-                    contVazaoGeral++;
-                    
-                    let partesTempo = tempo.split(' '); 
-                    if (partesTempo.length === 2) {
-                        let dataPart = partesTempo[0]; 
-                        let hora = parseInt(partesTempo[1].split(':')[0], 10);
-                        if (hora >= 0 && hora <= 6) {
-                            if (!vazoesNoturnasPorDia[dataPart]) vazoesNoturnasPorDia[dataPart] = [];
-                            vazoesNoturnasPorDia[dataPart].push(groupedData[tempo].vazao);
-                        }
-                    }
-                }
+                dataMontante.push(g.montante);
+                dataJusante.push(g.jusante);
+                dataVazao.push(g.vazao);
+                if (g.vazao !== null && !isNaN(g.vazao)) paresVazao.push({ tempo, valor: g.vazao });
             });
 
-            if (contVazaoGeral > 0) {
-                let mediaVazaoGeral = somaVazaoGeral / contVazaoGeral;
-                let menoresVazoesNoturnas = [], detalheDiasHtml = "";
-                
-                for (let dia in vazoesNoturnasPorDia) {
-                    let menorDoDia = Math.min(...vazoesNoturnasPorDia[dia]);
-                    menoresVazoesNoturnas.push(menorDoDia);
-                    detalheDiasHtml += `<li>Dia ${dia}: <strong>${menorDoDia.toFixed(2)}</strong></li>`;
-                }
-                
-                if (menoresVazoesNoturnas.length > 0 && mediaVazaoGeral !== 0) {
-                    let mediaMenoresNoturnas = menoresVazoesNoturnas.reduce((a, b) => a + b, 0) / menoresVazoesNoturnas.length;
-                    let fatorPesquisa = mediaMenoresNoturnas / mediaVazaoGeral;
-                    
-                    const emAlerta = fatorPesquisa >= 0.4;
-                    const corDestaque = emAlerta ? '#dc3545' : 'var(--primary-color)';
-
-                    htmlMemoriaCalculo = `
-                        <ul>
-                            <li><strong>Vazão Média Diária:</strong> ${mediaVazaoGeral.toFixed(2)}</li>
-                            <li><strong>Mínimas Noturnas (00h-06h):</strong><ul style="margin: 6px 0;">${detalheDiasHtml}</ul></li>
-                            <li><strong>Média das Mínimas Noturnas:</strong> ${mediaMenoresNoturnas.toFixed(2)}</li>
-                        </ul>
-                        <div class="fp-result-line">
-                            Resultado: <strong class="final-value" style="color: ${corDestaque};">${fatorPesquisa.toFixed(3)}</strong>
-                            ${emAlerta ? '<div style="color: #dc3545; font-size: 0.85rem; font-weight: bold; margin-top: 8px;">⚠️ ALERTA: Fator de Pesquisa Crítico (≥ 0.40)</div>' : ''}
-                        </div>
-                    `;
-
-                    if (fpContainer) {
-                        if (emAlerta) {
-                            fpContainer.innerHTML = `
-                                <div class="data-row fator-pesquisa-row fp-alerta-box" style="margin-bottom: 20px;">
-                                    <div class="data-label" style="color: #dc3545;">
-                                        ⚠️ Fator de Pesquisa
-                                        <i class="info-icon" style="background-color: #dc3545;" onclick="abrirModalInfoFP()">i</i>
-                                    </div>
-                                    <div class="data-value">
-                                        <span>${fatorPesquisa.toFixed(3)}</span>
-                                        <span class="fp-badge-alerta">🚨 ALERTA CRÍTICO</span>
-                                    </div>
-                                    <div class="fp-aviso-texto">
-                                        Vazão noturna elevada em relação à média diária. Recomenda-se varredura acústica imediata para localização de vazamentos.
-                                    </div>
-                                </div>
-                            `;
-                        } else {
-                            fpContainer.innerHTML = `
-                                <div class="data-row fator-pesquisa-row" style="margin-bottom: 20px;">
-                                    <div class="data-label">
-                                        📊 Fator de Pesquisa 
-                                        <i class="info-icon" onclick="abrirModalInfoFP()">i</i>
-                                    </div>
-                                    <div class="data-value">${fatorPesquisa.toFixed(3)}</div>
-                                </div>
-                            `;
-                        }
-                    }
-                }
-            }
+            const resultadoFP = calcularFP(paresVazao);
+            if (resultadoFP) mostrarFatorPesquisa(resultadoFP);
 
             if (labels.length > 0) {
-                let titleParts = [];
+                const titleParts = [];
                 if (nomenclatura) titleParts.push(nomenclatura);
                 if (nomMacro && nomMacro !== nomenclatura) titleParts.push(nomMacro);
                 lastChartData = { labels, montante: dataMontante, jusante: dataJusante, vazao: dataVazao, title: titleParts.join(' / ') };
@@ -954,6 +1071,7 @@
                 lastChartData = null;
             }
         } catch (error) {
+            if (reqId !== graficoReqId) return;
             console.error("Erro no gráfico:", error);
             chartSection.style.display = 'none';
         }
@@ -965,14 +1083,28 @@
         const textColor = '#333333';
         const gridColor = 'rgba(0,0,0,0.06)';
 
-        if (chartData.montante.some(v => v !== null)) {
-            datasets.push({ label: 'Montante', data: chartData.montante, borderColor: '#0056b3', backgroundColor: 'rgba(0, 86, 179, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true });
+        const temMontante = chartData.montante.some(v => v !== null);
+        const temJusante = chartData.jusante.some(v => v !== null);
+        const temVazao = !!(chartData.vazao && chartData.vazao.some(v => v !== null));
+        const temPressao = temMontante || temJusante;
+        const vazaoEmEixoProprio = temPressao && temVazao; // pressão e vazão têm ordens de grandeza diferentes
+
+        if (temMontante) {
+            datasets.push({ label: 'Montante', data: chartData.montante, borderColor: '#0056b3', backgroundColor: 'rgba(0, 86, 179, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true, yAxisID: 'y' });
         }
-        if (chartData.jusante.some(v => v !== null)) {
-            datasets.push({ label: 'Jusante', data: chartData.jusante, borderColor: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true });
+        if (temJusante) {
+            datasets.push({ label: 'Jusante', data: chartData.jusante, borderColor: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true, yAxisID: 'y' });
         }
-        if (chartData.vazao && chartData.vazao.some(v => v !== null)) {
-            datasets.push({ label: 'Vazão', data: chartData.vazao, borderColor: '#2e7d32', backgroundColor: 'rgba(46, 125, 50, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true });
+        if (temVazao) {
+            datasets.push({ label: 'Vazão', data: chartData.vazao, borderColor: '#2e7d32', backgroundColor: 'rgba(46, 125, 50, 0.08)', borderWidth: isExpanded ? 3 : 2, pointRadius: isExpanded ? 3 : 0, tension: 0.3, fill: true, yAxisID: vazaoEmEixoProprio ? 'y1' : 'y' });
+        }
+
+        const scales = {
+            x: { ticks: { maxTicksLimit: isExpanded ? 20 : 6, color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
+            y: { beginAtZero: true, position: 'left', ticks: { color: textColor }, grid: { color: gridColor }, title: { display: true, text: temPressao ? 'Pressão' : 'Vazão', color: textColor, font: { weight: 'bold' } } }
+        };
+        if (vazaoEmEixoProprio) {
+            scales.y1 = { beginAtZero: true, position: 'right', ticks: { color: '#2e7d32' }, grid: { drawOnChartArea: false }, title: { display: true, text: 'Vazão', color: '#2e7d32', font: { weight: 'bold' } } };
         }
 
         const config = {
@@ -980,10 +1112,7 @@
             options: {
                 responsive: true, maintainAspectRatio: false,
                 interaction: { intersect: false, mode: 'index' },
-                scales: {
-                    x: { ticks: { maxTicksLimit: isExpanded ? 20 : 6, color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
-                    y: { beginAtZero: true, ticks: { color: textColor }, grid: { color: gridColor }, title: { display: true, text: 'Valor', color: textColor, font: { weight: 'bold' } } }
-                },
+                scales,
                 plugins: { legend: { labels: { color: textColor }, position: 'bottom' } }
             }
         };
@@ -1009,7 +1138,10 @@
         chartModal.style.display = 'flex';
         setTimeout(() => { renderizarCanvas('expandedChart', lastChartData, true); }, 100);
     }
-    function fecharModalGrafico() { chartModal.style.display = 'none'; }
+    function fecharModalGrafico() {
+        chartModal.style.display = 'none';
+        if (expandedChart) { expandedChart.destroy(); expandedChart = null; }
+    }
     function abrirModalImagem() {
         const src = imgElement.src;
         if (!src || src.endsWith('null') || src === '') return;
@@ -1037,7 +1169,7 @@
             const vazao = lastChartData.vazao[i] !== null && lastChartData.vazao[i] !== undefined ? lastChartData.vazao[i].toString().replace('.', ',') : '';
             csvContent += `${tempo};${montante};${jusante};${vazao}\n`;
         }
-        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' }); 
+        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.setAttribute('href', url);
@@ -1045,28 +1177,40 @@
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
-    function carregarSVG() {
+    // --- CARREGAMENTO DO SVG ---
+    async function carregarSVG() {
+        const reqId = ++svgReqId;
         mostrarCarregamento("Carregando mapa...");
-        fetch(`${svgFileName}?t=${Date.now()}`, { cache: 'no-store' })
-            .then(res => {
-                if (!res.ok) throw new Error("SVG não encontrado");
-                return res.text();
-            })
-            .then(svgData => {
-                svgWrapper.innerHTML = svgData;
-                resetZoom();
-                ativarInteratividade();
-                atualizarDatalistBusca();
-                aplicarAlarmesNoFluxograma();
-                ocultarCarregamento();
-            })
-            .catch(err => {
-                console.error("Erro ao carregar SVG", err);
-                mostrarCarregamento("Erro ao carregar o mapa SVG.");
-                document.querySelector('.loader').style.display = 'none'; 
-            });
+
+        // Tenta o nome como está no menu e, se não existir, a variante com "_" no lugar dos espaços
+        const candidatos = [svgFileName];
+        const alternativo = svgFileName.replace(/ /g, '_');
+        if (alternativo !== svgFileName) candidatos.push(alternativo);
+
+        let svgData = null;
+        for (const nome of candidatos) {
+            try {
+                const res = await fetch(encodeURI(nome), { cache: 'no-cache' });
+                if (res.ok) { svgData = await res.text(); break; }
+            } catch (err) { /* tenta o próximo candidato */ }
+        }
+        if (reqId !== svgReqId) return; // o usuário trocou de área enquanto carregava
+
+        if (svgData === null) {
+            console.error("Erro ao carregar SVG:", candidatos.join(' | '));
+            mostrarCarregamento("Erro ao carregar o mapa SVG.", false);
+            return;
+        }
+
+        svgWrapper.innerHTML = svgData;
+        resetZoom();
+        ativarInteratividade();
+        atualizarDatalistBusca();
+        aplicarAlarmesNoFluxograma();
+        ocultarCarregamento();
     }
 
     function obterIconeCampo(label) {
@@ -1078,14 +1222,21 @@
         if (l.includes('volume')) return '🛢️';
         if (l.includes('sistema')) return '⚙️';
         if (l.includes('profundidade')) return '⏬';
-        return '▪️'; 
+        return '▪️';
+    }
+
+    function statusOperacional(status) {
+        const s = limparStr(status);
+        if (/FORA|INOPER|DESATIV|PARAD/.test(s)) return false;
+        return /OPERA|NORMAL/.test(s);
     }
 
     function ativarInteratividade() {
-        document.querySelectorAll('.interactive-element').forEach(el => {
+        svgWrapper.querySelectorAll('.interactive-element').forEach(el => {
             el.addEventListener('click', (e) => {
-                removerDestaques();
                 e.stopPropagation();
+                if (dragMoved) return; // foi um arrasto no mapa, não um clique no equipamento
+                removerDestaques();
 
                 const data = el.dataset;
                 const info = obterDadosElemento(el);
@@ -1093,7 +1244,7 @@
                 destacarConexoesEmCadeia(el);
 
                 document.getElementById('item-nome').innerText = info.nome || info.equip || 'Componente';
-                
+
                 // Exibe a nomenclatura preferida (se for composta, mostra ambas)
                 let displayId = info.vrp;
                 if (info.macro) displayId = displayId ? `${displayId} / ${info.macro}` : info.macro;
@@ -1110,10 +1261,11 @@
 
                 const statusEl = document.getElementById('item-status');
                 if (data.status) {
+                    const ok = statusOperacional(data.status);
                     statusEl.style.display = 'inline-block';
                     statusEl.innerText = data.status;
-                    statusEl.style.background = (data.status.includes('Oper') || data.status.includes('Normal')) ? '#e8f5e9' : '#fff3e0';
-                    statusEl.style.color = (data.status.includes('Oper') || data.status.includes('Normal')) ? '#2e7d32' : '#e65100';
+                    statusEl.style.background = ok ? '#e8f5e9' : '#fff3e0';
+                    statusEl.style.color = ok ? '#2e7d32' : '#e65100';
                 } else {
                     statusEl.style.display = 'none';
                 }
@@ -1121,7 +1273,7 @@
                 const campos = document.getElementById('campos-dinamicos');
                 let html = '';
                 const add = (l, v) => {
-                    if (v) html += `<div class="data-row"><div class="data-label">${obterIconeCampo(l)} ${l}</div><div class="data-value">${v}</div></div>`;
+                    if (v) html += `<div class="data-row"><div class="data-label">${obterIconeCampo(l)} ${l}</div><div class="data-value">${escaparHtml(v)}</div></div>`;
                 };
 
                 const equip = info.equip;
@@ -1132,8 +1284,10 @@
                     add('Nº Ligações', data.ligacoes);
                 } else if (equip === 'Reservatório') {
                     add('Sistema', data.sistema);
+                    add('ETA', data.eta);
                     add('Volume Total', data.volumeTotal);
                     add('Volume Operação', data.volumeOperacao);
+                    add('Nº Ligações', data.ligacoes);
                 } else if (equip === 'Booster') {
                     add('Pressão Jusante', data.pressaoJusante);
                     add('Diâmetro', data.diametro);
@@ -1153,13 +1307,28 @@
                 if (vrpTarget || macroTarget) {
                     atualizarGrafico(vrpTarget, macroTarget);
                 } else {
+                    graficoReqId++;
                     chartSection.style.display = 'none';
+                }
+            });
+
+            // Teclado e leitores de tela
+            const nomeEl = obterDadosElemento(el).nome;
+            el.setAttribute('tabindex', '0');
+            el.setAttribute('role', 'button');
+            if (nomeEl) el.setAttribute('aria-label', nomeEl);
+            el.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    ev.preventDefault();
+                    dragMoved = false;
+                    el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
                 }
             });
         });
     }
 
     function closePanel() {
+        graficoReqId++; // invalida gráfico que ainda esteja carregando
         panel.classList.remove('active');
         removerDestaques();
     }
@@ -1168,6 +1337,7 @@
         document.querySelectorAll('.highlight-blink, .search-highlight-target').forEach(el => {
             el.classList.remove('highlight-blink', 'search-highlight-target');
         });
+        document.querySelectorAll('#camada-rota').forEach(c => c.remove());
     }
 
     // Busca conexões prevenindo tanto "nomenclatura" quanto "nomeclatura"
@@ -1176,6 +1346,7 @@
         const id = info.vrp || info.macro || info.id;
         if (!id) return;
         const visitados = new Set();
+        const equipamentosRota = new Set();
         const fila = [id];
 
         while (fila.length > 0) {
@@ -1183,23 +1354,29 @@
             if (visitados.has(curr)) continue;
             visitados.add(curr);
 
+            const v = curr.replace(/["\\]/g, '\\$&'); // escapa aspas/barras para o seletor
             const seletor = [
-                `[data-nomenclatura="${curr}"]`,
-                `[data-nomeclatura="${curr}"]`,
-                `[data-nomenclatura-vrp="${curr}"]`,
-                `[data-nomeclatura-vrp="${curr}"]`,
-                `[data-nomenclatura-macro="${curr}"]`,
-                `[data-nomeclatura-macro="${curr}"]`,
-                `[data-id="${curr}"]`
+                `[data-nomenclatura="${v}"]`,
+                `[data-nomeclatura="${v}"]`,
+                `[data-nomenclatura-vrp="${v}"]`,
+                `[data-nomeclatura-vrp="${v}"]`,
+                `[data-nomenclatura-macro="${v}"]`,
+                `[data-nomeclatura-macro="${v}"]`,
+                `[data-id="${v}"]`
             ].join(', ');
 
-            const found = document.querySelector(seletor);
-            if (found) {
-                if (found !== el) found.classList.add('highlight-blink');
+            // Todos os elementos que casam (trechos de tubulação podem repetir o mesmo data-id)
+            svgWrapper.querySelectorAll(seletor).forEach(found => {
+                if (found !== el) {
+                    found.classList.add('highlight-blink');
+                    if (found.tagName.toLowerCase() === 'g') equipamentosRota.add(found);
+                }
                 const raw = found.dataset.conexoes || found.dataset.vrpsConectadas || '';
-                raw.split(',').map(s => s.trim()).filter(Boolean).forEach(c => fila.push(c));
-            }
+                raw.split(',').map(s => s.trim()).filter(c => c && !/^-+$/.test(c)).forEach(c => fila.push(c));
+            });
         }
+
+        marcarRotaEquipamentos(Array.from(equipamentosRota));
     }
 
     function atualizarDatalistBusca() {
@@ -1208,7 +1385,7 @@
         datalist.innerHTML = '';
         const itens = new Set();
 
-        document.querySelectorAll('.interactive-element').forEach(el => {
+        svgWrapper.querySelectorAll('.interactive-element').forEach(el => {
             const info = obterDadosElemento(el);
             if (info.vrp) itens.add(info.vrp);
             if (info.macro) itens.add(info.macro);
@@ -1231,6 +1408,7 @@
     }
 
     function verificarSelecaoDatalist(event) {
+        searchInput.classList.remove('not-found');
         const valor = event.target.value.trim();
         const datalist = document.getElementById('equipamentos-list');
         if (!datalist || !valor) return;
@@ -1241,161 +1419,123 @@
         }
     }
 
+    function sinalizarNaoEncontrado() {
+        searchInput.classList.add('not-found');
+        setTimeout(() => searchInput.classList.remove('not-found'), 1800);
+    }
+
     function executarBuscaComZoom(termo) {
         removerDestaques();
+        searchInput.classList.remove('not-found');
         if (!termo || !termo.trim()) return;
 
         const busca = termo.toLowerCase().trim();
-        let elementoEncontrado = null;
+        let exato = null, parcial = null;
 
-        document.querySelectorAll('.interactive-element').forEach(el => {
+        // Correspondência exata tem prioridade; só se não houver, usa a primeira parcial
+        for (const el of svgWrapper.querySelectorAll('.interactive-element')) {
             const info = obterDadosElemento(el);
-            const id = info.id.toLowerCase();
-            const nome = info.nome.toLowerCase();
-            const vrp = info.vrp.toLowerCase();
-            const macro = info.macro.toLowerCase();
+            const campos = [info.id, info.nome, info.vrp, info.macro].map(c => c.toLowerCase());
+            if (campos.some(c => c === busca)) { exato = el; break; }
+            if (!parcial && campos.some(c => c && c.includes(busca))) parcial = el;
+        }
 
-            if (!elementoEncontrado) {
-                if (id === busca || vrp === busca || macro === busca || nome === busca) {
-                    elementoEncontrado = el;
-                } else if (id.includes(busca) || nome.includes(busca) || vrp.includes(busca) || macro.includes(busca)) {
-                    elementoEncontrado = el;
-                }
-            }
-        });
-
-        if (elementoEncontrado) {
-            centralizarEDestacarElemento(elementoEncontrado);
+        const alvo = exato || parcial;
+        if (alvo) {
+            centralizarEDestacarElemento(alvo);
+        } else {
+            sinalizarNaoEncontrado();
         }
     }
 
     function centralizarEDestacarElemento(el) {
         if (!el) return;
-
         removerDestaques();
-        el.classList.add('search-highlight-target');
 
-        scale = 2.5;
+        const ESCALA_BUSCA = 2.5;
+        const anterior = { s: scale, x: lastTranslateXPx, y: lastTranslateYPx };
+
+        // 1) Mede a posição final SEM transição (com transição, a medição pegaria o meio da animação)
+        svgWrapper.style.transition = 'none';
+        scale = ESCALA_BUSCA;
+        updateTransform();
+        const viewportRect = svgViewport.getBoundingClientRect();
+        const elRect = el.getBoundingClientRect();
+        const alvoX = lastTranslateXPx + ((viewportRect.left + viewportRect.width / 2) - (elRect.left + elRect.width / 2));
+        const alvoY = lastTranslateYPx + ((viewportRect.top + viewportRect.height / 2) - (elRect.top + elRect.height / 2));
+
+        // 2) Volta ao estado anterior e anima até o destino
+        scale = anterior.s; lastTranslateXPx = anterior.x; lastTranslateYPx = anterior.y;
+        updateTransform();
+        void svgWrapper.offsetWidth; // força o navegador a assentar o estado antes de animar
 
         svgWrapper.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        scale = ESCALA_BUSCA; lastTranslateXPx = alvoX; lastTranslateYPx = alvoY;
         updateTransform();
 
-        requestAnimationFrame(() => {
-            const viewportRect = svgViewport.getBoundingClientRect();
-            const elRect = el.getBoundingClientRect();
+        // 3) Abre o painel e só então aplica o destaque (o clique limpa os destaques anteriores)
+        dragMoved = false;
+        el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        el.classList.add('search-highlight-target');
 
-            const viewportCenterX = viewportRect.left + viewportRect.width / 2;
-            const viewportCenterY = viewportRect.top + viewportRect.height / 2;
-            const elCenterX = elRect.left + elRect.width / 2;
-            const elCenterY = elRect.top + elRect.height / 2;
-
-            lastTranslateXPx += (viewportCenterX - elCenterX);
-            lastTranslateYPx += (viewportCenterY - elCenterY);
-
-            updateTransform();
-
-            el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
-
-            setTimeout(() => {
-                svgWrapper.style.transition = 'opacity 0.3s';
-            }, 600);
-        });
+        setTimeout(() => { svgWrapper.style.transition = 'opacity 0.3s'; }, 650);
     }
 
     window.onload = carregarSVG;
-    
-    window.onclick = (e) => { 
-        if (e.target == chartModal) fecharModalGrafico(); 
-        if (e.target == fpModal) fecharModalInfoFP(); 
-        if (e.target == imageModal) fecharModalImagem();
-    }
 
+    window.addEventListener('click', (e) => {
+        if (e.target === chartModal) fecharModalGrafico();
+        if (e.target === fpModal) fecharModalInfoFP();
+        if (e.target === imageModal) fecharModalImagem();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        if (visivel(fpModal)) fecharModalInfoFP();
+        else if (visivel(imageModal)) fecharModalImagem();
+        else if (visivel(chartModal)) fecharModalGrafico();
+    });
+
+    // --- ALARMES DE FATOR DE PESQUISA NO MAPA ---
     let fatoresPesquisaCalculados = {};
 
     async function aplicarAlarmesNoFluxograma() {
+        const reqId = svgReqId;
         try {
-            const response = await fetch(`${csvFileName}?t=${Date.now()}`, { cache: 'no-store' });
-            if (!response.ok) return;
+            const rows = await carregarCSV();
+            if (reqId !== svgReqId) return; // o mapa mudou enquanto o CSV carregava
 
-            const text = await response.text();
-            const lines = text.split('\n');
-            if (lines.length < 2) return;
-
-            const delimiter = lines[0].includes(';') ? ';' : (lines[0].includes('\t') ? '\t' : ',');
+            // id -> todos os registros de vazão ligados a ele (mesma regra de antes das correções)
             const vazoesPorEquip = {};
-
-            for (let i = 1; i < lines.length; i++) {
-                const line = lines[i].trim();
-                if (!line) continue;
-                const cols = line.split(delimiter);
-                if (cols.length < 5) continue;
-
-                const tagCsv = limparStr(cols[0]);
-                const vrpCsv = limparStr(cols[1]);
-                const caracteristica = limparStr(cols[2]);
-                const tempo = cols[3].trim();
-                const valor = parseFloat(cols[4].replace(',', '.'));
-
-                if (isNaN(valor)) continue;
-
-                if (caracteristica.includes('VAZ')) {
-                    const ids = [vrpCsv, tagCsv].filter(Boolean);
-                    ids.forEach(id => {
-                        if (!vazoesPorEquip[id]) vazoesPorEquip[id] = [];
-                        vazoesPorEquip[id].push({ tempo, valor });
-                    });
-                }
+            for (const r of rows) {
+                if (!r.car.includes('VAZ')) continue;
+                new Set([r.vrp, r.tag].filter(Boolean)).forEach(id => {
+                    if (!vazoesPorEquip[id]) vazoesPorEquip[id] = [];
+                    vazoesPorEquip[id].push({ tempo: r.tempo, valor: r.valor });
+                });
             }
 
             fatoresPesquisaCalculados = {};
-
-            for (let id in vazoesPorEquip) {
-                const registros = vazoesPorEquip[id];
-                let somaVazao = 0;
-                let vazoesNoturnasPorDia = {};
-
-                registros.forEach(r => {
-                    somaVazao += r.valor;
-                    const partes = r.tempo.split(' ');
-                    if (partes.length === 2) {
-                        const dia = partes[0];
-                        const hora = parseInt(partes[1].split(':')[0], 10);
-                        if (hora >= 0 && hora <= 6) {
-                            if (!vazoesNoturnasPorDia[dia]) vazoesNoturnasPorDia[dia] = [];
-                            vazoesNoturnasPorDia[dia].push(r.valor);
-                        }
-                    }
-                });
-
-                const mediaGeral = somaVazao / registros.length;
-                const menoresNoturnas = [];
-                for (let dia in vazoesNoturnasPorDia) {
-                    menoresNoturnas.push(Math.min(...vazoesNoturnasPorDia[dia]));
-                }
-
-                if (menoresNoturnas.length > 0 && mediaGeral > 0) {
-                    const mediaMenores = menoresNoturnas.reduce((a, b) => a + b, 0) / menoresNoturnas.length;
-                    fatoresPesquisaCalculados[id] = mediaMenores / mediaGeral;
-                }
+            for (const id in vazoesPorEquip) {
+                const r = calcularFP(vazoesPorEquip[id]);
+                if (r) fatoresPesquisaCalculados[id] = r.fp;
             }
 
             destacarElementosEmAlertaNoSVG();
-
         } catch (err) {
             console.error("Erro ao processar alarmes do CSV:", err);
         }
     }
 
     function destacarElementosEmAlertaNoSVG() {
-        document.querySelectorAll('.interactive-element').forEach(el => {
-            const info = obterDadosElemento(el);
-            const id = limparStr(info.id);
-            const vrp = limparStr(info.vrp);
-            const macro = limparStr(info.macro);
+        const SVG_NS = 'http://www.w3.org/2000/svg';
+        const emAlerta = [];
 
-            const fpId = fatoresPesquisaCalculados[id];
-            const fpVrp = fatoresPesquisaCalculados[vrp];
-            const fpMacro = fatoresPesquisaCalculados[macro];
+        svgWrapper.querySelectorAll('.interactive-element').forEach(el => {
+            const info = obterDadosElemento(el);
+            const fpId = fatoresPesquisaCalculados[limparStr(info.id)];
+            const fpVrp = fatoresPesquisaCalculados[limparStr(info.vrp)];
+            const fpMacro = fatoresPesquisaCalculados[limparStr(info.macro)];
 
             const maiorFP = Math.max(
                 fpId !== undefined ? fpId : -1,
@@ -1403,13 +1543,109 @@
                 fpMacro !== undefined ? fpMacro : -1
             );
 
-            if (maiorFP >= 0.4) {
+            // Em SVG, o tooltip nativo vem de um <title> filho (o atributo title não funciona)
+            el.querySelectorAll(':scope > title.fp-alerta-title').forEach(t => t.remove());
+
+            if (maiorFP >= LIMIAR_FP) {
                 el.classList.add('svg-fp-alerta');
-                el.setAttribute('title', `🚨 ALERTA: Fator de Pesquisa Crítico (${maiorFP.toFixed(3)})`);
+                const t = document.createElementNS(SVG_NS, 'title');
+                t.setAttribute('class', 'fp-alerta-title');
+                t.textContent = `🚨 ALERTA: Fator de Pesquisa Crítico (${maiorFP.toFixed(3)})`;
+                el.insertBefore(t, el.firstChild);
+                emAlerta.push(el);
             } else {
                 el.classList.remove('svg-fp-alerta');
             }
         });
+
+        desenharCamadaAlertas(emAlerta);
+    }
+
+    // Caixa do elemento (minX, maxX, minY, maxY) no sistema de coordenadas da raiz do SVG
+    function caixaNaRaiz(svg, el) {
+        let bb;
+        try { bb = el.getBBox(); } catch (e) { return null; }
+        if (!bb || (!bb.width && !bb.height)) return null;
+        const m = svg.getScreenCTM().inverse().multiply(el.getScreenCTM());
+        const pts = [[bb.x, bb.y], [bb.x + bb.width, bb.y], [bb.x, bb.y + bb.height], [bb.x + bb.width, bb.y + bb.height]]
+            .map(([x, y]) => { const p = svg.createSVGPoint(); p.x = x; p.y = y; return p.matrixTransform(m); });
+        const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+        return { minX: Math.min(...xs), maxX: Math.max(...xs), minY: Math.min(...ys), maxY: Math.max(...ys) };
+    }
+
+    // Pixels de tela por unidade do desenho (com o zoom em 1)
+    function pixelsPorUnidade(svg) {
+        const vb = svg.viewBox && svg.viewBox.baseVal;
+        const larguraPx = svg.getBoundingClientRect().width / scale;
+        return (vb && vb.width && larguraPx) ? larguraPx / vb.width : 1;
+    }
+
+    // Desenha, por cima do mapa, um halo e ondas de radar em cada equipamento em alerta.
+    // Fica em uma camada própria com pointer-events:none, então o clique continua indo para o equipamento.
+    function desenharCamadaAlertas(elementos) {
+        const svg = svgWrapper.querySelector('svg');
+        if (!svg) return;
+        svg.querySelectorAll('#camada-alertas').forEach(c => c.remove());
+        if (!elementos.length) return;
+
+        const SVG_NS = 'http://www.w3.org/2000/svg';
+        const novo = (tag, attrs = {}) => {
+            const n = document.createElementNS(SVG_NS, tag);
+            Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v));
+            return n;
+        };
+        const kpx = pixelsPorUnidade(svg);
+        const camada = novo('g', { id: 'camada-alertas', 'pointer-events': 'none' });
+
+        elementos.forEach(el => {
+            const c = caixaNaRaiz(svg, el);
+            if (!c) return;
+            const cx = (c.minX + c.maxX) / 2, cy = (c.minY + c.maxY) / 2;
+            const raio = Math.max(Math.max(c.maxX - c.minX, c.maxY - c.minY) / 2 * 1.1, 10 / kpx);
+
+            const g = novo('g', { transform: `translate(${cx} ${cy})` });
+            g.appendChild(novo('circle', { class: 'fp-halo', r: raio }));
+            g.appendChild(novo('circle', { class: 'fp-radar', r: raio }));
+            g.appendChild(novo('circle', { class: 'fp-radar r2', r: raio }));
+            camada.appendChild(g);
+        });
+
+        svg.appendChild(camada);
+    }
+
+    // Moldura fixa (sem piscar) nos equipamentos que fazem parte da rota do data-conexoes.
+    // Os grupos <g> não mostram a cor aplicada a eles quando os desenhos internos têm cor própria,
+    // por isso a marca é desenhada por cima, na cor da rota.
+    function marcarRotaEquipamentos(elementos) {
+        const svg = svgWrapper.querySelector('svg');
+        if (!svg) return;
+        svg.querySelectorAll('#camada-rota').forEach(c => c.remove());
+        if (!elementos.length) return;
+
+        const SVG_NS = 'http://www.w3.org/2000/svg';
+        const kpx = pixelsPorUnidade(svg);
+        const camada = document.createElementNS(SVG_NS, 'g');
+        camada.setAttribute('id', 'camada-rota');
+        camada.setAttribute('pointer-events', 'none');
+
+        elementos.forEach(el => {
+            const c = caixaNaRaiz(svg, el);
+            if (!c) return;
+            const w = c.maxX - c.minX, h = c.maxY - c.minY;
+            const folga = Math.max(Math.max(w, h) * 0.03, 1.5 / kpx);
+            const r = document.createElementNS(SVG_NS, 'rect');
+            r.setAttribute('class', 'rota-marca');
+            r.setAttribute('x', c.minX - folga);
+            r.setAttribute('y', c.minY - folga);
+            r.setAttribute('width', w + 2 * folga);
+            r.setAttribute('height', h + 2 * folga);
+            r.setAttribute('rx', Math.min(w, h) * 0.08 + folga * 0.5);
+            camada.appendChild(r);
+        });
+
+        // Fica logo abaixo da camada de alertas, para o alarme continuar por cima
+        const alertas = svg.querySelector('#camada-alertas');
+        if (alertas) svg.insertBefore(camada, alertas); else svg.appendChild(camada);
     }
 </script>
 
