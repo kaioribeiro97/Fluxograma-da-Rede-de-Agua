@@ -27,9 +27,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showguides="true"
-     inkscape:zoom="2.8284272"
-     inkscape:cx="483.66103"
-     inkscape:cy="52.149124"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="297.99999"
+     inkscape:cy="269.24999"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -1194,8 +1194,8 @@
        id="path4-0-3-8-5"
        sodipodi:nodetypes="cccc" />
     <path
-       style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-       d="m 72.751855,69.659476 -0.018,3.989555 m 0,0 -0.022,6.967795"
+       style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.303552;stroke-dasharray:none;stroke-opacity:1"
+       d="m 72.751855,69.973649 -0.018,3.875165 m 0,0 -0.022,6.768012"
        id="path4-0-3-8-5-6-5"
        sodipodi:nodetypes="cccc" />
     <path
@@ -2211,616 +2211,6 @@
            style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
            d="m 92.80154,53.501744 h -1.485488 m 0,0 h -2.596161"
            id="path12"
-           sodipodi:nodetypes="cccc" />
-      </g>
-    </g>
-    <text
-       xml:space="preserve"
-       style="font-size:2.59542px;writing-mode:lr-tb;direction:ltr;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:0.648872;stroke-dasharray:none;stroke-opacity:1"
-       x="-69.470436"
-       y="64.27462"
-       id="text3-3-1-1-8-4"
-       transform="matrix(0,-1.0055415,0.99448903,0,0,0)"><tspan
-         sodipodi:role="line"
-         id="tspan3-3-9-2-6-2"
-         x="-69.470436"
-         y="64.27462"
-         style="fill:#000000;fill-opacity:1;stroke-width:0.648872">EAT.LNT.003</tspan><tspan
-         sodipodi:role="line"
-         x="-69.470436"
-         y="67.518898"
-         style="fill:#000000;fill-opacity:1;stroke-width:0.648872"
-         id="tspan1" /></text>
-    <g
-       id="g9"
-       transform="rotate(-90,101.61849,75.389475)"
-       inkscape:transform-center-x="3.0427083"
-       inkscape:transform-center-y="2.1166666"
-       class="interactive-element"
-       data-equipamento="Booster"
-       data-nomenclatura="EAT.LNT.003"
-       data-status="Em Operação"
-       data-nome="Booster EAT.LNT.003">
-      <g
-         id="g14-1"
-         transform="translate(28.362519,-5.3669003)">
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 78.916977,58.020978 v -4.443155 m 0,0 v -7.765222"
-           id="path4-0-3-6-7"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 78.846158,57.867369 h 1.485488 m 0,0 h 2.596161"
-           id="path4-0-3-6-3-1"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 78.845429,45.966215 h 1.473451 m 0,0 h 2.575125"
-           id="path4-0-3-6-3-3-1"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 78.847781,49.996015 h 1.485488 m 0,0 h 2.596161"
-           id="path4-0-3-6-3-3-2-5"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 78.845815,53.898619 h 1.485488 m 0,0 h 2.596161"
-           id="path4-0-3-6-3-3-2-9-2"
-           sodipodi:nodetypes="cccc" />
-      </g>
-      <g
-         transform="matrix(-0.02063205,0,0,0.01762506,700.06015,-53.831879)"
-         id="g1-3">
-        <!-- ESSA LINHA NÃO PODE SUMIR -->
-        <path
-           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
-           fill="#54d8fc"
-           stroke="#6140fc"
-           stroke-width="10"
-           id="path142-7-3-2" />
-        <path
-           d="m 28535.9,5368.29 -6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1602-2-1-2" />
-        <path
-           d="m 28529.9,5390.4 -11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1603-2-2-1" />
-        <path
-           d="m 28518.5,5410.21 -16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1604-8-3-6" />
-        <path
-           d="m 28502.3,5426.4 -19.8,11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1605-2-3-8" />
-        <path
-           d="m 28482.5,5437.85 -22.1,5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1606-8-4-57" />
-        <path
-           d="m 28460.4,5443.77 h -22.9"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1607-9-1-6" />
-        <path
-           d="m 28437.5,5443.77 -22.1,-5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1608-0-1-1" />
-        <path
-           d="m 28415.4,5437.85 -19.9,-11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1609-7-3-8" />
-        <path
-           d="m 28395.5,5426.4 -16.1,-16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1610-8-8-92" />
-        <path
-           d="m 28379.4,5410.22 -11.5,-19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1611-1-7-79" />
-        <path
-           d="m 28367.9,5390.4 -6.4,-24.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1612-5-4-5" />
-        <path
-           d="m 28361.5,5366.29 h -109.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1613-8-2-4" />
-        <path
-           d="m 28252.4,5366.28 v -94.49"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1614-6-7-3" />
-        <path
-           d="m 28252.4,5271.79 h 223.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1615-1-7-1" />
-        <path
-           d="m 28475.5,5271.79 26.8,15.48"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1616-2-9-2" />
-        <path
-           d="m 28502.3,5287.28 16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1617-4-3-3" />
-        <path
-           d="m 28518.5,5303.46 11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1618-2-1-3" />
-        <path
-           d="m 28529.9,5323.29 6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1619-5-9-4" />
-        <path
-           d="m 28535.9,5345.4 v 22.89"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1620-8-8-11" />
-      </g>
-      <g
-         data-equipamento="Booster"
-         data-nome="Booster EAT.LNT.003"
-         data-nomenclatura="EAT.LNT.003"
-         data-status="Em Operação"
-         data-diametro="250 mm"
-         data-pressao-jusante="15 mca"
-         transform="matrix(-0.02063205,0,0,0.01762506,700.06015,-49.802079)"
-         data-ligacoes="2356"
-         data-conexoes="21289"
-         id="g32-8-3">
-        <!-- ESSA LINHA NÃO PODE SUMIR -->
-        <path
-           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
-           fill="#54d8fc"
-           stroke="#6140fc"
-           stroke-width="10"
-           id="path142-7-3-6-8" />
-        <path
-           d="m 28535.9,5368.29 -6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1602-2-1-1-7" />
-        <path
-           d="m 28529.9,5390.4 -11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1603-2-2-2-4" />
-        <path
-           d="m 28518.5,5410.21 -16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1604-8-3-4-2" />
-        <path
-           d="m 28502.3,5426.4 -19.8,11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1605-2-3-2-7" />
-        <path
-           d="m 28482.5,5437.85 -22.1,5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1606-8-4-5-7" />
-        <path
-           d="m 28460.4,5443.77 h -22.9"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1607-9-1-8-9" />
-        <path
-           d="m 28437.5,5443.77 -22.1,-5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1608-0-1-6-3" />
-        <path
-           d="m 28415.4,5437.85 -19.9,-11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1609-7-3-2-1" />
-        <path
-           d="m 28395.5,5426.4 -16.1,-16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1610-8-8-6-9" />
-        <path
-           d="m 28379.4,5410.22 -11.5,-19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1611-1-7-5-8" />
-        <path
-           d="m 28367.9,5390.4 -6.4,-24.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1612-5-4-3-6" />
-        <path
-           d="m 28361.5,5366.29 h -109.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1613-8-2-9-5" />
-        <path
-           d="m 28252.4,5366.28 v -94.49"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1614-6-7-2-0" />
-        <path
-           d="m 28252.4,5271.79 h 223.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1615-1-7-4-2" />
-        <path
-           d="m 28475.5,5271.79 26.8,15.48"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1616-2-9-6-8" />
-        <path
-           d="m 28502.3,5287.28 16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1617-4-3-1-6" />
-        <path
-           d="m 28518.5,5303.46 11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1618-2-1-8-0" />
-        <path
-           d="m 28529.9,5323.29 6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1619-5-9-2-2" />
-        <path
-           d="m 28535.9,5345.4 v 22.89"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1620-8-8-1-4" />
-      </g>
-      <g
-         data-equipamento="Booster"
-         data-nome="Booster EAT.LNT.003"
-         data-nomenclatura="EAT.LNT.003"
-         data-status="Em Operação"
-         data-diametro="250 mm"
-         data-pressao-jusante="15 mca"
-         transform="matrix(-0.02063205,0,0,0.01762506,700.06015,-45.899475)"
-         data-ligacoes="2356"
-         data-conexoes="21289"
-         id="g32-2-8">
-        <!-- ESSA LINHA NÃO PODE SUMIR -->
-        <path
-           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
-           fill="#54d8fc"
-           stroke="#6140fc"
-           stroke-width="10"
-           id="path142-7-3-9-6" />
-        <path
-           d="m 28535.9,5368.29 -6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1602-2-1-5-5" />
-        <path
-           d="m 28529.9,5390.4 -11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1603-2-2-20-0" />
-        <path
-           d="m 28518.5,5410.21 -16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1604-8-3-0-9" />
-        <path
-           d="m 28502.3,5426.4 -19.8,11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1605-2-3-3-0" />
-        <path
-           d="m 28482.5,5437.85 -22.1,5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1606-8-4-9-0" />
-        <path
-           d="m 28460.4,5443.77 h -22.9"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1607-9-1-1-6" />
-        <path
-           d="m 28437.5,5443.77 -22.1,-5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1608-0-1-8-1" />
-        <path
-           d="m 28415.4,5437.85 -19.9,-11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1609-7-3-1-3" />
-        <path
-           d="m 28395.5,5426.4 -16.1,-16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1610-8-8-9-8" />
-        <path
-           d="m 28379.4,5410.22 -11.5,-19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1611-1-7-53-9" />
-        <path
-           d="m 28367.9,5390.4 -6.4,-24.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1612-5-4-2-3" />
-        <path
-           d="m 28361.5,5366.29 h -109.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1613-8-2-5-4" />
-        <path
-           d="m 28252.4,5366.28 v -94.49"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1614-6-7-25-4" />
-        <path
-           d="m 28252.4,5271.79 h 223.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1615-1-7-8-6" />
-        <path
-           d="m 28475.5,5271.79 26.8,15.48"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1616-2-9-67-0" />
-        <path
-           d="m 28502.3,5287.28 16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1617-4-3-7-6" />
-        <path
-           d="m 28518.5,5303.46 11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1618-2-1-2-6" />
-        <path
-           d="m 28529.9,5323.29 6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1619-5-9-29-1" />
-        <path
-           d="m 28535.9,5345.4 v 22.89"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1620-8-8-4-8" />
-      </g>
-      <g
-         data-equipamento="Booster"
-         data-nome="Booster EAT.LNT.003"
-         data-nomenclatura="EAT.LNT.003"
-         data-status="Em Operação"
-         data-diametro="250 mm"
-         data-pressao-jusante="15 mca"
-         transform="matrix(-0.02063205,0,0,0.01762506,700.06015,-41.930725)"
-         data-ligacoes="2356"
-         data-conexoes="21289"
-         id="g32-82-4">
-        <!-- ESSA LINHA NÃO PODE SUMIR -->
-        <path
-           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
-           fill="#54d8fc"
-           stroke="#6140fc"
-           stroke-width="10"
-           id="path142-7-3-5-9" />
-        <path
-           d="m 28535.9,5368.29 -6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1602-2-1-54-6" />
-        <path
-           d="m 28529.9,5390.4 -11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1603-2-2-9-3" />
-        <path
-           d="m 28518.5,5410.21 -16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1604-8-3-1-7" />
-        <path
-           d="m 28502.3,5426.4 -19.8,11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1605-2-3-25-8" />
-        <path
-           d="m 28482.5,5437.85 -22.1,5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1606-8-4-0-8" />
-        <path
-           d="m 28460.4,5443.77 h -22.9"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1607-9-1-83-2" />
-        <path
-           d="m 28437.5,5443.77 -22.1,-5.92"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1608-0-1-9-9" />
-        <path
-           d="m 28415.4,5437.85 -19.9,-11.45"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1609-7-3-3-1" />
-        <path
-           d="m 28395.5,5426.4 -16.1,-16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1610-8-8-96-3" />
-        <path
-           d="m 28379.4,5410.22 -11.5,-19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1611-1-7-7-5" />
-        <path
-           d="m 28367.9,5390.4 -6.4,-24.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1612-5-4-9-9" />
-        <path
-           d="m 28361.5,5366.29 h -109.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1613-8-2-97-8" />
-        <path
-           d="m 28252.4,5366.28 v -94.49"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1614-6-7-6-4" />
-        <path
-           d="m 28252.4,5271.79 h 223.1"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1615-1-7-9-0" />
-        <path
-           d="m 28475.5,5271.79 26.8,15.48"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1616-2-9-3-7" />
-        <path
-           d="m 28502.3,5287.28 16.2,16.19"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1617-4-3-5-6" />
-        <path
-           d="m 28518.5,5303.46 11.4,19.82"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1618-2-1-7-3" />
-        <path
-           d="m 28529.9,5323.29 6,22.11"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1619-5-9-6-6" />
-        <path
-           d="m 28535.9,5345.4 v 22.89"
-           stroke="#ffff64"
-           stroke-width="7"
-           stroke-linecap="round"
-           id="path1620-8-8-6-1" />
-      </g>
-      <g
-         id="g13-5"
-         transform="translate(28.362519,-5.6976303)">
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 92.730378,57.624103 v -4.443155 m 0,0 v -7.765222"
-           id="path8-4"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 92.801197,57.470494 h -1.485488 m 0,0 h -2.596161"
-           id="path9-2"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 92.801926,45.56934 h -1.473451 m 0,0 H 88.75335"
-           id="path10-0"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 92.799574,49.59914 h -1.485488 m 0,0 h -2.596161"
-           id="path11-9"
-           sodipodi:nodetypes="cccc" />
-        <path
-           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
-           d="m 92.80154,53.501744 h -1.485488 m 0,0 h -2.596161"
-           id="path12-7"
            sodipodi:nodetypes="cccc" />
       </g>
     </g>
@@ -5611,6 +5001,608 @@
          height="15.875"
          x="142.77577"
          y="38.129974" />
+    </g>
+    <g
+       id="g2572-1"
+       class="interactive-element"
+       data-id="8862"
+       data-status="Em operação"
+       data-conexoes="7607"
+       data-nomenclatura="ETA.LNT.003"
+       data-nome="Booster ETA.LNT.003"
+       data-equipamento="Booster"
+       transform="rotate(-90,122.4546,68.427683)">
+      <g
+         id="g14-2"
+         transform="translate(42.062798,-33.203855)">
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 78.916977,58.020978 v -4.443155 m 0,0 v -7.765222"
+           id="path4-0-3-6-0"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 78.846158,57.867369 h 1.485488 m 0,0 h 2.596161"
+           id="path4-0-3-6-3-7"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 78.845429,45.966215 h 1.473451 m 0,0 h 2.575125"
+           id="path4-0-3-6-3-3-3"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 78.847781,49.996015 h 1.485488 m 0,0 h 2.596161"
+           id="path4-0-3-6-3-3-2-6"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 78.845815,53.898619 h 1.485488 m 0,0 h 2.596161"
+           id="path4-0-3-6-3-3-2-9-27"
+           sodipodi:nodetypes="cccc" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-size:2.59542px;writing-mode:lr-tb;direction:ltr;fill:#2d20ff;fill-opacity:1;stroke:none;stroke-width:0.648872;stroke-dasharray:none;stroke-opacity:1"
+         x="119.21083"
+         y="9.9996567"
+         id="text3-3-1-1-8-6"
+         transform="scale(1.0055415,0.99448903)"><tspan
+           sodipodi:role="line"
+           id="tspan3-3-9-2-6-6"
+           x="119.21083"
+           y="9.9996567"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.648872">EAT.LNT.003</tspan></text>
+      <g
+         transform="matrix(-0.02063205,0,0,0.01762506,713.76043,-81.668834)"
+         id="g1-5">
+        <!-- ESSA LINHA NÃO PODE SUMIR -->
+        <path
+           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
+           fill="#54d8fc"
+           stroke="#6140fc"
+           stroke-width="10"
+           id="path142-7-3-4" />
+        <path
+           d="m 28535.9,5368.29 -6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1602-2-1-24" />
+        <path
+           d="m 28529.9,5390.4 -11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1603-2-2-13" />
+        <path
+           d="m 28518.5,5410.21 -16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1604-8-3-7" />
+        <path
+           d="m 28502.3,5426.4 -19.8,11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1605-2-3-4" />
+        <path
+           d="m 28482.5,5437.85 -22.1,5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1606-8-4-8" />
+        <path
+           d="m 28460.4,5443.77 h -22.9"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1607-9-1-19" />
+        <path
+           d="m 28437.5,5443.77 -22.1,-5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1608-0-1-61" />
+        <path
+           d="m 28415.4,5437.85 -19.9,-11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1609-7-3-4" />
+        <path
+           d="m 28395.5,5426.4 -16.1,-16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1610-8-8-8" />
+        <path
+           d="m 28379.4,5410.22 -11.5,-19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1611-1-7-3" />
+        <path
+           d="m 28367.9,5390.4 -6.4,-24.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1612-5-4-1" />
+        <path
+           d="m 28361.5,5366.29 h -109.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1613-8-2-7" />
+        <path
+           d="m 28252.4,5366.28 v -94.49"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1614-6-7-9" />
+        <path
+           d="m 28252.4,5271.79 h 223.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1615-1-7-7" />
+        <path
+           d="m 28475.5,5271.79 26.8,15.48"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1616-2-9-4" />
+        <path
+           d="m 28502.3,5287.28 16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1617-4-3-9" />
+        <path
+           d="m 28518.5,5303.46 11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1618-2-1-5" />
+        <path
+           d="m 28529.9,5323.29 6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1619-5-9-5" />
+        <path
+           d="m 28535.9,5345.4 v 22.89"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1620-8-8-3" />
+      </g>
+      <g
+         data-equipamento="Booster"
+         data-nome="Booster EAT.LNT.001"
+         data-nomenclatura="EAT.LNT.001"
+         data-status="Em Operação"
+         data-diametro="250 mm"
+         data-pressao-jusante="15 mca"
+         transform="matrix(-0.02063205,0,0,0.01762506,713.76043,-77.639034)"
+         data-ligacoes="2356"
+         id="g2521-6">
+        <!-- ESSA LINHA NÃO PODE SUMIR -->
+        <path
+           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
+           fill="#54d8fc"
+           stroke="#6140fc"
+           stroke-width="10"
+           id="path142-7-3-6-5" />
+        <path
+           d="m 28535.9,5368.29 -6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1602-2-1-1-1" />
+        <path
+           d="m 28529.9,5390.4 -11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1603-2-2-2-2" />
+        <path
+           d="m 28518.5,5410.21 -16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1604-8-3-4-3" />
+        <path
+           d="m 28502.3,5426.4 -19.8,11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1605-2-3-2-9" />
+        <path
+           d="m 28482.5,5437.85 -22.1,5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1606-8-4-5-2" />
+        <path
+           d="m 28460.4,5443.77 h -22.9"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1607-9-1-8-6" />
+        <path
+           d="m 28437.5,5443.77 -22.1,-5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1608-0-1-6-0" />
+        <path
+           d="m 28415.4,5437.85 -19.9,-11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1609-7-3-2-0" />
+        <path
+           d="m 28395.5,5426.4 -16.1,-16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1610-8-8-6-4" />
+        <path
+           d="m 28379.4,5410.22 -11.5,-19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1611-1-7-5-7" />
+        <path
+           d="m 28367.9,5390.4 -6.4,-24.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1612-5-4-3-9" />
+        <path
+           d="m 28361.5,5366.29 h -109.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1613-8-2-9-3" />
+        <path
+           d="m 28252.4,5366.28 v -94.49"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1614-6-7-2-5" />
+        <path
+           d="m 28252.4,5271.79 h 223.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1615-1-7-4-8" />
+        <path
+           d="m 28475.5,5271.79 26.8,15.48"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1616-2-9-6-80" />
+        <path
+           d="m 28502.3,5287.28 16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1617-4-3-1-5" />
+        <path
+           d="m 28518.5,5303.46 11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1618-2-1-8-07" />
+        <path
+           d="m 28529.9,5323.29 6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1619-5-9-2-7" />
+        <path
+           d="m 28535.9,5345.4 v 22.89"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1620-8-8-1-7" />
+      </g>
+      <g
+         data-equipamento="Booster"
+         data-nome="Booster EAT.LNT.001"
+         data-nomenclatura="EAT.LNT.001"
+         data-status="Em Operação"
+         data-diametro="250 mm"
+         data-pressao-jusante="15 mca"
+         transform="matrix(-0.02063205,0,0,0.01762506,713.76043,-73.736429)"
+         data-ligacoes="2356"
+         id="g2543-8">
+        <!-- ESSA LINHA NÃO PODE SUMIR -->
+        <path
+           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
+           fill="#54d8fc"
+           stroke="#6140fc"
+           stroke-width="10"
+           id="path142-7-3-9-4" />
+        <path
+           d="m 28535.9,5368.29 -6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1602-2-1-5-0" />
+        <path
+           d="m 28529.9,5390.4 -11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1603-2-2-20-8" />
+        <path
+           d="m 28518.5,5410.21 -16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1604-8-3-0-92" />
+        <path
+           d="m 28502.3,5426.4 -19.8,11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1605-2-3-3-1" />
+        <path
+           d="m 28482.5,5437.85 -22.1,5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1606-8-4-9-6" />
+        <path
+           d="m 28460.4,5443.77 h -22.9"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1607-9-1-1-0" />
+        <path
+           d="m 28437.5,5443.77 -22.1,-5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1608-0-1-8-5" />
+        <path
+           d="m 28415.4,5437.85 -19.9,-11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1609-7-3-1-30" />
+        <path
+           d="m 28395.5,5426.4 -16.1,-16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1610-8-8-9-1" />
+        <path
+           d="m 28379.4,5410.22 -11.5,-19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1611-1-7-53-8" />
+        <path
+           d="m 28367.9,5390.4 -6.4,-24.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1612-5-4-2-7" />
+        <path
+           d="m 28361.5,5366.29 h -109.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1613-8-2-5-43" />
+        <path
+           d="m 28252.4,5366.28 v -94.49"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1614-6-7-25-49" />
+        <path
+           d="m 28252.4,5271.79 h 223.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1615-1-7-8-5" />
+        <path
+           d="m 28475.5,5271.79 26.8,15.48"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1616-2-9-67-08" />
+        <path
+           d="m 28502.3,5287.28 16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1617-4-3-7-3" />
+        <path
+           d="m 28518.5,5303.46 11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1618-2-1-2-1" />
+        <path
+           d="m 28529.9,5323.29 6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1619-5-9-29-8" />
+        <path
+           d="m 28535.9,5345.4 v 22.89"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1620-8-8-4-0" />
+      </g>
+      <g
+         data-equipamento="Booster"
+         data-nome="Booster EAT.LNT.001"
+         data-nomenclatura="EAT.LNT.001"
+         data-status="Em Operação"
+         data-diametro="250 mm"
+         data-pressao-jusante="15 mca"
+         transform="matrix(-0.02063205,0,0,0.01762506,713.76043,-69.767679)"
+         data-ligacoes="2356"
+         id="g32-82-3">
+        <!-- ESSA LINHA NÃO PODE SUMIR -->
+        <path
+           d="m 28424.1,5434.55 c -22.7,-8.08 -44.1,-30.11 -52.6,-54.17 l -7.2,-20.2 h -54.1 -54.2 v -42.42 -42.43 h 108.3 c 108.2,0 108.2,0 125.1,10.64 34.4,21.75 49.6,62.45 36.3,97.34 -8.7,22.77 -34.2,46.83 -56.2,52.93 -20.5,5.68 -25.2,5.51 -45.4,-1.69 z"
+           fill="#54d8fc"
+           stroke="#6140fc"
+           stroke-width="10"
+           id="path142-7-3-5-2" />
+        <path
+           d="m 28535.9,5368.29 -6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1602-2-1-54-7" />
+        <path
+           d="m 28529.9,5390.4 -11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1603-2-2-9-1" />
+        <path
+           d="m 28518.5,5410.21 -16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1604-8-3-1-6" />
+        <path
+           d="m 28502.3,5426.4 -19.8,11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1605-2-3-25-1" />
+        <path
+           d="m 28482.5,5437.85 -22.1,5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1606-8-4-0-7" />
+        <path
+           d="m 28460.4,5443.77 h -22.9"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1607-9-1-83-6" />
+        <path
+           d="m 28437.5,5443.77 -22.1,-5.92"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1608-0-1-9-5" />
+        <path
+           d="m 28415.4,5437.85 -19.9,-11.45"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1609-7-3-3-2" />
+        <path
+           d="m 28395.5,5426.4 -16.1,-16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1610-8-8-96-0" />
+        <path
+           d="m 28379.4,5410.22 -11.5,-19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1611-1-7-7-7" />
+        <path
+           d="m 28367.9,5390.4 -6.4,-24.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1612-5-4-9-2" />
+        <path
+           d="m 28361.5,5366.29 h -109.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1613-8-2-97-85" />
+        <path
+           d="m 28252.4,5366.28 v -94.49"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1614-6-7-6-6" />
+        <path
+           d="m 28252.4,5271.79 h 223.1"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1615-1-7-9-9" />
+        <path
+           d="m 28475.5,5271.79 26.8,15.48"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1616-2-9-3-2" />
+        <path
+           d="m 28502.3,5287.28 16.2,16.19"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1617-4-3-5-1" />
+        <path
+           d="m 28518.5,5303.46 11.4,19.82"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1618-2-1-7-1" />
+        <path
+           d="m 28529.9,5323.29 6,22.11"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1619-5-9-6-4" />
+        <path
+           d="m 28535.9,5345.4 v 22.89"
+           stroke="#ffff64"
+           stroke-width="7"
+           stroke-linecap="round"
+           id="path1620-8-8-6-6" />
+      </g>
+      <g
+         id="g13-51"
+         transform="translate(42.062798,-33.534585)">
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 92.730378,57.624103 v -4.443155 m 0,0 v -7.765222"
+           id="path8-5"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 92.801197,57.470494 h -1.485488 m 0,0 h -2.596161"
+           id="path9-8"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 92.801926,45.56934 h -1.473451 m 0,0 H 88.75335"
+           id="path10-7"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 92.799574,49.59914 h -1.485488 m 0,0 h -2.596161"
+           id="path11-7"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#058f16;fill-opacity:1;stroke:#058f16;stroke-width:0.308;stroke-dasharray:none;stroke-opacity:1"
+           d="m 92.80154,53.501744 h -1.485488 m 0,0 h -2.596161"
+           id="path12-3"
+           sodipodi:nodetypes="cccc" />
+      </g>
     </g>
   </g>
 </svg>
